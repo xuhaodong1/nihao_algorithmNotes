@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		695DF819277BF9EE00FE2D31 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695DF818277BF9EE00FE2D31 /* main.swift */; };
+		69BD06A627AFB42100E47B4C /* ModelDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BD06A527AFB42100E47B4C /* ModelDesign.swift */; };
+		69C9EC7527EDFDB3006C06B5 /* Solution_ExtensionOne.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C9EC7427EDFDB3006C06B5 /* Solution_ExtensionOne.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +27,8 @@
 /* Begin PBXFileReference section */
 		695DF815277BF9EE00FE2D31 /* LeetCode */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LeetCode; sourceTree = BUILT_PRODUCTS_DIR; };
 		695DF818277BF9EE00FE2D31 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		69BD06A527AFB42100E47B4C /* ModelDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelDesign.swift; sourceTree = "<group>"; };
+		69C9EC7427EDFDB3006C06B5 /* Solution_ExtensionOne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Solution_ExtensionOne.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +62,8 @@
 			isa = PBXGroup;
 			children = (
 				695DF818277BF9EE00FE2D31 /* main.swift */,
+				69BD06A527AFB42100E47B4C /* ModelDesign.swift */,
+				69C9EC7427EDFDB3006C06B5 /* Solution_ExtensionOne.swift */,
 			);
 			path = LeetCode;
 			sourceTree = "<group>";
@@ -120,7 +126,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				69C9EC7527EDFDB3006C06B5 /* Solution_ExtensionOne.swift in Sources */,
 				695DF819277BF9EE00FE2D31 /* main.swift in Sources */,
+				69BD06A627AFB42100E47B4C /* ModelDesign.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,6 +256,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LDY5VT7ZPV;
 				ENABLE_HARDENED_RUNTIME = YES;
+				HEADER_SEARCH_PATHS = /usr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -259,6 +268,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LDY5VT7ZPV;
 				ENABLE_HARDENED_RUNTIME = YES;
+				HEADER_SEARCH_PATHS = /usr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
