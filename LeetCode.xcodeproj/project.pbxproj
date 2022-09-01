@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		695DF819277BF9EE00FE2D31 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695DF818277BF9EE00FE2D31 /* main.swift */; };
 		69BD06A627AFB42100E47B4C /* ModelDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BD06A527AFB42100E47B4C /* ModelDesign.swift */; };
-		69C9EC7527EDFDB3006C06B5 /* Solution_ExtensionOne.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C9EC7427EDFDB3006C06B5 /* Solution_ExtensionOne.swift */; };
+		69D564F528C090DA0035FBE0 /* MonotoneStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D564F428C090DA0035FBE0 /* MonotoneStack.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,6 +29,8 @@
 		695DF818277BF9EE00FE2D31 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		69BD06A527AFB42100E47B4C /* ModelDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelDesign.swift; sourceTree = "<group>"; };
 		69C9EC7427EDFDB3006C06B5 /* Solution_ExtensionOne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Solution_ExtensionOne.swift; sourceTree = "<group>"; };
+		69D564F428C090DA0035FBE0 /* MonotoneStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonotoneStack.swift; sourceTree = "<group>"; };
+		69EB99AC28A254E600DE5B98 /* Solution_ExtensionTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Solution_ExtensionTwo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,8 +64,10 @@
 			isa = PBXGroup;
 			children = (
 				695DF818277BF9EE00FE2D31 /* main.swift */,
+				69D564F428C090DA0035FBE0 /* MonotoneStack.swift */,
 				69BD06A527AFB42100E47B4C /* ModelDesign.swift */,
 				69C9EC7427EDFDB3006C06B5 /* Solution_ExtensionOne.swift */,
+				69EB99AC28A254E600DE5B98 /* Solution_ExtensionTwo.swift */,
 			);
 			path = LeetCode;
 			sourceTree = "<group>";
@@ -126,8 +130,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				69C9EC7527EDFDB3006C06B5 /* Solution_ExtensionOne.swift in Sources */,
 				695DF819277BF9EE00FE2D31 /* main.swift in Sources */,
+				69D564F528C090DA0035FBE0 /* MonotoneStack.swift in Sources */,
 				69BD06A627AFB42100E47B4C /* ModelDesign.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -256,8 +260,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LDY5VT7ZPV;
 				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_STRICT_ALIASING = YES;
 				HEADER_SEARCH_PATHS = /usr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZE_OBJECT_LIFETIME = YES;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -268,8 +274,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LDY5VT7ZPV;
 				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_STRICT_ALIASING = YES;
 				HEADER_SEARCH_PATHS = /usr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZE_OBJECT_LIFETIME = YES;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;

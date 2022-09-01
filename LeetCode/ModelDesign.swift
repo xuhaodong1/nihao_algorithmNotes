@@ -90,12 +90,14 @@ public class Node {
     }
 }
 
-public class SingalNode {
+public class SingalNode: NSObject {
     public var val: Int
     public var next: SingalNode?
+    public var random: SingalNode?
      public init(_ val: Int) {
          self.val = val
          self.next = nil
+         self.random = nil
      }
  }
 
@@ -716,7 +718,7 @@ class Solution2 {
         repeat {
             x = Double.random(in: -radius...radius)
             y = Double.random(in: -radius...radius)
-        } while x * x + y * y > radius * radius
+        } while x + y > radius
         return [x + xCenter, y + yCenter]
     }
 }
@@ -810,7 +812,7 @@ class Solution3 {
         let n = rects.count
         preSum = [Int].init(repeating: 0, count: n + 1)
         for i in 1...n {
-            preSum[i] = preSum[i - 1] + (rects[i - 1][2] - rects[i - 1][0] + 1) * (rects[i - 1][3] - rects[i - 1][1] + 1)
+//            preSum[i] = preSum[i - 1] + (rects[i - 1][2] - rects[i - 1][0] + 1)(rects[i - 1][3] - rects[i - 1][1] + 1)
         }
     }
 
@@ -826,5 +828,509 @@ class Solution3 {
             }
         }
         return [Int.random(in: rects[l - 1][0]...rects[l - 1][2]), Int.random(in: rects[l - 1][1]...rects[l - 1][3])]
+    }
+}
+
+
+//class Solution4 {
+//
+//    init(_ n: Int, _ blacklist: [Int]) {
+//
+//    }
+//
+//    func pick() -> Int {
+//
+//    }
+//}
+
+class Codec {
+    var longMap = [String: String](), shortMap = [String: String]()
+    var id = 0
+    let pre = "http://tinyUrl.com/"
+    // Encodes a URL to a shortened URL.
+    func encode(_ longUrl: String) -> String {
+        if let shortUrl = longMap[longUrl]  {
+            return shortUrl
+        }
+        id += 1
+        let shortUrl = pre + "\(id)"
+        longMap[longUrl] = shortUrl
+        shortMap[shortUrl] = longUrl
+        return shortUrl
+    }
+
+    // Decodes a shortened URL to its original URL.
+    func decode(_ shortUrl: String) -> String {
+        return shortMap[shortUrl] ?? ""
+    }
+}
+
+class MyCalendar {
+    var list = [(Int, Int)]()
+    init() {}
+
+    func book(_ start: Int, _ end: Int) -> Bool {
+        if list.contains(where: { (s, e) in
+            s < end && start < e
+        }) {
+            list.append((start, end))
+            return false
+        }
+        list.append((start, end))
+        return false
+    }
+}
+
+class SmallestInfiniteSet {
+    var removeList = Set<Int>()
+    var addList = Set<Int>()
+    var curr = 0
+    init() {}
+
+    func popSmallest() -> Int {
+        if let num = addList.min(), num < curr + 1 {
+            addList.remove(num)
+            removeList.insert(num)
+            return num
+        }
+        curr += 1
+        removeList.insert(curr)
+        return curr
+    }
+
+    func addBack(_ num: Int) {
+        if removeList.contains(num) {
+            addList.insert(num)
+            removeList.remove(num)
+        }
+    }
+}
+
+class MagicDictionary {
+    private var arr: [String]
+    init() {
+        arr = [String]()
+    }
+
+    func buildDict(_ dictionary: [String]) {
+        arr = dictionary
+    }
+
+    func search(_ searchWord: String) -> Bool {
+        let n = searchWord.count
+        for str in arr {
+            if str.count != n { continue }
+            var diff = 0
+            var strIndex = str.startIndex
+            for char in searchWord {
+                if char != str[strIndex] {
+                    diff += 1
+                }
+                if diff >= 2 {
+                    break
+                }
+                strIndex = str.index(after: strIndex)
+            }
+            if diff == 1 {
+                return true
+            }
+        }
+        return false
+    }
+}
+
+class WordFilter {
+    let aV = Int(Character.init("a").asciiValue!)
+    var head = WordNode(), tail = WordNode()
+
+    init(_ words: [String]) {
+        for (wi, word) in words.enumerated() {
+            let n = word.count
+            let chars = [Character](word)
+            var hN = head, tN = tail
+            for i in 0..<n {
+                var cV = Int(chars[i].asciiValue!)
+                if hN.children[cV - aV] == nil {
+                    hN.children[cV - aV] = WordNode()
+                }
+                hN.children[cV - aV]?.indices.append(wi)
+                hN = hN.children[cV - aV]!
+
+                cV = Int(chars[n - i - 1].asciiValue!)
+                if nil == tN.children[cV - aV] {
+                    tN.children[cV - aV] = WordNode()
+                }
+                tN.children[cV - aV]?.indices.append(wi)
+                tN = tN.children[cV - aV]!
+            }
+        }
+    }
+
+    func query(root: WordNode, str: [Character]) -> [Int]? {
+        var ans: WordNode?
+        var node = root
+        for char in str {
+            let cV = Int(char.asciiValue!)
+            if let _ = node.children[cV - aV] {
+                node = node.children[cV - aV]!
+                ans = node
+            } else {
+                return nil
+            }
+        }
+        return ans?.indices
+    }
+
+    func f(_ pref: String, _ suff: String) -> Int {
+        if let l1 = query(root: head, str: [Character](pref)), let l2 = query(root: tail, str: suff.reversed()) {
+            var i = l1.count - 1, j = l2.count - 1
+            while i >= 0 && j >= 0 {
+                if l1[i] == l2[j] {
+                    return l1[i]
+                } else if l1[i] > l2[j] {
+                    i -= 1
+                } else {
+                    j -= 1
+                }
+            }
+        }
+        return -1
+    }
+
+    class WordNode {
+        var children: [WordNode?]
+        var indices: [Int]
+        init() {
+            children = [WordNode?].init(repeating: nil, count: 26)
+            indices = [Int]()
+        }
+    }
+}
+
+public class FNode {
+    public var val: Bool
+    public var isLeaf: Bool
+    public var topLeft: FNode?
+    public var topRight: FNode?
+    public var bottomLeft: FNode?
+    public var bottomRight: FNode?
+    public init(_ val: Bool, _ isLeaf: Bool) {
+        self.val = val
+        self.isLeaf = isLeaf
+        self.topLeft = nil
+        self.topRight = nil
+        self.bottomLeft = nil
+        self.bottomRight = nil
+    }
+}
+
+class MovingAverage {
+    private let size: Int
+    private var arr: [Int]
+    private var l = 0, r = 0
+    private var sum = 0
+
+    init(_ size: Int) {
+        self.size = size
+        self.arr = [Int]()
+    }
+
+    func next(_ val: Int) -> Double {
+        arr.append(val)
+        sum += val
+        r += 1
+        if r - l > size {
+            sum -= arr[l]
+            l += 1
+        }
+        return Double(sum) / Double(r - l)
+    }
+}
+
+
+class MyCalendarTwo {
+    var list = [(Int, Int)]()
+
+    init() {}
+
+    func book(_ start: Int, _ end: Int) -> Bool {
+        let n = list.count
+        if n < 2 {
+            list.append((start, end))
+            return true
+        }
+        for i in 0..<n-1 {
+            if let a1 = getCommon(s1: list[i], s2: (start, end)) {
+                for j in i+1..<n {
+                    if let a2 = getCommon(s1: list[j], s2: (start, end)),
+                       let _ = getCommon(s1: a1, s2: a2) {
+                        return false
+                    }
+                }
+            }
+        }
+        func getCommon(s1: (Int, Int), s2: (Int, Int)) -> (Int, Int)? {
+            if s1.1 <= s2.0 || s2.1 <= s1.0 {
+                return nil
+            }
+            return (max(s1.0, s2.0), min(s1.1, s2.1))
+        }
+        list.append((start, end))
+        return true
+    }
+}
+
+
+class FoodRatings {
+    var fs = [String : (String, Int)]()
+    var cs = [String : [Int: Set<String>]]()
+    init(_ foods: [String], _ cuisines: [String], _ ratings: [Int]) {
+        let n = foods.count
+        for i in 0..<n {
+            fs[foods[i]] = (cuisines[i], ratings[i])
+            if let rs = cs[cuisines[i]] {
+                if let _ = rs[ratings[i]] {
+                    cs[cuisines[i]]![ratings[i]]!.insert(foods[i])
+                } else {
+                    cs[cuisines[i]]![ratings[i]] = [foods[i]]
+                }
+            } else {
+                cs[cuisines[i]] = [ratings[i] : [foods[i]]]
+            }
+        }
+    }
+
+    func changeRating(_ food: String, _ newRating: Int) {
+        let cuisine = self.fs[food]!.0
+        self.cs[cuisine]![self.fs[food]!.1]!.remove(food)
+        if self.cs[cuisine]![self.fs[food]!.1]!.count == 0 {
+            self.cs[cuisine]![self.fs[food]!.1] = nil
+        }
+        if let _ = self.cs[cuisine]![newRating] {
+            self.cs[cuisine]![newRating]!.insert(food)
+        } else {
+            self.cs[cuisine]![newRating] = [food]
+        }
+        self.fs[food]!.1 = newRating
+    }
+
+    func highestRated(_ cuisine: String) -> String {
+        let dict = cs[cuisine]!.max { item1, item2 in
+            return item1.key < item2.key
+        }
+        return dict?.value.min() ?? ""
+    }
+}
+
+class CBTInserter {
+    var candidate = [TreeNode]()
+    var root: TreeNode!
+    init(_ root: TreeNode?) {
+        guard let root = root else { return }
+        self.root = root
+        var queue: [TreeNode] = [root]
+        while !queue.isEmpty {
+            let curr = queue.removeFirst()
+            if let left = curr.left {
+                queue.append(left)
+            }
+            if let right = curr.right {
+                queue.append(right)
+            }
+            if curr.left == nil || curr.right == nil {
+                candidate.append(curr)
+            }
+        }
+    }
+
+    func insert(_ val: Int) -> Int {
+        let node = TreeNode(val)
+        let res = candidate.first!
+        if res.left == nil {
+            res.left = node
+        } else {
+            res.right = node
+            candidate.removeFirst()
+        }
+        candidate.append(node)
+        return res.val
+    }
+
+    func get_root() -> TreeNode? {
+        return root
+    }
+}
+
+class MyCircularQueue {
+    var queue: [Int]
+    var head: Int
+    var tail: Int
+    var n: Int
+    var size: Int
+
+    init(_ k: Int) {
+        queue = [Int](repeating: -1, count: k)
+        head = 0
+        tail = 0
+        n = k
+        size = 0
+    }
+
+    func enQueue(_ value: Int) -> Bool {
+        if isFull() {
+            return false
+        }
+        queue[tail] = value
+        tail = (tail + 1) % n
+        size += 1
+        return true
+    }
+
+    func deQueue() -> Bool {
+        if isEmpty() {
+            return false
+        }
+        queue[head] = -1
+        head = (head + 1) % n
+        size -= 1
+        return true
+    }
+
+    func Front() -> Int {
+        if isEmpty() {
+            return -1
+        }
+        return queue[head]
+    }
+
+    func Rear() -> Int {
+        if isEmpty() {
+            return -1
+        }
+        return queue[(tail - 1 + n) % n]
+    }
+
+    func isEmpty() -> Bool {
+        return head == tail && size == 0
+    }
+
+    func isFull() -> Bool {
+        return head == tail && size == n
+    }
+}
+
+class DisorganizeArray {
+    private var originNums: [Int]
+    private let n: Int
+    init(_ nums: [Int]) {
+        originNums = nums
+        n = nums.count
+    }
+
+    func reset() -> [Int] {
+        return originNums
+    }
+
+    func shuffle() -> [Int] {
+        var ans = originNums
+        for i in 0..<n {
+            ans.swapAt(i, Int.random(in: i..<n))
+        }
+        return ans
+    }
+}
+
+class OrderedStream {
+    var order: [String]
+    let n: Int
+    var ptr: Int
+
+    init(_ n: Int) {
+        self.n = n
+        ptr = 0
+        order = [String].init(repeating: "", count: n)
+    }
+
+    func insert(_ idKey: Int, _ value: String) -> [String] {
+        guard idKey > 0 && idKey <= n else { return [] }
+        order[idKey - 1] = value
+        var ans = [String]()
+        while ptr < n && order[ptr] != "" {
+            ans.append(order[ptr])
+            ptr += 1
+        }
+        return ans
+    }
+}
+
+class MyCircularDeque {
+    var deque: [Int]
+    var head: Int
+    var rear: Int
+    var k: Int
+
+    init(_ k: Int) {
+        head = 0
+        rear = 0
+        self.k = k
+        deque = [Int](repeating: -1, count: k + 1)
+    }
+
+    func insertFront(_ value: Int) -> Bool {
+        if isFull() {
+            return false
+        }
+        deque[head] = value
+        head = (head + k) % (k + 1)
+        return true
+    }
+
+    func insertLast(_ value: Int) -> Bool {
+        if isFull() {
+            return false
+        }
+        rear = (rear + 1) % (k + 1)
+        deque[rear] = value
+        return true
+    }
+
+    func deleteFront() -> Bool {
+        if isEmpty() {
+            return false
+        }
+        deque[head] = -1
+        head = (head + 1) % (k + 1)
+        return true
+    }
+
+    func deleteLast() -> Bool {
+        if isEmpty() {
+            return false
+        }
+        deque[rear] = -1
+        rear = (rear + k) % (k + 1)
+        return true
+    }
+
+    func getFront() -> Int {
+        if isEmpty() {
+            return -1
+        }
+        return deque[(head + 1) % (k + 1)]
+    }
+
+    func getRear() -> Int {
+        if isEmpty() {
+            return -1
+        }
+        return deque[rear]
+    }
+
+    func isEmpty() -> Bool {
+        return rear == head
+    }
+
+    func isFull() -> Bool {
+        return (head - rear) == 1
     }
 }
