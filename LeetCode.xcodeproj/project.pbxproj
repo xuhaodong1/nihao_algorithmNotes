@@ -30,6 +30,7 @@
 		69BD06A527AFB42100E47B4C /* ModelDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelDesign.swift; sourceTree = "<group>"; };
 		69C9EC7427EDFDB3006C06B5 /* Solution_ExtensionOne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Solution_ExtensionOne.swift; sourceTree = "<group>"; };
 		69D564F428C090DA0035FBE0 /* MonotoneStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonotoneStack.swift; sourceTree = "<group>"; };
+		69D564F828C098D50035FBE0 /* 单调栈.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "单调栈.md"; sourceTree = "<group>"; };
 		69EB99AC28A254E600DE5B98 /* Solution_ExtensionTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Solution_ExtensionTwo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -47,6 +48,7 @@
 		695DF80C277BF9EE00FE2D31 = {
 			isa = PBXGroup;
 			children = (
+				69D564F728C098D50035FBE0 /* Notes */,
 				695DF817277BF9EE00FE2D31 /* LeetCode */,
 				695DF816277BF9EE00FE2D31 /* Products */,
 			);
@@ -70,6 +72,14 @@
 				69EB99AC28A254E600DE5B98 /* Solution_ExtensionTwo.swift */,
 			);
 			path = LeetCode;
+			sourceTree = "<group>";
+		};
+		69D564F728C098D50035FBE0 /* Notes */ = {
+			isa = PBXGroup;
+			children = (
+				69D564F828C098D50035FBE0 /* 单调栈.md */,
+			);
+			path = Notes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
