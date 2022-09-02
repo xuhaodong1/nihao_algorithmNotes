@@ -10,6 +10,7 @@
 		695DF819277BF9EE00FE2D31 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695DF818277BF9EE00FE2D31 /* main.swift */; };
 		69BD06A627AFB42100E47B4C /* ModelDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69BD06A527AFB42100E47B4C /* ModelDesign.swift */; };
 		69D564F528C090DA0035FBE0 /* MonotoneStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D564F428C090DA0035FBE0 /* MonotoneStack.swift */; };
+		69D564FA28C19CD20035FBE0 /* DFS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D564F928C19CD20035FBE0 /* DFS.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -31,6 +32,7 @@
 		69C9EC7427EDFDB3006C06B5 /* Solution_ExtensionOne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Solution_ExtensionOne.swift; sourceTree = "<group>"; };
 		69D564F428C090DA0035FBE0 /* MonotoneStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonotoneStack.swift; sourceTree = "<group>"; };
 		69D564F828C098D50035FBE0 /* 单调栈.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "单调栈.md"; sourceTree = "<group>"; };
+		69D564F928C19CD20035FBE0 /* DFS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DFS.swift; sourceTree = "<group>"; };
 		69EB99AC28A254E600DE5B98 /* Solution_ExtensionTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Solution_ExtensionTwo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -66,6 +68,7 @@
 			isa = PBXGroup;
 			children = (
 				695DF818277BF9EE00FE2D31 /* main.swift */,
+				69D564F928C19CD20035FBE0 /* DFS.swift */,
 				69D564F428C090DA0035FBE0 /* MonotoneStack.swift */,
 				69BD06A527AFB42100E47B4C /* ModelDesign.swift */,
 				69C9EC7427EDFDB3006C06B5 /* Solution_ExtensionOne.swift */,
@@ -141,6 +144,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				695DF819277BF9EE00FE2D31 /* main.swift in Sources */,
+				69D564FA28C19CD20035FBE0 /* DFS.swift in Sources */,
 				69D564F528C090DA0035FBE0 /* MonotoneStack.swift in Sources */,
 				69BD06A627AFB42100E47B4C /* ModelDesign.swift in Sources */,
 			);
