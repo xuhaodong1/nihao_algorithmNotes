@@ -979,6 +979,6 @@ class Solution {
     }
 }
 
-let so = Solution()
-print(so.finalPrices([8,4,6,2,3]))
+let dp = DynamicProgramming()
+print(dp.findLongestChain([[1,2],[2,3],[3,4]]))
 
