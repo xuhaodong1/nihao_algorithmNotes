@@ -13,6 +13,8 @@
 		69D564FA28C19CD20035FBE0 /* DFS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D564F928C19CD20035FBE0 /* DFS.swift */; };
 		69D5651F28C373910035FBE0 /* DP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D5651E28C373910035FBE0 /* DP.swift */; };
 		69D5652128C380100035FBE0 /* Greed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D5652028C380100035FBE0 /* Greed.swift */; };
+		69D5652328C4532A0035FBE0 /* Simulation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D5652228C4532A0035FBE0 /* Simulation.swift */; };
+		69D5652528C456550035FBE0 /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D5652428C456550035FBE0 /* Tool.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -37,6 +39,12 @@
 		69D564F928C19CD20035FBE0 /* DFS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DFS.swift; sourceTree = "<group>"; };
 		69D5651E28C373910035FBE0 /* DP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DP.swift; sourceTree = "<group>"; };
 		69D5652028C380100035FBE0 /* Greed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Greed.swift; sourceTree = "<group>"; };
+		69D5652228C4532A0035FBE0 /* Simulation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Simulation.swift; sourceTree = "<group>"; };
+		69D5652428C456550035FBE0 /* Tool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tool.swift; sourceTree = "<group>"; };
+		69D5652628C4606A0035FBE0 /* 模拟.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "模拟.md"; sourceTree = "<group>"; };
+		69D5652728C4606A0035FBE0 /* 动态规划 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "动态规划"; sourceTree = "<group>"; };
+		69D5652828C4606A0035FBE0 /* 图论.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "图论.md"; sourceTree = "<group>"; };
+		69D5652928C4606A0035FBE0 /* 贪心.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "贪心.md"; sourceTree = "<group>"; };
 		69EB99AC28A254E600DE5B98 /* Solution_ExtensionTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Solution_ExtensionTwo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -72,13 +80,15 @@
 			isa = PBXGroup;
 			children = (
 				695DF818277BF9EE00FE2D31 /* main.swift */,
-				69D564F928C19CD20035FBE0 /* DFS.swift */,
-				69D564F428C090DA0035FBE0 /* MonotoneStack.swift */,
 				69BD06A527AFB42100E47B4C /* ModelDesign.swift */,
 				69C9EC7427EDFDB3006C06B5 /* Solution_ExtensionOne.swift */,
 				69EB99AC28A254E600DE5B98 /* Solution_ExtensionTwo.swift */,
+				69D564F928C19CD20035FBE0 /* DFS.swift */,
+				69D564F428C090DA0035FBE0 /* MonotoneStack.swift */,
 				69D5651E28C373910035FBE0 /* DP.swift */,
 				69D5652028C380100035FBE0 /* Greed.swift */,
+				69D5652228C4532A0035FBE0 /* Simulation.swift */,
+				69D5652428C456550035FBE0 /* Tool.swift */,
 			);
 			path = LeetCode;
 			sourceTree = "<group>";
@@ -86,6 +96,10 @@
 		69D564F728C098D50035FBE0 /* Notes */ = {
 			isa = PBXGroup;
 			children = (
+				69D5652728C4606A0035FBE0 /* 动态规划 */,
+				69D5652828C4606A0035FBE0 /* 图论.md */,
+				69D5652628C4606A0035FBE0 /* 模拟.md */,
+				69D5652928C4606A0035FBE0 /* 贪心.md */,
 				69D564F828C098D50035FBE0 /* 单调栈.md */,
 			);
 			path = Notes;
@@ -152,7 +166,9 @@
 				695DF819277BF9EE00FE2D31 /* main.swift in Sources */,
 				69D564FA28C19CD20035FBE0 /* DFS.swift in Sources */,
 				69D564F528C090DA0035FBE0 /* MonotoneStack.swift in Sources */,
+				69D5652528C456550035FBE0 /* Tool.swift in Sources */,
 				69D5652128C380100035FBE0 /* Greed.swift in Sources */,
+				69D5652328C4532A0035FBE0 /* Simulation.swift in Sources */,
 				69D5651F28C373910035FBE0 /* DP.swift in Sources */,
 				69BD06A627AFB42100E47B4C /* ModelDesign.swift in Sources */,
 			);

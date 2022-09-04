@@ -979,6 +979,7 @@ class Solution {
     }
 }
 
-let dp = DynamicProgramming()
-print(dp.findLongestChain([[1,2],[2,3],[3,4]]))
-
+let baseCodes = registerBaseCode()
+for baseCode in baseCodes {
+    baseCode.executeTestCode()
+}

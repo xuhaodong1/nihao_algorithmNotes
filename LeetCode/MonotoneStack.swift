@@ -8,7 +8,7 @@
 import Foundation
 
 /// 单调栈相关练习题
-class MonotoneStack {
+class MonotoneStack: BaseCode {
 
     /// 题目链接：[1475. 商品折扣后的最终价格](https://leetcode.cn/problems/final-prices-with-a-special-discount-in-a-shop/)
     func finalPrices(_ prices: [Int]) -> [Int] {

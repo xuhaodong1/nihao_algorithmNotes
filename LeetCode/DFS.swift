@@ -8,7 +8,7 @@
 import Foundation
 
 /// DFS 相关练习题
-class DeepFirstSearch {
+class DeepFirstSearch: BaseCode {
 
     /// 题目链接：[687. 最长同值路径](https://leetcode.cn/problems/longest-univalue-path/)
     func longestUnivaluePath(_ root: TreeNode?) -> Int {

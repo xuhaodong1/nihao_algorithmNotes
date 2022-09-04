@@ -8,7 +8,7 @@
 import Foundation
 
 /// 动态规划相关练习题
-class DynamicProgramming {
+class DynamicProgramming: BaseCode {
 
     /// 题目链接：[646. 最长数对链](https://leetcode.cn/problems/maximum-length-of-pair-chain/)
     /// dp[i] 的含义：以 i 为结尾的最长数对链

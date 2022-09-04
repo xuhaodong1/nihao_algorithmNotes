@@ -5,9 +5,9 @@
 //  Created by haodong xu on 2022/9/3.
 //
 
-import Cocoa
+import Foundation
 
-class Greed {
+class Greed: BaseCode {
 
     /// 题目链接：[646. 最长数对链](https://leetcode.cn/problems/maximum-length-of-pair-chain/)
     func findLongestChain(_ pairs: [[Int]]) -> Int {
