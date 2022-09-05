@@ -980,6 +980,6 @@ class Solution {
 }
 
 let baseCodes = registerBaseCode()
-for baseCode in baseCodes {
+for baseCode in baseCodes where baseCode.excuteable {
     baseCode.executeTestCode()
 }

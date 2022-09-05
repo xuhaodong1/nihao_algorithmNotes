@@ -31,4 +31,30 @@ class DeepFirstSearch: BaseCode {
         dfs(node: root)
         return ans
     }
+
+    func findDuplicateSubtrees(_ root: TreeNode?) -> [TreeNode?] {
+        guard let root = root else { return [] }
+        var map = [String: Int]()
+        var ans = [TreeNode]()
+        @discardableResult
+        func dfs(node: TreeNode?) -> String {
+            guard let node = node else { return "nil" }
+            var id = "\(node.val)"
+            id += "_\(dfs(node: node.left))"
+            id += "_\(dfs(node: node.right))"
+            if map[id] == 1 { ans.append(node) }
+            map[id, default: 0] += 1
+            return id
+        }
+        dfs(node: root)
+        return ans
+    }
+
+    override var excuteable: Bool {
+        return true
+    }
+
+    override func executeTestCode() {
+        super.executeTestCode()
+    }
 }

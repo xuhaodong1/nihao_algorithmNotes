@@ -42,9 +42,9 @@
 		69D5652228C4532A0035FBE0 /* Simulation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Simulation.swift; sourceTree = "<group>"; };
 		69D5652428C456550035FBE0 /* Tool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tool.swift; sourceTree = "<group>"; };
 		69D5652628C4606A0035FBE0 /* 模拟.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "模拟.md"; sourceTree = "<group>"; };
-		69D5652728C4606A0035FBE0 /* 动态规划 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "动态规划"; sourceTree = "<group>"; };
 		69D5652828C4606A0035FBE0 /* 图论.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "图论.md"; sourceTree = "<group>"; };
 		69D5652928C4606A0035FBE0 /* 贪心.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "贪心.md"; sourceTree = "<group>"; };
+		69D5652A28C4A0B00035FBE0 /* 动态规划.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "动态规划.md"; sourceTree = "<group>"; };
 		69EB99AC28A254E600DE5B98 /* Solution_ExtensionTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Solution_ExtensionTwo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -96,7 +96,7 @@
 		69D564F728C098D50035FBE0 /* Notes */ = {
 			isa = PBXGroup;
 			children = (
-				69D5652728C4606A0035FBE0 /* 动态规划 */,
+				69D5652A28C4A0B00035FBE0 /* 动态规划.md */,
 				69D5652828C4606A0035FBE0 /* 图论.md */,
 				69D5652628C4606A0035FBE0 /* 模拟.md */,
 				69D5652928C4606A0035FBE0 /* 贪心.md */,
