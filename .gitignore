@@ -24,7 +24,7 @@ tignore file for Xcode4 and Xcode5 Source projects
 # c.f. http://www.westwind.com/reference/os-x/invisibles.html
  
 .DS_Store
-.xcbkptlist
+*.xcbkptlist
 # c.f. http://www.westwind.com/reference/os-x/invisibles.html
  
 .Trashes
