@@ -13,6 +13,7 @@ class StringType: BaseCode {
     /// 题目链接：[828. 统计子串中的唯一字符](https://leetcode.cn/problems/count-unique-characters-of-all-substrings-of-a-given-string/)
     /// 若子串包含重复元素，则重复元素对该子串的不产生贡献
     /// 求每个 s[i] 对答案的贡献, 即求每个 s[i] 可作为多少个子数组的唯一元素。
+    /// 相关题目：[907. 子数组的最小值之和](https://leetcode.cn/problems/sum-of-subarray-minimums/)
     func uniqueLetterString(_ s: String) -> Int {
         let n = s.count, chars = [Character](s)
         var map = [Character: Int]()

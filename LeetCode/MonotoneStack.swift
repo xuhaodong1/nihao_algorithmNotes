@@ -22,4 +22,41 @@ class MonotoneStack: BaseCode {
         }
         return ans
     }
+
+    /// 题目链接：[907. 子数组的最小值之和](https://leetcode.cn/problems/sum-of-subarray-minimums/)
+    /// 相关题目：[828. 统计子串中的唯一字符](https://leetcode.cn/problems/count-unique-characters-of-all-substrings-of-a-given-string/)
+    func sumSubarrayMins(_ arr: [Int]) -> Int {
+        let n = arr.count, mod = Int(1e9) + 7
+        var stack = [Int]()
+        var left = [Int](repeating: n, count: n), right = [Int](repeating: -1, count: n)
+        var ans = 0
+        for i in 0..<n {
+            while !stack.isEmpty && arr[i] <= arr[stack.last!] {
+                let lastIndex = stack.removeLast()
+                left[lastIndex] = i
+            }
+            stack.append(i)
+        }
+        stack.removeAll()
+        for i in (0..<n).reversed() {
+            while !stack.isEmpty && arr[i] < arr[stack.last!] {
+                let lastIndex = stack.removeLast()
+                right[lastIndex] = i
+            }
+            stack.append(i)
+        }
+        for i in 0..<n {
+            ans += ((((left[i] - i) * (i - right[i])) % mod) * arr[i]) % mod
+            ans %= mod
+        }
+        return ans
+    }
+
+//    override var excuteable: Bool {
+//        return true
+//    }
+
+    override func executeTestCode() {
+        super.executeTestCode()
+    }
 }
