@@ -78,8 +78,10 @@ class StringType: BaseCode {
 
     override func executeTestCode() {
         super.executeTestCode()
+
+
         print(reorderSpaces("      "))
 
-        
+
     }
 }
