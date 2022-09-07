@@ -40,12 +40,44 @@ class StringType: BaseCode {
         return ans
     }
 
+    /// 题目链接：[1592. 重新排列单词间的空格](https://leetcode.cn/problems/rearrange-spaces-between-words/)
+    func reorderSpaces(_ text: String) -> String {
+        let n = text.count, chars = [Character](text)
+        var words = [String](), whiteCnt = 0
+        var i = 0, word = ""
+        while i < n {
+            while i < n && chars[i].isWhitespace {
+                whiteCnt += 1
+                i += 1
+            }
+            while i < n && chars[i].isLetter {
+                word.append(chars[i])
+                i += 1
+            }
+            if word != "" {
+                words.append(word)
+                word = ""
+            }
+        }
+        var whiteEach = 0, whiteRemain = 0
+        if words.count == 1 || words.count == 0 {
+            whiteEach = 0
+            whiteRemain = whiteCnt
+        } else {
+            whiteEach = whiteCnt / max(words.count - 1, 1)
+            whiteRemain = whiteCnt % max(words.count - 1, 1)
+        }
+        var ans = words.joined(separator: String([Character](repeating: " ", count: whiteEach)))
+        ans += String([Character](repeating: " ", count: whiteRemain))
+        return ans
+    }
+
 //    override var excuteable: Bool {
 //        return true
 //    }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(uniqueLetterString("LEETCODE"))
+        print(reorderSpaces("      "))
     }
 }
