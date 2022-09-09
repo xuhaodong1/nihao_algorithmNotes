@@ -33,6 +33,8 @@
 
 /* Begin PBXFileReference section */
 		6919E22928C990EF00539C19 /* Construction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Construction.swift; sourceTree = "<group>"; };
+		6919E22E28CAD62F00539C19 /* 构造.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "构造.md"; sourceTree = "<group>"; };
+		6919E22F28CAD62F00539C19 /* 字符串.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "字符串.md"; sourceTree = "<group>"; };
 		695DF815277BF9EE00FE2D31 /* LeetCode */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LeetCode; sourceTree = BUILT_PRODUCTS_DIR; };
 		695DF818277BF9EE00FE2D31 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		69B6E50028C6DA1C00245599 /* StringType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringType.swift; sourceTree = "<group>"; };
@@ -102,6 +104,8 @@
 		69D564F728C098D50035FBE0 /* Notes */ = {
 			isa = PBXGroup;
 			children = (
+				6919E22F28CAD62F00539C19 /* 字符串.md */,
+				6919E22E28CAD62F00539C19 /* 构造.md */,
 				69D5652A28C4A0B00035FBE0 /* 动态规划.md */,
 				69D5652828C4606A0035FBE0 /* 图论.md */,
 				69D5652628C4606A0035FBE0 /* 模拟.md */,
