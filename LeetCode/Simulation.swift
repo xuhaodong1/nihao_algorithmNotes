@@ -30,14 +30,25 @@ class Simulation: BaseCode {
         return ans
     }
 
+    /// 题目链接：[1598. 文件夹操作日志搜集器](https://leetcode.cn/problems/crawler-log-folder/)
+    func minOperations(_ logs: [String]) -> Int {
+        return logs.reduce(0) { partialResult, log in
+            if log == "../" {
+                return max(partialResult - 1, 0)
+            } else if log == "./" {
+                return partialResult
+            } else {
+                return partialResult + 1
+            }
+        }
+    }
+
 //    override var excuteable: Bool {
 //        return true
 //    }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(numSpecial([[1,0,0],
-                          [0,0,1],
-                          [1,0,0]]))
+        print(minOperations(["d1/","../","../","../"]))
     }
 }
