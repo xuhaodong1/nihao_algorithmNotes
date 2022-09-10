@@ -33,6 +33,22 @@ class Construction: BaseCode {
         return ans
     }
 
+    /// 题目链接：[669. 修剪二叉搜索树](https://leetcode.cn/problems/trim-a-binary-search-tree/)
+    func trimBST(_ root: TreeNode?, _ low: Int, _ high: Int) -> TreeNode? {
+        func dfs(_ node: TreeNode?) -> TreeNode? {
+            guard let node = node else { return nil }
+            if node.val < low {
+                return dfs(node.right)
+            } else if node.val > high {
+                return dfs(node.left)
+            }
+            node.left = dfs(node.left)
+            node.right = dfs(node.right)
+            return node
+        }
+        return dfs(root)
+    }
+
 //    override var excuteable: Bool {
 //        return true
 //    }

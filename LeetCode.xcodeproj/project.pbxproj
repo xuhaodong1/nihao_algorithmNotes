@@ -95,8 +95,8 @@
 				69D5652028C380100035FBE0 /* Greed.swift */,
 				69D5652228C4532A0035FBE0 /* Simulation.swift */,
 				69B6E50028C6DA1C00245599 /* StringType.swift */,
-				69D5652428C456550035FBE0 /* Tool.swift */,
 				6919E22928C990EF00539C19 /* Construction.swift */,
+				69D5652428C456550035FBE0 /* Tool.swift */,
 			);
 			path = LeetCode;
 			sourceTree = "<group>";
