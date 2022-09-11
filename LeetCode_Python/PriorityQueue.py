@@ -1,12 +1,3 @@
-
-        # """
-        # :type quality: List[int]
-        # :type wage: List[int]
-        # :type k: int
-        # :rtype: float
-        # """
-
-
 from heapq import heapify, heapreplace
 from math import inf
 
