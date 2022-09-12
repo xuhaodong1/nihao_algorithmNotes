@@ -49,6 +49,5 @@ class Simulation: BaseCode {
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(minOperations(["d1/","../","../","../"]))
     }
 }
