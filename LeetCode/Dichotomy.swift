@@ -39,33 +39,12 @@ class Dichotomy: BaseCode {
         return getCnt(x: l) == l ? l : -1
     }
 
-    /// 题目链接：[670. 最大交换](https://leetcode.cn/problems/maximum-swap/)
-    /// 思路：贪心, 从左往右找到每一位的左边最大值, 之后从右往左查看其左边是否有最大值
-    func maximumSwap(_ num: Int) -> Int {
-        var digits = "\(num)".reversed().map({ return Int("\($0)")! })
-        let n = digits.count
-        var maxIdxs = [Int](repeating: -1, count: n), maxIdx = 0
-        for i in 0..<n {
-            if digits[i] < digits[maxIdx] {
-                maxIdxs[i] = maxIdx
-            } else if digits[i] > digits[maxIdx] { // == 时不更新, 应保持最大值下标尽量靠左
-                maxIdx = i
-            }
-        }
-        for i in (0..<n).reversed() where maxIdxs[i] != -1 {
-            digits.swapAt(i, maxIdxs[i])
-            break
-        }
-        return Int(String(digits.map({ return Character("\($0)") }).reversed()))!
-    }
-
 //    override var excuteable: Bool {
 //        return true
 //    }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(maximumSwap(98368))
     }
 
 }
