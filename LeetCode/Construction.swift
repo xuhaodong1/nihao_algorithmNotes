@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// 构造题相关
+/// 构造题相关练习题
 class Construction: BaseCode {
 
     /// 题目链接：[667. 优美的排列 II](https://leetcode.cn/problems/beautiful-arrangement-ii/)
