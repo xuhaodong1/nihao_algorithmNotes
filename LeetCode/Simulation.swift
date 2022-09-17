@@ -49,12 +49,25 @@ class Simulation: BaseCode {
         return Double(arr.sorted()[removeCnt..<n-removeCnt].reduce(0, +)) / Double(n - removeCnt * 2)
     }
 
+    /// 题目链接：[1624. 两个相同字符之间的最长子字符串](https://leetcode.cn/problems/largest-substring-between-two-equal-characters/)
+    func maxLengthBetweenEqualCharacters(_ s: String) -> Int {
+        var map = [Character: Int](), ans = -1
+        for (index, char) in s.enumerated() {
+            if let l = map[char] {
+                ans = max(index - l - 1, ans)
+            } else {
+                map[char] = index
+            }
+        }
+        return ans
+    }
+
 //    override var excuteable: Bool {
 //        return true
 //    }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(trimMean([6,0,7,0,7,5,7,8,3,4,0,7,8,1,6,8,1,1,2,4,8,1,9,5,4,3,8,5,10,8,6,6,1,0,6,10,8,2,3,4]))
+        print(maxLengthBetweenEqualCharacters("mgntdygtxrvxjnwksqhxuxtrv"))
     }
 }
