@@ -657,32 +657,6 @@ class Solution {
         return ans
     }
 
-    func findRedundantConnection(_ edges: [[Int]]) -> [Int] {
-        let n = edges.count
-        var parents = [Int](repeating: 0, count: n + 1)
-        for i in 1...n {
-            parents[i] = i
-        }
-        for edge in edges {
-            if find(edge[0]) != find(edge[1]) {
-                union(edge[0], edge[1])
-            } else {
-                return edge
-            }
-        }
-        func union(_ index1: Int, _ index2: Int) {
-            parents[find(index1)] = find(index2)
-        }
-        func find(_ index: Int) -> Int {
-            var index = index
-            while parents[index] != index {
-                index = parents[index]
-            }
-            return index
-        }
-        return []
-    }
-
     func busyStudent(_ startTime: [Int], _ endTime: [Int], _ queryTime: Int) -> Int {
         let n = startTime.count
         var ans = 0
