@@ -62,12 +62,19 @@ class Simulation: BaseCode {
         return ans
     }
 
+    /// 题目链接：[1636. 按照频率将数组升序排序](https://leetcode.cn/problems/sort-array-by-increasing-frequency/)
+    func frequencySort(_ nums: [Int]) -> [Int] {
+        return [Int: Int].init(nums.map{($0, 1)}, uniquingKeysWith: +).sorted { kv1, kv2 in
+            return kv1.value != kv2.value ? kv1.value < kv2.value : kv1.key > kv2.key
+        }.map { [Int](repeating: $0.key, count: $0.value) }.flatMap{ $0 }
+    }
+
 //    override var excuteable: Bool {
 //        return true
 //    }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(maxLengthBetweenEqualCharacters("mgntdygtxrvxjnwksqhxuxtrv"))
+        print(frequencySort([-1,1,-6,4,5,-6,1,4,1]))
     }
 }
