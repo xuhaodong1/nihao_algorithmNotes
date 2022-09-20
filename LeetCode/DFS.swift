@@ -67,11 +67,34 @@ class DeepFirstSearch: BaseCode {
         return dfs(root)
     }
 
+    /// 题目链接：[698. 划分为k个相等的子集](https://leetcode.cn/problems/partition-to-k-equal-sum-subsets/)
+    func canPartitionKSubsets(_ nums: [Int], _ k: Int) -> Bool {
+        let sum = nums.reduce(0, +), n = nums.count
+        let nums = nums.sorted(by: >), subSum = sum / k
+        if sum % k != 0 { return false } // 前置性判断
+        if nums.contains(where: { $0 > subSum }) { return false } // 前置性判断
+        var visited = [Bool](repeating: false, count: n)
+        func dfs(currSum: Int, cnt: Int, idx: Int) -> Bool {
+            if cnt == k { return true }
+            if currSum == subSum { return dfs(currSum: 0, cnt: cnt + 1, idx: 0) } // 新一轮 idx 改为 0
+            for i in idx..<n where !visited[i] && currSum + nums[i] <= subSum { // 从前往后搜, 剪枝
+                visited[i] = true
+                if dfs(currSum: currSum + nums[i], cnt: cnt, idx: i + 1) { return true }
+                visited[i] = false
+                if currSum == 0 { return false } // 如果没有与其匹配的, 不用计算后面的
+            }
+            return false
+        }
+        return dfs(currSum: 0, cnt: 0, idx: 0)
+    }
+
 //    override var excuteable: Bool {
 //        return true
 //    }
 
     override func executeTestCode() {
         super.executeTestCode()
+        print(canPartitionKSubsets([3,3,10,2,6,5,10,6,8,3,2,1,6,10,7,2],
+                                   6))
     }
 }
