@@ -88,13 +88,37 @@ class DeepFirstSearch: BaseCode {
         return dfs(currSum: 0, cnt: 0, idx: 0)
     }
 
-//    override var excuteable: Bool {
-//        return true
-//    }
+    /// 题目链接：[854. 相似度为 K 的字符串](https://leetcode.cn/problems/k-similar-strings/)
+    func kSimilarity(_ s1: String, _ s2: String) -> Int {
+        let n = s1.count
+        var chars1 = [Character](s1), chars2 = [Character](s2)
+        var ans = Int.max
+        func dfs(currIndex: Int, currK: Int) {
+            if currK >= ans { return }
+            if currIndex == n - 1 {
+                ans = min(ans, currK)
+                return
+            }
+            if chars1[currIndex] == chars2[currIndex] {
+                dfs(currIndex: currIndex + 1, currK: currK)
+            } else {
+                for j in currIndex+1..<n where chars1[j] == chars2[currIndex] && chars1[j] != chars2[j] {
+                    chars1.swapAt(currIndex, j)
+                    dfs(currIndex: currIndex + 1, currK: currK + 1)
+                    chars1.swapAt(currIndex, j)
+                }
+            }
+        }
+        dfs(currIndex: 0, currK: 0)
+        return ans
+    }
+
+    override var excuteable: Bool {
+        return true
+    }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(canPartitionKSubsets([3,3,10,2,6,5,10,6,8,3,2,1,6,10,7,2],
-                                   6))
+        print(kSimilarity("abc", "bca"))
     }
 }
