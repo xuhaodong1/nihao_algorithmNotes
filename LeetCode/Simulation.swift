@@ -69,12 +69,27 @@ class Simulation: BaseCode {
         }.map { [Int](repeating: $0.key, count: $0.value) }.flatMap{ $0 }
     }
 
+    /// 题目链接：[1640. 能否连接形成数组](https://leetcode.cn/problems/check-array-formation-through-concatenation/)
+    func canFormArray(_ arr: [Int], _ pieces: [[Int]]) -> Bool {
+        let n = arr.count
+        var i = 0, map = [Int: [Int]]()
+        pieces.forEach { item in map[item[0]] = item }
+        while i < n {
+            guard let item = map[arr[i]] else { return false }
+            for num in item where i < n {
+                if num != arr[i] { return false }
+                i += 1
+            }
+        }
+        return true
+    }
+
 //    override var excuteable: Bool {
 //        return true
 //    }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(frequencySort([-1,1,-6,4,5,-6,1,4,1]))
+        print(canFormArray([91,4,64,78], [[78],[4,64],[91]]))
     }
 }
