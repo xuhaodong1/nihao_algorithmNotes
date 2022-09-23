@@ -93,12 +93,12 @@ public class SingalNode: NSObject {
     public var val: Int
     public var next: SingalNode?
     public var random: SingalNode?
-     public init(_ val: Int) {
-         self.val = val
-         self.next = nil
-         self.random = nil
-     }
- }
+    public init(_ val: Int) {
+        self.val = val
+        self.next = nil
+        self.random = nil
+    }
+}
 
 class LRUCache {
     var map: [Int: DListNode]
@@ -811,7 +811,7 @@ class Solution3 {
         let n = rects.count
         preSum = [Int].init(repeating: 0, count: n + 1)
         for i in 1...n {
-//            preSum[i] = preSum[i - 1] + (rects[i - 1][2] - rects[i - 1][0] + 1)(rects[i - 1][3] - rects[i - 1][1] + 1)
+            //            preSum[i] = preSum[i - 1] + (rects[i - 1][2] - rects[i - 1][0] + 1)(rects[i - 1][3] - rects[i - 1][1] + 1)
         }
     }
 
@@ -1331,5 +1331,66 @@ class MyCircularDeque {
 
     func isFull() -> Bool {
         return (head - rear) == 1
+    }
+}
+
+/// 题目链接：[707. 设计链表](https://leetcode.cn/problems/design-linked-list/)
+class MyLinkedList {
+    class SingalNode {
+        var val: Int
+        var next: SingalNode?
+        init(_ val: Int) {
+            self.val = val
+            self.next = nil
+        }
+    }
+
+    var root: SingalNode?
+    var cnt: Int
+
+    init() {
+        root = SingalNode(-1)
+        cnt = 0
+    }
+
+    func get(_ index: Int) -> Int {
+        if index >= cnt || index < 0 { return -1 }
+        var node = root
+        for _ in 0...index {
+            node = node?.next
+        }
+        return node?.val ?? -1
+    }
+
+    func addAtHead(_ val: Int) {
+        addAtIndex(0, val)
+    }
+
+    func addAtTail(_ val: Int) {
+        addAtIndex(cnt, val)
+    }
+
+    func addAtIndex(_ index: Int, _ val: Int) {
+        if index > cnt { return }
+        var index = index
+        if index < 0 { index = 0 }
+        var node = root
+        for _ in 0..<index {
+            node = node?.next
+        }
+        let next = node?.next
+        node?.next = SingalNode(val)
+        node?.next?.next = next
+        cnt += 1
+    }
+
+    func deleteAtIndex(_ index: Int) {
+        if index >= cnt || index < 0 { return }
+        var node = root
+        for _ in 0..<index {
+            node = node?.next
+        }
+        node?.next = node?.next?.next
+        cnt -= 1
     }
 }
