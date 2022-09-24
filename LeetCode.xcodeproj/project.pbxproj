@@ -60,6 +60,12 @@
 		69D5652828C4606A0035FBE0 /* 图论.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "图论.md"; sourceTree = "<group>"; };
 		69D5652928C4606A0035FBE0 /* 贪心.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "贪心.md"; sourceTree = "<group>"; };
 		69D5652A28C4A0B00035FBE0 /* 动态规划.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "动态规划.md"; sourceTree = "<group>"; };
+		69E03D7A28DF293000C83446 /* 并查集.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "并查集.md"; sourceTree = "<group>"; };
+		69E03D7B28DF293000C83446 /* 优先队列.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "优先队列.md"; sourceTree = "<group>"; };
+		69E03D7C28DF293000C83446 /* 数据结构设计.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "数据结构设计.md"; sourceTree = "<group>"; };
+		69E03D7D28DF293000C83446 /* 前缀和.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "前缀和.md"; sourceTree = "<group>"; };
+		69E03D7E28DF293000C83446 /* 二分查找.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "二分查找.md"; sourceTree = "<group>"; };
+		69E03D7F28DF293000C83446 /* 不常见算法数据结构.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "不常见算法数据结构.md"; sourceTree = "<group>"; };
 		69E6340F28DF1C6400FB346E /* PrefixSum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrefixSum.swift; sourceTree = "<group>"; };
 		69EB99AC28A254E600DE5B98 /* Solution_ExtensionTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Solution_ExtensionTwo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -119,6 +125,12 @@
 		69D564F728C098D50035FBE0 /* Notes */ = {
 			isa = PBXGroup;
 			children = (
+				69E03D7F28DF293000C83446 /* 不常见算法数据结构.md */,
+				69E03D7E28DF293000C83446 /* 二分查找.md */,
+				69E03D7B28DF293000C83446 /* 优先队列.md */,
+				69E03D7D28DF293000C83446 /* 前缀和.md */,
+				69E03D7A28DF293000C83446 /* 并查集.md */,
+				69E03D7C28DF293000C83446 /* 数据结构设计.md */,
 				6919E22F28CAD62F00539C19 /* 字符串.md */,
 				6919E22E28CAD62F00539C19 /* 构造.md */,
 				69D5652A28C4A0B00035FBE0 /* 动态规划.md */,
