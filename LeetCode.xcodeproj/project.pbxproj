@@ -21,6 +21,7 @@
 		69D5652128C380100035FBE0 /* Greed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D5652028C380100035FBE0 /* Greed.swift */; };
 		69D5652328C4532A0035FBE0 /* Simulation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D5652228C4532A0035FBE0 /* Simulation.swift */; };
 		69D5652528C456550035FBE0 /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D5652428C456550035FBE0 /* Tool.swift */; };
+		69E6341028DF1C6400FB346E /* PrefixSum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E6340F28DF1C6400FB346E /* PrefixSum.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -59,6 +60,7 @@
 		69D5652828C4606A0035FBE0 /* 图论.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "图论.md"; sourceTree = "<group>"; };
 		69D5652928C4606A0035FBE0 /* 贪心.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "贪心.md"; sourceTree = "<group>"; };
 		69D5652A28C4A0B00035FBE0 /* 动态规划.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "动态规划.md"; sourceTree = "<group>"; };
+		69E6340F28DF1C6400FB346E /* PrefixSum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrefixSum.swift; sourceTree = "<group>"; };
 		69EB99AC28A254E600DE5B98 /* Solution_ExtensionTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Solution_ExtensionTwo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -100,6 +102,7 @@
 				69D564F928C19CD20035FBE0 /* DFS.swift */,
 				692F876F28D6B84A0033DC22 /* UnionFindSet.swift */,
 				69D564F428C090DA0035FBE0 /* MonotoneStack.swift */,
+				69E6340F28DF1C6400FB346E /* PrefixSum.swift */,
 				69D5651E28C373910035FBE0 /* DP.swift */,
 				69D5652028C380100035FBE0 /* Greed.swift */,
 				69D5652228C4532A0035FBE0 /* Simulation.swift */,
@@ -195,6 +198,7 @@
 				69D5652328C4532A0035FBE0 /* Simulation.swift in Sources */,
 				691E067728D2BC0600350D11 /* BrainTwister.swift in Sources */,
 				692F877028D6B84A0033DC22 /* UnionFindSet.swift in Sources */,
+				69E6341028DF1C6400FB346E /* PrefixSum.swift in Sources */,
 				69B6E50128C6DA1C00245599 /* StringType.swift in Sources */,
 				69D5651F28C373910035FBE0 /* DP.swift in Sources */,
 				6919E22A28C990EF00539C19 /* Construction.swift in Sources */,
