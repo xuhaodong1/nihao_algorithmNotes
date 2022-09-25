@@ -84,12 +84,29 @@ class Simulation: BaseCode {
         return true
     }
 
-//    override var excuteable: Bool {
-//        return true
-//    }
+    /// 题目链接：[788. 旋转数字](https://leetcode.cn/problems/rotated-digits/)
+    func rotatedDigits(_ n: Int) -> Int {
+        var cnt = 0
+        for i in 1...n where isGoodNum(i) { cnt += 1 }
+        func isGoodNum(_ x: Int) -> Bool {
+            var x = x, hasNeed = false
+            while x != 0 {
+                let digit = x % 10
+                if digit == 3 || digit == 4 || digit == 7 { return false } /// 不包含3 4 7
+                if digit == 2 || digit == 5 || digit == 6 || digit == 9 { hasNeed = true } /// 必须包含 2 / 5 / 6 / 9
+                x /= 10
+            }
+            return hasNeed
+        }
+        return cnt
+    }
+
+    override var excuteable: Bool {
+        return true
+    }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(canFormArray([91,4,64,78], [[78],[4,64],[91]]))
+        print(rotatedDigits(10))
     }
 }
