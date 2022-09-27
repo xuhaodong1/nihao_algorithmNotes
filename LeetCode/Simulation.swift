@@ -101,12 +101,19 @@ class Simulation: BaseCode {
         return cnt
     }
 
-//    override var excuteable: Bool {
-//        return true
-//    }
+    /// 题目链接：[面试题 01.02. 判定是否互为字符重排](https://leetcode.cn/problems/check-permutation-lcci/)
+    func CheckPermutation(_ s1: String, _ s2: String) -> Bool {
+        guard s1.count == s2.count else { return false }
+        var map = [Character: Int]()
+        s1.forEach{ map[$0, default: 0] += 1 }
+        s2.forEach{ map[$0, default: 0] -= 1 }
+        return map.filter{ $0.value != 0 }.count == 0
+    }
+
+//    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(rotatedDigits(10))
+        print(CheckPermutation("abc", "bad"))
     }
 }

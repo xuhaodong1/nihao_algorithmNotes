@@ -7,7 +7,7 @@
 
 import Foundation
 
-/// 位运算相关了练习题
+/// 位运算相关练习题
 class BitOperation: BaseCode {
 
     /// 题目链接：[面试题 17.19. 消失的两个数字](https://leetcode.cn/problems/missing-two-lcci/)
@@ -27,6 +27,5 @@ class BitOperation: BaseCode {
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(missingTwo([1]))
     }
 }
