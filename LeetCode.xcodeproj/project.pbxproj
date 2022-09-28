@@ -23,6 +23,7 @@
 		69D5652328C4532A0035FBE0 /* Simulation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D5652228C4532A0035FBE0 /* Simulation.swift */; };
 		69D5652528C456550035FBE0 /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69D5652428C456550035FBE0 /* Tool.swift */; };
 		69E6341028DF1C6400FB346E /* PrefixSum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E6340F28DF1C6400FB346E /* PrefixSum.swift */; };
+		F006CC0B28E49AE600F443BA /* Sort.swift in Sources */ = {isa = PBXBuildFile; fileRef = F006CC0A28E49AE600F443BA /* Sort.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -71,6 +72,7 @@
 		69E03D7F28DF293000C83446 /* 不常见算法数据结构.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "不常见算法数据结构.md"; sourceTree = "<group>"; };
 		69E6340F28DF1C6400FB346E /* PrefixSum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrefixSum.swift; sourceTree = "<group>"; };
 		69EB99AC28A254E600DE5B98 /* Solution_ExtensionTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Solution_ExtensionTwo.swift; sourceTree = "<group>"; };
+		F006CC0A28E49AE600F443BA /* Sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sort.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 				691E067628D2BC0600350D11 /* BrainTwister.swift */,
 				69D5652428C456550035FBE0 /* Tool.swift */,
 				692F876D28D4ABDF0033DC22 /* ScanningLine.swift */,
+				F006CC0A28E49AE600F443BA /* Sort.swift */,
 			);
 			path = LeetCode;
 			sourceTree = "<group>";
@@ -211,6 +214,7 @@
 				69D564F528C090DA0035FBE0 /* MonotoneStack.swift in Sources */,
 				69D5652528C456550035FBE0 /* Tool.swift in Sources */,
 				69D5652128C380100035FBE0 /* Greed.swift in Sources */,
+				F006CC0B28E49AE600F443BA /* Sort.swift in Sources */,
 				692F876E28D4ABDF0033DC22 /* ScanningLine.swift in Sources */,
 				69D5652328C4532A0035FBE0 /* Simulation.swift in Sources */,
 				691E067728D2BC0600350D11 /* BrainTwister.swift in Sources */,
@@ -346,7 +350,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = LDY5VT7ZPV;
+				DEVELOPMENT_TEAM = XFVG576CZZ;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_STRICT_ALIASING = YES;
 				HEADER_SEARCH_PATHS = /usr;
@@ -360,7 +364,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = LDY5VT7ZPV;
+				DEVELOPMENT_TEAM = XFVG576CZZ;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_STRICT_ALIASING = YES;
 				HEADER_SEARCH_PATHS = /usr;
