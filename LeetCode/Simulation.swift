@@ -110,10 +110,17 @@ class Simulation: BaseCode {
         return map.filter{ $0.value != 0 }.count == 0
     }
 
+    /// 题目链接：[面试题 01.09. 字符串轮转](https://leetcode.cn/problems/string-rotation-lcci/)
+    func isFlipedString(_ s1: String, _ s2: String) -> Bool {
+        guard s1.count == s2.count else { return false }
+        guard s1.count != 0 else { return true }
+        return (s1 + s1).contains(s2)
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(CheckPermutation("abc", "bad"))
+        print(isFlipedString("", ""))
     }
 }
