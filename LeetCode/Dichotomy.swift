@@ -39,12 +39,35 @@ class Dichotomy: BaseCode {
         return getCnt(x: l) == l ? l : -1
     }
 
-//    override var excuteable: Bool {
-//        return true
-//    }
+    /// 题目链接：[1201. 丑数 III](https://leetcode.cn/problems/ugly-number-iii/)
+    func nthUglyNumber(_ n: Int, _ a: Int, _ b: Int, _ c: Int) -> Int {
+        func gcd(a: Int, b: Int) -> Int {
+            return b == 0 ? a : gcd(a: b, b: a % b)
+        }
+        func lcm(a: Int, b: Int) -> Int {
+            return a * b / gcd(a: a, b: b)
+        }
+        func getCnt(num: Int) -> Int { // 容斥原理
+            return num / a + num / b + num / c - num / lcmAB - num / lcmAC - num / lcmBC + num / lcmABC
+        }
+        let lcmAB = lcm(a: a, b: b), lcmAC = lcm(a: a, b: c), lcmBC = lcm(a: b, b: c), lcmABC = lcm(a: a, b: lcmBC)
+        var l = 1, r = min(a, b, c) * n
+        while l < r {
+            let mid = (l + r) >> 1
+            if getCnt(num: mid) < n {
+                l = mid + 1
+            } else {
+                r = mid
+            }
+        }
+        return l
+    }
+
+    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
+        print(nthUglyNumber(5, 2, 3, 3))
     }
 
 }

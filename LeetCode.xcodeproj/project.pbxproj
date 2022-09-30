@@ -50,6 +50,8 @@
 		695DF818277BF9EE00FE2D31 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		69ACC96728E1371C002A7058 /* BitOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitOperation.swift; sourceTree = "<group>"; };
 		69ACC96928E14506002A7058 /* 位运算.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "位运算.md"; sourceTree = "<group>"; };
+		69ACC96A28E53415002A7058 /* 排序.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "排序.md"; sourceTree = "<group>"; };
+		69ACC96B28E53415002A7058 /* 脑筋急转弯.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "脑筋急转弯.md"; sourceTree = "<group>"; };
 		69B6E50028C6DA1C00245599 /* StringType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringType.swift; sourceTree = "<group>"; };
 		69BD06A527AFB42100E47B4C /* ModelDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelDesign.swift; sourceTree = "<group>"; };
 		69C9EC7427EDFDB3006C06B5 /* Solution_ExtensionOne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Solution_ExtensionOne.swift; sourceTree = "<group>"; };
@@ -132,6 +134,8 @@
 		69D564F728C098D50035FBE0 /* Notes */ = {
 			isa = PBXGroup;
 			children = (
+				69ACC96A28E53415002A7058 /* 排序.md */,
+				69ACC96B28E53415002A7058 /* 脑筋急转弯.md */,
 				69ACC96928E14506002A7058 /* 位运算.md */,
 				69E03D7F28DF293000C83446 /* 不常见算法数据结构.md */,
 				69E03D7E28DF293000C83446 /* 二分查找.md */,
@@ -350,7 +354,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = XFVG576CZZ;
+				DEVELOPMENT_TEAM = LDY5VT7ZPV;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_STRICT_ALIASING = YES;
 				HEADER_SEARCH_PATHS = /usr;
@@ -364,7 +368,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = XFVG576CZZ;
+				DEVELOPMENT_TEAM = LDY5VT7ZPV;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_STRICT_ALIASING = YES;
 				HEADER_SEARCH_PATHS = /usr;

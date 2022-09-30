@@ -25,11 +25,27 @@ class Sort: BaseCode {
         }
         return ans[k - 1]
     }
+
+    /// 题目链接：[1201. 丑数 III](https://leetcode.cn/problems/ugly-number-iii/)
+    func nthUglyNumber(_ n: Int) -> Int {
+        var ans = [Int](repeating: 0, count: n)
+        ans[0] = 1
+        var i2 = 0, i3 = 0, i5 = 0
+        for i in 1..<n {
+            let a = ans[i2] * 2, b = ans[i3] * 3, c = ans[i5] * 5
+            let minV = min(a, b, c)
+            if a == minV { i2 += 1 }
+            if b == minV { i3 += 1 }
+            if c == minV { i5 += 1 }
+            ans[i] = minV
+        }
+        return ans[n - 1]
+    }
     
 //    override var excuteable: Bool { return true }
     
     override func executeTestCode() {
         super.executeTestCode()
-        print(getKthMagicNumber(10))
+
     }
 }
