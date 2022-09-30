@@ -117,6 +117,25 @@ class Simulation: BaseCode {
         return (s1 + s1).contains(s2)
     }
 
+    /// 题目链接：[面试题 01.08. 零矩阵](https://leetcode.cn/problems/zero-matrix-lcci/)
+    func setZeroes(_ matrix: inout [[Int]]) {
+        let n = matrix.count, m = matrix[0].count
+        var flag_col = false
+        for i in 0..<n {
+            if matrix[i][0] == 0 { flag_col = true }
+            for j in 1..<m where matrix[i][j] == 0 {
+                matrix[i][0] = 0
+                matrix[0][j] = 0
+            }
+        }
+        for i in (0..<n).reversed() {
+            for j in 1..<m where matrix[i][0] == 0 || matrix[0][j] == 0 {
+                matrix[i][j] = 0
+            }
+            if flag_col { matrix[i][0] = 0 }
+        }
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
