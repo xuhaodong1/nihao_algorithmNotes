@@ -136,10 +136,33 @@ class Simulation: BaseCode {
         }
     }
 
+    /// 题目链接：[1694. 重新格式化电话号码](https://leetcode.cn/problems/reformat-phone-number/)
+    func reformatNumber(_ number: String) -> String {
+        let chars = [Character](number.compactMap{ $0.isNumber ? $0 : nil })
+        var cnt = chars.count, curr = 0
+        let last = cnt % 3 == 1 ? 4 : cnt % 3
+        var ans = [Character]()
+        while curr < cnt {
+            if last == 4 && curr + last == cnt {
+                ans.append(contentsOf: [chars[curr], chars[curr + 1], "-", chars[curr + 2], chars[curr + 3]])
+                curr += last
+            } else if last == 2 && curr + last == cnt {
+                ans.append(contentsOf: [chars[curr], chars[curr + 1]])
+                curr += last
+            } else {
+                ans.append(contentsOf: [chars[curr], chars[curr + 1], chars[curr + 2]])
+                curr += 3
+            }
+            ans.append("-")
+        }
+        ans.removeLast()
+        return String(ans)
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(isFlipedString("", ""))
+        print(reformatNumber("2133"))
     }
 }
