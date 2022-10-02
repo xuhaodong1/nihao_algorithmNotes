@@ -63,7 +63,7 @@ class Dichotomy: BaseCode {
         return l
     }
 
-    override var excuteable: Bool { return true }
+//    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()

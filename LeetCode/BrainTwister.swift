@@ -22,4 +22,29 @@ class BrainTwister: BaseCode {
         else if n == 2 { return presses == 1 ? 3 : 4}
         else { return presses == 1 ? 4 : presses == 2 ? 7 : 8 }
     }
+
+    /// 题目链接：[777. 在LR字符串中交换相邻字符](https://leetcode.cn/problems/swap-adjacent-in-lr-string/)
+    /// 替换操作可转换为 L 往左移动、R 往右移动; 但 L 无法穿过 R、R 也无法穿过 L, 且须保持相对位置一致
+    func canTransform(_ start: String, _ end: String) -> Bool {
+        let n = start.count, startChars = [Character](start), endChars = [Character](end)
+        var i = 0, j = 0
+        while i < n || j < n {
+            while i < n && startChars[i] == "X" { i += 1 }
+            while j < n && endChars[j] == "X" { j += 1 }
+            if i == n || j == n { return i == j }
+            if startChars[i] != endChars[j] { return false }
+            if startChars[i] == "L" && i < j { return false }
+            if startChars[i] == "R" && i > j { return false }
+            i += 1; j += 1
+        }
+        return i == j
+    }
+
+//    override var excuteable: Bool { return true }
+    
+    override func executeTestCode() {
+        super.executeTestCode()
+        print(canTransform("XRXXXLXXXR",
+                           "XXRLXXXRXX"))
+    }
 }
