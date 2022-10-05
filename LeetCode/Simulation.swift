@@ -159,10 +159,49 @@ class Simulation: BaseCode {
         return String(ans)
     }
 
+    /// 题目链接：[1784. 检查二进制字符串字段](https://leetcode.cn/problems/check-if-binary-string-has-at-most-one-segment-of-ones/)
+    func checkOnesSegment(_ s: String) -> Bool {
+        let n = s.count, chars = [Character](s)
+        for i in 1..<n where chars[i] == "1" && chars[i - 1] == "0" {
+            return false
+        }
+        return true
+    }
+
+    /// 题目链接：[811. 子域名访问计数](https://leetcode.cn/problems/subdomain-visit-count/)
+    func subdomainVisits(_ cpdomains: [String]) -> [String] {
+        var map = [String: Int]()
+        cpdomains.forEach { cpdomain in
+            let arr = cpdomain.split(separator: " ")
+            guard let cnt = Int(arr[0]) else { return }
+            var curr = ""
+            arr[1].split(separator: ".").reversed().forEach { item in
+                curr = item + curr
+                map[curr, default: 0] += cnt
+                curr = "." + curr
+            }
+        }
+        return map.map { return "\($0.value) \($0.key)" }
+    }
+
+    /// 题目链接：[921. 使括号有效的最少添加](https://leetcode.cn/problems/minimum-add-to-make-parentheses-valid/)
+    func minAddToMakeValid(_ s: String) -> Int {
+        var score = 0, offset = 0
+        s.forEach { char in
+            score += (char == "(" ? 1 : -1)
+            if score < 0 {
+                score = 0
+                offset += 1
+            }
+        }
+        return score + offset
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(reformatNumber("2133"))
+        print(minAddToMakeValid(
+            "())"))
     }
 }
