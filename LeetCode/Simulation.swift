@@ -197,11 +197,30 @@ class Simulation: BaseCode {
         return score + offset
     }
 
+    /// 题目链接：[927. 三等分](https://leetcode.cn/problems/three-equal-parts/)
+    func threeEqualParts(_ arr: [Int]) -> [Int] {
+        let n = arr.count, cnt = arr.reduce(0, +)
+        guard cnt % 3 == 0 else { return [-1, -1] }
+        guard cnt != 0 else { return [0, n - 1] }
+        var i = 0, j = 0, k = 0, currCnt = 0
+        for (index, num) in arr.enumerated() {
+            currCnt += num
+            if currCnt == 1 && num == 1 { i = index }
+            else if currCnt == cnt / 3 + 1 && num == 1 { j = index }
+            else if currCnt == cnt / 3 * 2 + 1 && num == 1 { k = index }
+        }
+        while k < n {
+            if arr[i] != arr[j] || arr[j] != arr[k] { return [-1, -1] }
+            i += 1; j += 1; k += 1
+        }
+        return [i - 1, j]
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(minAddToMakeValid(
-            "())"))
+        print(threeEqualParts(
+            [1,1,0,0,1]))
     }
 }
