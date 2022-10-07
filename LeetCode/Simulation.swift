@@ -216,11 +216,22 @@ class Simulation: BaseCode {
         return [i - 1, j]
     }
 
+    /// 题目链接：[1800. 最大升序子数组和](https://leetcode.cn/problems/maximum-ascending-subarray-sum/)
+    func maxAscendingSum(_ nums: [Int]) -> Int {
+        let n = nums.count
+        var ans = nums[0], curr = nums[0]
+        for i in 1..<n {
+            if nums[i] > nums[i - 1] { curr += nums[i] }
+            else { curr = nums[i] }
+            ans = max(ans, curr)
+        }
+        return ans
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(threeEqualParts(
-            [1,1,0,0,1]))
+        print(maxAscendingSum([10, 1, 100, 100]))
     }
 }
