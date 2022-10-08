@@ -43,4 +43,28 @@ class Greed: BaseCode {
         return Int(String(digits.map({ return Character("\($0)") }).reversed()))!
     }
 
+    /// 题目链接：[870. 优势洗牌](https://leetcode.cn/problems/advantage-shuffle/)
+    func advantageCount(_ nums1: [Int], _ nums2: [Int]) -> [Int] {
+        let n = nums1.count, nums1 = nums1.sorted()
+        let ids = (0..<n).sorted { i, j in return nums2[i] < nums2[j] } // 用下标排序
+        var ans = [Int](repeating: 0, count: n)
+        var left = 0, right = n - 1
+        for num in nums1 {
+            if num > nums2[ids[left]] { // 若下等马能比过
+                ans[ids[left]] = num
+                left += 1
+            } else {
+                ans[ids[right]] = num // 若下等马不能比过
+                right -= 1
+            }
+        }
+        return ans
+    }
+
+    override var excuteable: Bool { return true }
+
+    override func executeTestCode() {
+        super.executeTestCode()
+        print(advantageCount([12, 24, 8, 32], [13, 25, 32, 11]))
+    }
 }
