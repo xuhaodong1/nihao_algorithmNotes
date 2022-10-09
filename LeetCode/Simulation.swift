@@ -242,7 +242,7 @@ class Simulation: BaseCode {
         return stack.removeLast()
     }
 
-    override var excuteable: Bool { return true }
+//    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
