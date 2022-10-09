@@ -228,10 +228,24 @@ class Simulation: BaseCode {
         return ans
     }
 
-//    override var excuteable: Bool { return true }
+    /// 题目链接：[856. 括号的分数](https://leetcode.cn/problems/score-of-parentheses/)
+    func scoreOfParentheses(_ s: String) -> Int {
+        var stack = [0]
+        for char in s {
+            if char == "(" {
+                stack.append(0)
+            } else {
+                let curr = stack.removeLast()
+                stack.append(stack.removeLast() + max(curr * 2, 1))
+            }
+        }
+        return stack.removeLast()
+    }
+
+    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(maxAscendingSum([10, 1, 100, 100]))
+        print(scoreOfParentheses(  "(())"))
     }
 }
