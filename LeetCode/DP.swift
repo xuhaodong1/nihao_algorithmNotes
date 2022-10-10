@@ -27,4 +27,30 @@ class DynamicProgramming: BaseCode {
         }
         return ans
     }
+
+    /// 题目链接：[801. 使序列递增的最小交换次数](https://leetcode.cn/problems/minimum-swaps-to-make-sequences-increasing/)
+    func minSwap(_ nums1: [Int], _ nums2: [Int]) -> Int {
+        let n = nums1.count
+        var dp = [[Int]](repeating: [Int](repeating: n, count: 2), count: n)
+        dp[0][0] = 0
+        dp[0][1] = 1
+        for i in 1..<n {
+            if nums1[i] > nums1[i - 1] && nums2[i] > nums2[i - 1] {
+                dp[i][0] = dp[i - 1][0]
+                dp[i][1] = dp[i - 1][1] + 1
+            }
+            if nums1[i] > nums2[i - 1] && nums2[i] > nums1[i - 1] {
+                dp[i][0] = min(dp[i][0], dp[i - 1][1])
+                dp[i][1] = min(dp[i][1], dp[i - 1][0] + 1)
+            }
+        }
+        return min(dp[n - 1][0], dp[n - 1][1])
+    }
+
+//    override var excuteable: Bool { return true }
+
+    override func executeTestCode() {
+        super.executeTestCode()
+        minSwap([1,3,5,4], [1,2,3,7])
+    }
 }
