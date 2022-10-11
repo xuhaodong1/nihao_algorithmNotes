@@ -257,7 +257,7 @@ class Simulation: BaseCode {
         return chars1 == chars2
     }
 
-    override var excuteable: Bool { return true }
+//    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
