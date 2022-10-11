@@ -242,10 +242,25 @@ class Simulation: BaseCode {
         return stack.removeLast()
     }
 
-//    override var excuteable: Bool { return true }
+    /// 题目链接：[1790. 仅执行一次字符串交换能否使两个字符串相等](https://leetcode.cn/problems/check-if-one-string-swap-can-make-strings-equal/)
+    func areAlmostEqual(_ s1: String, _ s2: String) -> Bool {
+        let n = s1.count
+        var chars1 = [Character](s1), chars2 = [Character](s2)
+        var diff = [Int]()
+        for i in 0..<n where chars1[i] != chars2[i] {
+            diff.append(i)
+            if diff.count > 2 { return false }
+        }
+        if diff.count == 0 { return true }
+        if diff.count != 2 { return false }
+        chars1.swapAt(diff[0], diff[1])
+        return chars1 == chars2
+    }
+
+    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(scoreOfParentheses(  "(())"))
+        print(areAlmostEqual("kelb", "kelb"))
     }
 }
