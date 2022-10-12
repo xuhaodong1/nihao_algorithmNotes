@@ -257,10 +257,28 @@ class Simulation: BaseCode {
         return chars1 == chars2
     }
 
+    /// 题目链接：[817. 链表组件](https://leetcode.cn/problems/linked-list-components/)
+    func numComponents(_ head: ListNode?, _ nums: [Int]) -> Int {
+        let set = Set<Int>(nums)
+        var ans = 0, head = head
+        while head != nil {
+            if set.contains(head!.val) {
+                ans += 1
+                while head != nil && set.contains(head!.val) {
+                    head = head?.next
+                }
+            } else {
+                head = head?.next
+            }
+        }
+        return ans
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(areAlmostEqual("kelb", "kelb"))
+        let node = ListNode(1, ListNode(2))
+        print(numComponents(node, []))
     }
 }
