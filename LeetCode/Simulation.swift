@@ -274,11 +274,21 @@ class Simulation: BaseCode {
         return ans
     }
 
+    /// 题目链接：[769. 最多能完成排序的块](https://leetcode.cn/problems/max-chunks-to-make-sorted/)
+    func maxChunksToSorted(_ arr: [Int]) -> Int {
+        let n = arr.count
+        var ma = 0, ans = 0
+        for (i, num) in arr.enumerated() {
+            ma = max(num, ma)
+            if ma == i { ans += 1 }
+        }
+        return ans
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        let node = ListNode(1, ListNode(2))
-        print(numComponents(node, []))
+        print(maxChunksToSorted([4,3,2,1,0]))
     }
 }
