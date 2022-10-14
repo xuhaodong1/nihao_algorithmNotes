@@ -47,10 +47,24 @@ class DynamicProgramming: BaseCode {
         return min(dp[n - 1][0], dp[n - 1][1])
     }
 
+    /// 题目链接：[940. 不同的子序列 II](https://leetcode.cn/problems/distinct-subsequences-ii/)
+    func distinctSubseqII(_ s: String) -> Int {
+        let MOD = Int(1e9 + 7)
+        let n = s.count, charA = Character("a").asciiValue!, chars = [Character](s)
+        var dp = [Int](repeating: 0, count: 26), total = 0
+        for i in 0..<n {
+            let index = Int(chars[i].asciiValue! - charA)
+            let others = total - dp[index]
+            dp[index] = 1 + total
+            total = ((dp[index] + others) % MOD + MOD) % MOD
+        }
+        return dp.reduce(0, +) % MOD
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        minSwap([1,3,5,4], [1,2,3,7])
+        print(distinctSubseqII("abc"))
     }
 }
