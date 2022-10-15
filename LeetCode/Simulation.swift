@@ -285,10 +285,28 @@ class Simulation: BaseCode {
         return ans
     }
 
+    /// 题目链接：[1441. 用栈操作构建数组](https://leetcode.cn/problems/build-an-array-with-stack-operations/)
+    func buildArray(_ target: [Int], _ n: Int) -> [String] {
+        var ans = [String]()
+        var curr = 1
+        for num in target {
+            while curr < num {
+                ans.append("Push")
+                ans.append("Pop")
+                curr += 1
+            }
+            if curr == num {
+                ans.append("Push")
+                curr += 1
+            }
+        }
+        return ans
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(maxChunksToSorted([4,3,2,1,0]))
+        print(buildArray([1,2], 4))
     }
 }
