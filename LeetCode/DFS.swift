@@ -113,12 +113,41 @@ class DeepFirstSearch: BaseCode {
         return ans
     }
 
+    /// 题目链接：[886. 可能的二分法](https://leetcode.cn/problems/possible-bipartition/)
+    /// 染色法
+    func possibleBipartition(_ n: Int, _ dislikes: [[Int]]) -> Bool {
+        var colors = [Int](repeating: 0, count: n + 1)
+        var g = [[Int]](repeating: [Int](), count: n + 1)
+        for dislike in dislikes {
+            g[dislike[0]].append(dislike[1])
+            g[dislike[1]].append(dislike[0])
+        }
+        for i in 1...n {
+            if colors[i] == 0 && !dfs(i, 1) {
+                return false
+            }
+        }
+        func dfs(_ currNode: Int, _ newColor: Int) -> Bool {
+            colors[currNode] = newColor
+            for nextNode in g[currNode] {
+                if colors[nextNode] != 0 && colors[nextNode] == colors[currNode] {
+                    return false
+                }
+                if colors[nextNode] == 0 && !dfs(nextNode, 3 ^ newColor) {
+                    return false
+                }
+            }
+            return true
+        }
+        return true
+    }
+
 //    override var excuteable: Bool {
 //        return true
 //    }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(kSimilarity("abc", "bca"))
+        print(possibleBipartition(5, [[1,2],[2,3],[3,4],[4,5],[1,5]]))
     }
 }
