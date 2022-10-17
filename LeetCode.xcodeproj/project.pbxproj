@@ -76,6 +76,7 @@
 		69E6340F28DF1C6400FB346E /* PrefixSum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrefixSum.swift; sourceTree = "<group>"; };
 		69EB99AC28A254E600DE5B98 /* Solution_ExtensionTwo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Solution_ExtensionTwo.swift; sourceTree = "<group>"; };
 		69F25D0C28FD800100BE2464 /* SlidingWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidingWindow.swift; sourceTree = "<group>"; };
+		69F25D0E28FD838100BE2464 /* 滑动窗口.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "滑动窗口.md"; sourceTree = "<group>"; };
 		F006CC0A28E49AE600F443BA /* Sort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sort.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -137,6 +138,7 @@
 		69D564F728C098D50035FBE0 /* Notes */ = {
 			isa = PBXGroup;
 			children = (
+				69F25D0E28FD838100BE2464 /* 滑动窗口.md */,
 				69ACC96A28E53415002A7058 /* 排序.md */,
 				69ACC96B28E53415002A7058 /* 脑筋急转弯.md */,
 				69ACC96928E14506002A7058 /* 位运算.md */,
