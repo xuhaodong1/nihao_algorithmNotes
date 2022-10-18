@@ -66,6 +66,9 @@ class DynamicProgramming: BaseCode {
     func atMostNGivenDigitSet(_ digits: [String], _ n: Int) -> Int {
         let digits = digits.map { Character($0) }, s = [Character]("\(n)")
         var dp = [Int](repeating: -1, count: s.count)
+        /// i: 当前的位数
+        /// isLimit: 当前是否收到了 n 的约束
+        /// isNum: i 前面的数位是否填了数字
         func dfs(i: Int, isLimit: Bool, isNum: Bool) -> Int {
             if i == s.count { return isNum ? 1 : 0 }
             if !isLimit && isNum && dp[i] >= 0 { return dp[i] }
