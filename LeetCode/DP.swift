@@ -60,11 +60,35 @@ class DynamicProgramming: BaseCode {
         }
         return dp.reduce(0, +) % MOD
     }
+    
+    /// 题目链接：[902. 最大为 N 的数字组合](https://leetcode.cn/problems/numbers-at-most-n-given-digit-set/)
+    func atMostNGivenDigitSet(_ digits: [String], _ n: Int) -> Int {
+        let digits = digits.map { Character($0) }
+        let s = [Character]("\(n)")
+        var ans = 0
+        for i in 1..<s.count {
+            ans += Int(pow(Double(digits.count), Double(i))) // 先对【非最高位】的其他位，可组装的数字进行统计
+        }
+        for i in 0..<s.count {
+            var compareNext = false // 是否需要对比下一个数字
+            for digit in digits {
+                if digit < s[i] {
+                    ans += Int(pow(Double(digits.count), Double(s.count - i - 1)))
+                } else {
+                    if digit == s[i] { compareNext = true }
+                    break
+                }
+            }
+            if !compareNext { return ans }
+        }
+        return ans + 1 // 如果到最后1位依然满足compareNext，因为最后1位无法再向后对比了，所以最终结果+1
+    }
 
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(distinctSubseqII("abc"))
+        print(atMostNGivenDigitSet(["1","4","9"],
+                                   1000000000))
     }
 }
