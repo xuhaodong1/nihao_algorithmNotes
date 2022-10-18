@@ -62,29 +62,27 @@ class DynamicProgramming: BaseCode {
     }
     
     /// 题目链接：[902. 最大为 N 的数字组合](https://leetcode.cn/problems/numbers-at-most-n-given-digit-set/)
+    /// 参考 https://leetcode.cn/problems/numbers-at-most-n-given-digit-set/solution/shu-wei-dp-tong-yong-mo-ban-xiang-xi-zhu-e5dg/
     func atMostNGivenDigitSet(_ digits: [String], _ n: Int) -> Int {
-        let digits = digits.map { Character($0) }
-        let s = [Character]("\(n)")
-        var ans = 0
-        for i in 1..<s.count {
-            ans += Int(pow(Double(digits.count), Double(i))) // 先对【非最高位】的其他位，可组装的数字进行统计
-        }
-        for i in 0..<s.count {
-            var compareNext = false // 是否需要对比下一个数字
+        let digits = digits.map { Character($0) }, s = [Character]("\(n)")
+        var dp = [Int](repeating: -1, count: s.count)
+        func dfs(i: Int, isLimit: Bool, isNum: Bool) -> Int {
+            if i == s.count { return isNum ? 1 : 0 }
+            if !isLimit && isNum && dp[i] >= 0 { return dp[i] }
+            var res = 0
+            if !isNum { res = dfs(i: i + 1, isLimit: false, isNum: false) }
+            let up = isLimit ? s[i] : "9"
             for digit in digits {
-                if digit < s[i] {
-                    ans += Int(pow(Double(digits.count), Double(s.count - i - 1)))
-                } else {
-                    if digit == s[i] { compareNext = true }
-                    break
-                }
+                if digit > up { break }
+                res += dfs(i: i + 1, isLimit: isLimit && digit == up, isNum: true)
             }
-            if !compareNext { return ans }
+            if !isLimit && isNum { dp[i] = res }
+            return res
         }
-        return ans + 1 // 如果到最后1位依然满足compareNext，因为最后1位无法再向后对比了，所以最终结果+1
+        return dfs(i: 0, isLimit: true, isNum: false)
     }
 
-//    override var excuteable: Bool { return true }
+    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
