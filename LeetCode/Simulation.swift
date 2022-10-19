@@ -303,6 +303,24 @@ class Simulation: BaseCode {
         return ans
     }
 
+
+    /// 题目链接：[1700. 无法吃午餐的学生数量](https://leetcode.cn/problems/number-of-students-unable-to-eat-lunch/)
+    func countStudents(_ students: [Int], _ sandwiches: [Int]) -> Int {
+        var circleCnt = 0, squareCnt = 0
+        var currIndex = 0
+        students.forEach { curr in
+            if curr == 0 { circleCnt += 1 }
+            else { squareCnt += 1 }
+        }
+        for sandwich in sandwiches {
+            if (sandwich == 0 && circleCnt == 0) || (sandwich == 1 && squareCnt == 0) { break }
+            else if sandwich == 0 { circleCnt -= 1 }
+            else { squareCnt -= 1 }
+            currIndex += 1
+        }
+        return sandwiches.count - currIndex
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
