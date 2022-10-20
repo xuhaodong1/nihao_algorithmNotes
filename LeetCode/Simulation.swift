@@ -321,10 +321,17 @@ class Simulation: BaseCode {
         return sandwiches.count - currIndex
     }
 
+    /// 题目链接：[779. 第K个语法符号](https://leetcode.cn/problems/k-th-symbol-in-grammar/)
+    func kthGrammar(_ n: Int, _ k: Int) -> Int {
+        if k == 1 { return 0 }
+        if k > 1 << (n - 2) { return 1 ^ kthGrammar(n - 1, k - 1 << (n - 2))}
+        else { return kthGrammar(n - 1, k) }
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(buildArray([1,2], 4))
+//        print(kthGrammar(2, 2))
     }
 }
