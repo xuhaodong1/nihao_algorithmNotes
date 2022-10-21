@@ -8,6 +8,22 @@
 import Foundation
 
 /// 单调栈相关练习题
+
+/// 题目链接：[901. 股票价格跨度](https://leetcode.cn/problems/online-stock-span/)
+class StockSpanner {
+    var stack = [(Int, Int)]()
+    init() {}
+
+    func next(_ price: Int) -> Int {
+        var cnt = 1
+        while !stack.isEmpty && price >= stack.last!.0  {
+            cnt += stack.removeLast().1
+        }
+        stack.append((price, cnt))
+        return cnt
+    }
+}
+
 class MonotoneStack: BaseCode {
 
     /// 题目链接：[1475. 商品折扣后的最终价格](https://leetcode.cn/problems/final-prices-with-a-special-discount-in-a-shop/)
