@@ -84,12 +84,43 @@ class DynamicProgramming: BaseCode {
         }
         return dfs(i: 0, isLimit: true, isNum: false)
     }
+    
+    /// 题目链接：[1235. 规划兼职工作](https://leetcode.cn/problems/maximum-profit-in-job-scheduling/)
+    func jobScheduling(_ startTime: [Int], _ endTime: [Int], _ profit: [Int]) -> Int {
+        let n = startTime.count
+        var jobs = [(Int, Int, Int)]()
+        for i in 0..<n {
+            jobs.append((startTime[i], endTime[i], profit[i]))
+        }
+        jobs.sort { $0.1 < $1.1 }
+        var dp = [Int](repeating: 0, count: n + 1)
+        for i in 1...n {
+            let j = binarySearch(i - 2, jobs[i - 1].0)
+            dp[i] = max(dp[i - 1], jobs[i - 1].2)
+            if jobs[j].1 <= jobs[i - 1].0 {
+                dp[i] = max(dp[i - 1], dp[j + 1] + jobs[i - 1].2)
+            }
+        }
+        // 返回 endTime <= upper 的最大下标
+        func binarySearch(_ right: Int, _ upper: Int) -> Int {
+            var left = 0, right = right
+            while left < right {
+                let mid = (left + right + 1) / 2
+                if jobs[mid].1 <= upper {
+                    left = mid
+                } else {
+                    right = mid - 1
+                }
+            }
+            return left
+        }
+        return dp[n]
+    }
 
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(atMostNGivenDigitSet(["1","4","9"],
-                                   1000000000))
+        print(jobScheduling([1,1,1], [2,3,4], [5,6,4]))
     }
 }
