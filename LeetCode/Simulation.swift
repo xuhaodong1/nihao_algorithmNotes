@@ -276,7 +276,6 @@ class Simulation: BaseCode {
 
     /// 题目链接：[769. 最多能完成排序的块](https://leetcode.cn/problems/max-chunks-to-make-sorted/)
     func maxChunksToSorted(_ arr: [Int]) -> Int {
-        let n = arr.count
         var ma = 0, ans = 0
         for (i, num) in arr.enumerated() {
             ma = max(num, ma)
@@ -327,11 +326,24 @@ class Simulation: BaseCode {
         if k > 1 << (n - 2) { return 1 ^ kthGrammar(n - 1, k - 1 << (n - 2))}
         else { return kthGrammar(n - 1, k) }
     }
+    
+    /// 题目链接：[1768. 交替合并字符串](https://leetcode.cn/problems/merge-strings-alternately/)
+    func mergeAlternately(_ word1: String, _ word2: String) -> String {
+        let n = word1.count, m = word2.count
+        let word1 = [Character](word1), word2 = [Character](word2)
+        var ans = [Character]()
+        for i in 0..<min(n, m) {
+            ans.append(contentsOf: [word1[i], word2[i]])
+        }
+        if n > m { ans.append(contentsOf: word1[m..<n]) }
+        else if m > n { ans.append(contentsOf: word2[n..<m]) }
+        return String(ans)
+    }
 
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-//        print(kthGrammar(2, 2))
+        print(mergeAlternately("abcd", "qwercddefg"))
     }
 }
