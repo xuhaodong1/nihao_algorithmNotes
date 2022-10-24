@@ -340,6 +340,22 @@ class Simulation: BaseCode {
         return String(ans)
     }
 
+    /// 题目链接：[915. 分割数组](https://leetcode.cn/problems/partition-array-into-disjoint-intervals/)
+    func partitionDisjoint(_ nums: [Int]) -> Int {
+        let n = nums.count
+        var minArr = [Int](repeating: 0, count: n)
+        minArr[n - 1] = nums[n - 1]
+        for i in (0...n-2).reversed() {
+            minArr[i] = min(minArr[i + 1], nums[i])
+        }
+        var maxV = 0
+        for i in 0...n-2 {
+            maxV = max(maxV, nums[i])
+            if maxV <= minArr[i + 1] { return i + 1 }
+        }
+        return -1
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
