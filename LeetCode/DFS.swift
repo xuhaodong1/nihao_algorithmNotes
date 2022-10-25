@@ -142,12 +142,9 @@ class DeepFirstSearch: BaseCode {
         return true
     }
 
-//    override var excuteable: Bool {
-//        return true
-//    }
+//    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(possibleBipartition(5, [[1,2],[2,3],[3,4],[4,5],[1,5]]))
     }
 }
