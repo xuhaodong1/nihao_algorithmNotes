@@ -356,6 +356,16 @@ class Simulation: BaseCode {
         return -1
     }
 
+    /// 题目链接：[1822. 数组元素积的符号](https://leetcode.cn/problems/sign-of-the-product-of-an-array/)
+    func arraySign(_ nums: [Int]) -> Int {
+        var negativeCnt = 0
+        for num in nums {
+            if num == 0 { return 0 }
+            if num < 0 { negativeCnt += 1 }
+        }
+        return negativeCnt & 1 == 0 ? 1 : -1
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
