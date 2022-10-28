@@ -48,16 +48,14 @@ class MonotoneStack: BaseCode {
         var ans = 0
         for i in 0..<n {
             while !stack.isEmpty && arr[i] <= arr[stack.last!] {
-                let lastIndex = stack.removeLast()
-                left[lastIndex] = i
+                left[stack.removeLast()] = i
             }
             stack.append(i)
         }
         stack.removeAll()
         for i in (0..<n).reversed() {
             while !stack.isEmpty && arr[i] < arr[stack.last!] {
-                let lastIndex = stack.removeLast()
-                right[lastIndex] = i
+                right[stack.removeLast()] = i
             }
             stack.append(i)
         }
