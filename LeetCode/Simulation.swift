@@ -339,6 +339,17 @@ class Simulation: BaseCode {
         else if m > n { ans.append(contentsOf: word2[n..<m]) }
         return String(ans)
     }
+    
+    /// 题目链接：[1773. 统计匹配检索规则的物品数量](https://leetcode.cn/problems/count-items-matching-a-rule/)
+    func countMatches(_ items: [[String]], _ ruleKey: String, _ ruleValue: String) -> Int {
+        var cnt = 0
+        for item in items {
+            if ruleKey == "type" && item[0] == ruleValue { cnt += 1 }
+            else if ruleKey == "color" && item[1] == ruleValue { cnt += 1 }
+            else if ruleKey == "name" && item[2] == ruleValue { cnt += 1 }
+        }
+        return cnt
+    }
 
     /// 题目链接：[915. 分割数组](https://leetcode.cn/problems/partition-array-into-disjoint-intervals/)
     func partitionDisjoint(_ nums: [Int]) -> Int {
