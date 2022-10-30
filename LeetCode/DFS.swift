@@ -141,10 +141,31 @@ class DeepFirstSearch: BaseCode {
         }
         return true
     }
+    
+    /// 题目链接：[784. 字母大小写全排列](https://leetcode.cn/problems/letter-case-permutation/)
+    func letterCasePermutation(_ s: String) -> [String] {
+        let chars: [Character] = [Character](s), n = s.count
+        var ans = [[Character]]()
+        func dfs(_ chars: [Character], curr: Int) {
+            guard curr <= n else { return }
+            var chars = chars, hasNext = false
+            for i in curr..<n where chars[i].isLetter {
+                dfs(chars, curr: i + 1)
+                chars[i] = chars[i].isLowercase ? Character(chars[i].uppercased()) : Character(chars[i].lowercased())
+                dfs(chars, curr: i + 1)
+                hasNext = true
+                break
+            }
+            if !hasNext { ans.append(chars) }
+        }
+        dfs(chars, curr: 0)
+        return ans.map { String($0) }
+    }
 
-//    override var excuteable: Bool { return true }
+    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
+        print(letterCasePermutation("c"))
     }
 }
