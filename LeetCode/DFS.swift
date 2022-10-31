@@ -162,7 +162,7 @@ class DeepFirstSearch: BaseCode {
         return ans.map { String($0) }
     }
 
-    override var excuteable: Bool { return true }
+//    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
