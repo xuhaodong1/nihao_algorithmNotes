@@ -377,9 +377,15 @@ class Simulation: BaseCode {
         return negativeCnt & 1 == 0 ? 1 : -1
     }
 
+    /// 题目链接：[1662. 检查两个字符串数组是否相等](https://leetcode.cn/problems/check-if-two-string-arrays-are-equivalent/)
+    func arrayStringsAreEqual(_ word1: [String], _ word2: [String]) -> Bool {
+        return word1.reduce("", +) == word2.reduce("", +)
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
+        print(arrayStringsAreEqual(["ab", "c"], ["a", "bc"]))
     }
 }
