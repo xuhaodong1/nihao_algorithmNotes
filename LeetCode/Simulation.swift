@@ -382,10 +382,44 @@ class Simulation: BaseCode {
         return word1.reduce("", +) == word2.reduce("", +)
     }
 
+    /// 题目链接：[1620. 网络信号最好的坐标](https://leetcode.cn/problems/coordinate-with-maximum-network-quality/)
+    func bestCoordinate(_ towers: [[Int]], _ radius: Int) -> [Int] {
+        var minX = 50, minY = 50, maxX = 0, maxY = 0
+        for tower in towers {
+            minX = min(tower[0], minX)
+            minY = min(tower[1], minY)
+            maxX = max(tower[0], maxX)
+            maxY = max(tower[1], maxY)
+        }
+        var point = [0, 0], maxS = 0.0
+        for x in minX...maxX {
+            for y in minY...maxY {
+                var curr = 0.0
+                for tower in towers {
+                    let d = getSignalStrength(tower: (tower[0], tower[1]), point: (x, y))
+                    if d <= radius * radius {
+                        let s = floor(Double(tower[2]) / (1 + sqrt(Double(d))))
+                        curr += s
+                    }
+                }
+                if curr > maxS {
+                    maxS = curr
+                    point = [x, y]
+                }
+            }
+        }
+        func getSignalStrength(tower: (Int, Int), point: (Int, Int)) -> Int {
+            return (tower.0 - point.0) * (tower.0 - point.0) + (tower.1 - point.1) * (tower.1 - point.1)
+        }
+        return point
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(arrayStringsAreEqual(["ab", "c"], ["a", "bc"]))
+        print(bestCoordinate(
+            [[31,13,33],[24,45,38],[28,32,23],[7,23,22],[41,50,33],[47,21,3],[3,33,39],[11,38,5],[26,20,28],[48,39,16],[34,29,25]],
+            21))
     }
 }
