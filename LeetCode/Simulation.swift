@@ -418,8 +418,6 @@ class Simulation: BaseCode {
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(bestCoordinate(
-            [[31,13,33],[24,45,38],[28,32,23],[7,23,22],[41,50,33],[47,21,3],[3,33,39],[11,38,5],[26,20,28],[48,39,16],[34,29,25]],
-            21))
+//        print(maxRepeating("ababc", "ab"))
     }
 }

@@ -117,6 +117,23 @@ class DynamicProgramming: BaseCode {
         return dp[n]
     }
 
+    /// 题目链接：[1668. 最大重复子字符串](https://leetcode.cn/problems/maximum-repeating-substring/description/)
+    func maxRepeating(_ sequence: String, _ word: String) -> Int {
+        let n = sequence.count, m = word.count
+        if n < m { return 0 }
+        let sChars = [Character](sequence), wChars = [Character](word)
+        var dp = [Int](repeating: 0, count: n)
+        for i in m-1..<n {
+            var vaild = true
+            for j in 0..<m where sChars[i - (m - 1) + j] != wChars[j] {
+                vaild = false
+                break
+            }
+            if vaild { dp[i] = (i == m - 1 ? 0 : dp[i - m]) + 1 }
+        }
+        return dp.max()!
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
