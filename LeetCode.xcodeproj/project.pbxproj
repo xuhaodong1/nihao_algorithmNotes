@@ -45,6 +45,9 @@
 
 /* Begin PBXFileReference section */
 		690B4FF92917DE78004C5FBE /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
+		690B4FFB2917DF54004C5FBE /* 数学分析.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "数学分析.md"; sourceTree = "<group>"; };
+		690B4FFC2917DF54004C5FBE /* 栈.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "栈.md"; sourceTree = "<group>"; };
+		690B4FFD2917DF54004C5FBE /* 双指针.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "双指针.md"; sourceTree = "<group>"; };
 		6919E22928C990EF00539C19 /* Construction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Construction.swift; sourceTree = "<group>"; };
 		6919E22E28CAD62F00539C19 /* 构造.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "构造.md"; sourceTree = "<group>"; };
 		6919E22F28CAD62F00539C19 /* 字符串.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "字符串.md"; sourceTree = "<group>"; };
@@ -150,6 +153,9 @@
 		69D564F728C098D50035FBE0 /* Notes */ = {
 			isa = PBXGroup;
 			children = (
+				690B4FFD2917DF54004C5FBE /* 双指针.md */,
+				690B4FFB2917DF54004C5FBE /* 数学分析.md */,
+				690B4FFC2917DF54004C5FBE /* 栈.md */,
 				69F25D0E28FD838100BE2464 /* 滑动窗口.md */,
 				69ACC96A28E53415002A7058 /* 排序.md */,
 				69ACC96B28E53415002A7058 /* 脑筋急转弯.md */,
