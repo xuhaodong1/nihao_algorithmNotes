@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		690B4FFA2917DE78004C5FBE /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690B4FF92917DE78004C5FBE /* Stack.swift */; };
 		6919E22A28C990EF00539C19 /* Construction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6919E22928C990EF00539C19 /* Construction.swift */; };
 		6919E23428CF452F00539C19 /* Dichotomy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6919E23328CF452F00539C19 /* Dichotomy.swift */; };
 		691D9EA02914A13900E735F6 /* MathAnalysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691D9E9F2914A13900E735F6 /* MathAnalysis.swift */; };
@@ -43,6 +44,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		690B4FF92917DE78004C5FBE /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		6919E22928C990EF00539C19 /* Construction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Construction.swift; sourceTree = "<group>"; };
 		6919E22E28CAD62F00539C19 /* 构造.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "构造.md"; sourceTree = "<group>"; };
 		6919E22F28CAD62F00539C19 /* 字符串.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "字符串.md"; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				691D9E9F2914A13900E735F6 /* MathAnalysis.swift */,
 				69D5652028C380100035FBE0 /* Greed.swift */,
 				69D5652228C4532A0035FBE0 /* Simulation.swift */,
+				690B4FF92917DE78004C5FBE /* Stack.swift */,
 				69ACC96728E1371C002A7058 /* BitOperation.swift */,
 				6919E23328CF452F00539C19 /* Dichotomy.swift */,
 				69B6E50028C6DA1C00245599 /* StringType.swift */,
@@ -242,6 +245,7 @@
 				69E6341028DF1C6400FB346E /* PrefixSum.swift in Sources */,
 				69B6E50128C6DA1C00245599 /* StringType.swift in Sources */,
 				69D5651F28C373910035FBE0 /* DP.swift in Sources */,
+				690B4FFA2917DE78004C5FBE /* Stack.swift in Sources */,
 				69F25D0D28FD800100BE2464 /* SlidingWindow.swift in Sources */,
 				69ACC96828E1371C002A7058 /* BitOperation.swift in Sources */,
 				6919E22A28C990EF00539C19 /* Construction.swift in Sources */,

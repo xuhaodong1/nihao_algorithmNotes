@@ -414,10 +414,28 @@ class Simulation: BaseCode {
         return point
     }
 
+    /// 题目链接：[1678. 设计 Goal 解析器](https://leetcode.cn/problems/goal-parser-interpretation/description/)
+    func interpret(_ command: String) -> String {
+        let n = command.count, chars = [Character](command)
+        var i = 0, ans = [String]()
+        while i < n {
+            if chars[i] == "G" {
+                ans.append("G")
+                i += 1
+            } else if i + 1 < n && chars[i + 1] == ")" {
+                ans.append("o")
+                i += 2
+            } else {
+                ans.append("al")
+                i += 4
+            }
+        }
+        return ans.reduce("", +)
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-//        print(maxRepeating("ababc", "ab"))
     }
 }
