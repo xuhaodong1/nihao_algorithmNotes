@@ -433,9 +433,38 @@ class Simulation: BaseCode {
         return ans.reduce("", +)
     }
 
+    /// 题目链接：[816. 模糊坐标](https://leetcode.cn/problems/ambiguous-coordinates/description/)
+    func ambiguousCoordinates(_ s: String) -> [String] {
+        let chars = [Character](s.filter{ $0 != "(" && $0 != ")" }), n = chars.count
+        var ans = [String]()
+        for i in 0..<n-1 {
+            let pre = getVaildStr(0, end: i), suf = getVaildStr(i + 1 , end: n - 1)
+            for item1 in pre {
+                for item2 in suf {
+                    ans.append("(\(item1), \(item2))")
+                }
+            }
+        }
+        func getVaildStr(_ start: Int, end: Int) -> [String] {
+            if start == end { return ["\(chars[start])"] }
+            var ans = [String]()
+            let str = (start...end).reduce("") { $0 + "\(chars[$1])" }
+            if str.first! != "0" { ans.append(str) }
+            if str.last! == "0" { return ans }
+            for i in 1..<str.count {
+                let curr = "\(str.prefix(i)).\(str.suffix(str.count - i))"
+                if i > 1 && curr.first! == "0" { break }
+                ans.append(curr)
+            }
+            return ans
+        }
+        return ans
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
+        print(ambiguousCoordinates("(0000001)"))
     }
 }
