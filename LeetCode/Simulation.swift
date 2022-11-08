@@ -461,10 +461,16 @@ class Simulation: BaseCode {
         return ans
     }
 
+    /// 题目链接：[1684. 统计一致字符串的数目](https://leetcode.cn/problems/count-the-number-of-consistent-strings/)
+    func countConsistentStrings(_ allowed: String, _ words: [String]) -> Int {
+        let set = Set<Character>(allowed), n = words.count
+        return n - words.filter { $0.filter { !set.contains($0) }.count > 0 }.count
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(ambiguousCoordinates("(0000001)"))
+        print(countConsistentStrings("ab", ["ad","bd","aaab","baa","badab"]))
     }
 }
