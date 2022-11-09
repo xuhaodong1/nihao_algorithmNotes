@@ -25,6 +25,28 @@ class PrefixSum: BaseCode {
         return ans
     }
 
+    /// 题目链接：[764. 最大加号标志](https://leetcode.cn/problems/largest-plus-sign/description/)
+    func orderOfLargestPlusSign(_ n: Int, _ mines: [[Int]]) -> Int {
+        let set = Set<[Int]>(mines)
+        var ans = 0
+        var arr = [[[Int]]](repeating: [[Int]](repeating: [Int](repeating: 0, count: 4), count: n + 2), count: n + 2)
+        for i in 1...n {
+            for j in 1...n {
+                if !set.contains([i - 1, j - 1]) {
+                    arr[i][j][0] = arr[i - 1][j][0] + 1
+                    arr[i][j][1] = arr[i][j - 1][1] + 1
+                }
+                let i2 = n + 1 - i, j2 = n + 1 - j
+                if !set.contains([i2 - 1, j2 - 1]) {
+                    arr[i2][j2][2] = arr[i2 + 1][j2][2] + 1
+                    arr[i2][j2][3] = arr[i2][j2 + 1][3] + 1
+                }
+            }
+        }
+        (1...n).forEach { i in (1...n).forEach { j in ans = max(ans, arr[i][j].min()!) } }
+        return ans
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
