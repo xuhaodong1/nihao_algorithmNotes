@@ -51,4 +51,50 @@ class BFS: BaseCode {
         }
         return ans
     }
+
+    /// 题目链接：[864. 获取所有钥匙的最短路径](https://leetcode.cn/problems/shortest-path-to-get-all-keys/description/)
+    /// BFS + 状态压缩
+    func shortestPathAllKeys(_ grid: [String]) -> Int {
+        let grid = grid.map{ [Character]($0) }
+        let n = grid.count, m = grid[0].count, INF = 0x3f3f3f3f
+        let dirs = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+        var queue = [(Int, Int, Int)]()
+        // dist[x][y][state] 表示 在 x,y 坐标下的 state 状态下所需要的步数
+        var dist = [[[Int]]](repeating: [[Int]](repeating: [Int](repeating: INF, count: 1 << 6), count: m), count: n)
+        var cnt = 0
+        for i in 0..<n {
+            for j in 0..<m {
+                let c = grid[i][j]
+                if c == "@" {
+                    dist[i][j][0] = 0
+                    queue.append((i, j, 0))
+                } else if c >= "a" && c <= "z" { cnt += 1 }
+            }
+        }
+        while !queue.isEmpty {
+            let info = queue.removeFirst()
+            let x = info.0, y = info.1, cur = info.2, step = dist[x][y][cur]
+            for dir in dirs {
+                let nx = x + dir[0], ny = y + dir[1]
+                if nx < 0 || ny < 0 || nx >= n || ny >= m { continue }
+                let c = grid[nx][ny]
+                if c == "#" { continue } // 墙
+                else if c >= "A" && c <= "Z" && (cur >> Int(c.asciiValue! - Character("A").asciiValue!)) & 1 == 0 { continue } // 没有钥匙
+                var ncur = cur
+                if c >= "a" && c <= "z" { ncur |= (1 << Int(c.asciiValue! - Character("a").asciiValue!)) } // 挂上钥匙
+                if ncur == ((1 << cnt) - 1) { return step + 1 } // 满足所有钥匙
+                if step + 1 >= dist[nx][ny][ncur] { continue } // 当前状态下步数比之前来过的大
+                dist[nx][ny][ncur] = step + 1
+                queue.append((nx, ny, ncur))
+            }
+        }
+        return -1
+    }
+
+//    override var excuteable: Bool { return true }
+
+    override func executeTestCode() {
+        super.executeTestCode()
+        print(shortestPathAllKeys(["@.a..","###.#","b.A.B"]))
+    }
 }
