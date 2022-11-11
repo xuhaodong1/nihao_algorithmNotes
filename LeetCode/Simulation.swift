@@ -467,10 +467,18 @@ class Simulation: BaseCode {
         return n - words.filter { $0.filter { !set.contains($0) }.count > 0 }.count
     }
 
+    /// 题目链接：[1704. 判断字符串的两半是否相似](https://leetcode.cn/problems/determine-if-string-halves-are-alike/description/)
+    func halvesAreAlike(_ s: String) -> Bool {
+        let halfLength = s.count / 2
+        let vowels: [Character] = ["a", "e", "i", "o", "u", "A", "E", "I", "O", "U"]
+        func handleChar(_ ans: Int, _ char: Character) -> Int { return vowels.contains(char) ? ans + 1 : ans }
+        return s.prefix(halfLength).reduce(0, handleChar(_:_:)) == s.suffix(halfLength).reduce(0, handleChar(_:_:))
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(countConsistentStrings("ab", ["ad","bd","aaab","baa","badab"]))
+        print(halvesAreAlike("Uo"))
     }
 }
