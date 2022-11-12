@@ -134,6 +134,21 @@ class DynamicProgramming: BaseCode {
         return dp.max()!
     }
 
+    /// 题目链接：[790. 多米诺和托米诺平铺](https://leetcode.cn/problems/domino-and-tromino-tiling/description/)
+    func numTilings(_ n: Int) -> Int {
+        let MOD = Int(1e9 + 7)
+        var dp = [[Int]](repeating: [Int](repeating: 0, count: 4), count: n + 1)
+        dp[0][3] = 1
+        for i in 1...n {
+            let pre = i - 1
+            dp[i][0] = dp[pre][3]
+            dp[i][1] = (dp[pre][0] + dp[pre][2]) % MOD
+            dp[i][2] = (dp[pre][0] + dp[pre][1]) % MOD
+            dp[i][3] = dp[pre].reduce(0, +) % MOD
+        }
+        return dp[n][3]
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
