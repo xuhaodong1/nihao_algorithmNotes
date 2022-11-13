@@ -475,6 +475,16 @@ class Simulation: BaseCode {
         return s.prefix(halfLength).reduce(0, handleChar(_:_:)) == s.suffix(halfLength).reduce(0, handleChar(_:_:))
     }
 
+    /// 题目链接：[791. 自定义字符串排序](https://leetcode.cn/problems/custom-sort-string/description/)
+    func customSortString(_ order: String, _ s: String) -> String {
+        var map = [Character: Int](), index = order.startIndex
+        (1...order.count).reversed().forEach { weight in
+            map[order[index]] = weight
+            index = order.index(after: index)
+        }
+        return String(s.sorted(by: { return map[$0, default: 0] > map[$1, default: 0] }))
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
