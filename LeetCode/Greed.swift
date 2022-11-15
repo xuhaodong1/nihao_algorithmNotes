@@ -61,6 +61,15 @@ class Greed: BaseCode {
         return ans
     }
 
+    /// 题目链接：[1710. 卡车上的最大单元数](https://leetcode.cn/problems/maximum-units-on-a-truck/description/)
+    func maximumUnits(_ boxTypes: [[Int]], _ truckSize: Int) -> Int {
+        return boxTypes.sorted { $0[1] > $1[1] }.reduce((0, 0)) { partialResult, curr in
+            if partialResult.1 >= truckSize { return partialResult }
+            let size = min(truckSize - partialResult.1, curr[0])
+            return (size * curr[1] + partialResult.0, partialResult.1 + size)
+        }.0
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
