@@ -485,10 +485,9 @@ class Simulation: BaseCode {
         return String(s.sorted(by: { return map[$0, default: 0] > map[$1, default: 0] }))
     }
 
-    //    override var excuteable: Bool { return true }
+//    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(halvesAreAlike("Uo"))
     }
 }

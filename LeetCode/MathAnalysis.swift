@@ -22,6 +22,11 @@ class MathAnalysis: BaseCode {
         return i - 1
     }
 
+    /// 题目链接：[775. 全局倒置与局部倒置](https://leetcode.cn/problems/global-and-local-inversions/description/)
+    func isIdealPermutation(_ nums: [Int]) -> Bool {
+        return zip((0..<nums.count), nums).allSatisfy { abs($1 - $0) <= 1 }
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
