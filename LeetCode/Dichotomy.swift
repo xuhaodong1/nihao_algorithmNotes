@@ -63,11 +63,37 @@ class Dichotomy: BaseCode {
         return l
     }
 
-//    override var excuteable: Bool { return true }
+    /// 题目链接：[792. 匹配子序列的单词数](https://leetcode.cn/problems/number-of-matching-subsequences/description/)
+    func numMatchingSubseq(_ s: String, _ words: [String]) -> Int {
+        let a = Character("a").asciiValue!
+        var ans = 0
+        var positions = [[Int]](repeating: [], count: 26)
+        for (i, char) in s.enumerated() {
+            positions[Int(char.asciiValue! - a)].append(i)
+        }
+        for word in words {
+            var isOk = true, idx = -1
+            for (_, char) in word.enumerated() where isOk {
+                let arr = positions[Int(char.asciiValue! - a)]
+                var l = 0, r = arr.count - 1
+                while l < r { // 找到第一个比idx下标大的
+                    let mid = (l + r) >> 1
+                    if arr[mid] > idx { r = mid }
+                    else { l = mid + 1 }
+                }
+                if r < 0 || arr[r] <= idx { isOk = false }
+                else { idx = arr[r] }
+            }
+            if isOk { ans += 1 }
+        }
+        return ans
+    }
+
+    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(nthUglyNumber(5, 2, 3, 3))
+        print(numMatchingSubseq("dsahjpjauf", ["ahjpjau","ja","ahbwzgqnuk","tnmlanowax"]))
     }
 
 }
