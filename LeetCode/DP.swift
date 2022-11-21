@@ -177,7 +177,7 @@ class DynamicProgramming: BaseCode {
         return dfs(n, n)
     }
 
-    override var excuteable: Bool { return true }
+//    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
