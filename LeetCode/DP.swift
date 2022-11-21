@@ -162,10 +162,25 @@ class DynamicProgramming: BaseCode {
         return min(dp[query_row][query_glass], 1.0)
     }
 
-//    override var excuteable: Bool { return true }
+    /// 题目链接：[808. 分汤](https://leetcode.cn/problems/soup-servings/description/)
+    func soupServings(_ n: Int) -> Double {
+        let n = Int(ceil(Double(n) / 25.0))
+        if n >= 179 { return 1.0 }
+        var memo = [[Double]](repeating: [Double](repeating: -1, count: n + 1), count: n + 1)
+        func dfs(_ a: Int, _ b: Int) -> Double {
+            if a <= 0 && b <= 0 { return 0.5 }
+            else if a <= 0 { return 1.0 }
+            else if b <= 0 { return 0.0 }
+            if memo[a][b] == -1 { memo[a][b] = 0.25 * (dfs(a - 4, b) + dfs(a - 3, b - 1) + dfs(a - 2, b - 2) + dfs(a - 1, b - 3)) }
+            return memo[a][b]
+        }
+        return dfs(n, n)
+    }
+
+    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(champagneTower(100000009, 33, 17))
+        print(soupServings(1))
     }
 }
