@@ -45,10 +45,24 @@ class MathAnalysis: BaseCode {
         return ((ans % MOD) + MOD) % MOD
     }
 
+    /// 题目链接：[50. Pow(x, n)](https://leetcode.cn/problems/powx-n/description/)
+    func myPow(_ x: Double, _ n: Int) -> Double {
+        func quickMul(_ x: Double, _ n: Int) -> Double {
+            var ans = 1.0, x_contribute = x, n = n
+            while n > 0 {
+                if n & 1 == 1 { ans *= x_contribute }
+                x_contribute *= x_contribute
+                n /= 2
+            }
+            return ans
+        }
+        return n > 0 ? quickMul(x, n) : 1.0 / quickMul(x, n)
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(sumSubseqWidths([2,1,3]))
+        print(myPow(2, 4))
     }
 }
