@@ -27,10 +27,28 @@ class MathAnalysis: BaseCode {
         return zip((0..<nums.count), nums).allSatisfy { abs($1 - $0) <= 1 }
     }
 
+    /// 题目链接：[891. 子序列宽度之和](https://leetcode.cn/problems/sum-of-subsequence-widths/description/)
+    /// 类似题目：
+    /// [828. 统计子串中的唯一字符](https://leetcode.cn/problems/count-unique-characters-of-all-substrings-of-a-given-string/)
+    /// [907. 子数组的最小值之和](https://leetcode.cn/problems/sum-of-subarray-minimums/)
+    /// [2104. 子数组范围和](https://leetcode.cn/problems/sum-of-subarray-ranges/)
+    func sumSubseqWidths(_ nums: [Int]) -> Int {
+        let nums = nums.sorted(), n = nums.count, MOD = Int(1e9 + 7)
+        var ans = 0, pow2s = [Int](repeating: 0, count: n)
+        pow2s[0] = 1
+        for i in 1..<n {
+            pow2s[i] = (pow2s[i - 1] * 2) % MOD
+        }
+        for (i, num) in nums.enumerated() {
+            ans += ((pow2s[i] - pow2s[n - 1 - i]) * num)
+        }
+        return ((ans % MOD) + MOD) % MOD
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(reachNumber(8))
+        print(sumSubseqWidths([2,1,3]))
     }
 }

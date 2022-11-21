@@ -149,10 +149,23 @@ class DynamicProgramming: BaseCode {
         return dp[n][3]
     }
 
+    /// 题目链接：[799. 香槟塔](https://leetcode.cn/problems/champagne-tower/)
+    func champagneTower(_ poured: Int, _ query_row: Int, _ query_glass: Int) -> Double {
+        var dp = [[Double]](repeating: [Double](repeating: 0.0, count: query_row + 1), count: query_row + 1)
+        dp[0][0] = Double(poured)
+        for i in 0..<query_row {
+            for j in 0...i where dp[i][j] > 1.0 {
+                dp[i + 1][j] += (dp[i][j] - 1) / 2
+                dp[i + 1][j + 1] += (dp[i][j] - 1) / 2
+            }
+        }
+        return min(dp[query_row][query_glass], 1.0)
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(jobScheduling([1,1,1], [2,3,4], [5,6,4]))
+        print(champagneTower(100000009, 33, 17))
     }
 }

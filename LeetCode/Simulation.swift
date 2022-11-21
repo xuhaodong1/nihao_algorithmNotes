@@ -485,9 +485,20 @@ class Simulation: BaseCode {
         return String(s.sorted(by: { return map[$0, default: 0] > map[$1, default: 0] }))
     }
 
+    /// 题目链接：[1732. 找到最高海拔](https://leetcode.cn/problems/find-the-highest-altitude/)
+    func largestAltitude(_ gain: [Int]) -> Int {
+        var ans = 0, last = 0
+        gain.forEach { diff in
+            last = last + diff
+            ans = max(ans, last)
+        }
+        return ans
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
+        print(largestAltitude([-4,-3,-2,-1,4,3,2]))
     }
 }
