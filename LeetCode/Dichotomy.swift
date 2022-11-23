@@ -88,12 +88,27 @@ class Dichotomy: BaseCode {
         }
         return ans
     }
+    
+    /// 题目链接：[878. 第 N 个神奇数字](https://leetcode.cn/problems/nth-magical-number/description/)
+    func nthMagicalNumber(_ n: Int, _ a: Int, _ b: Int) -> Int {
+        let lcm = a * b / gcd(a, b), MOD = Int(1e9 + 7)
+        var left = 1, right = n * max(a, b)
+        while left < right {
+            let mid = left + (right - left) >> 1
+            if mid / a + mid / b - mid / lcm >= n { right = mid }
+            else { left = mid + 1 }
+        }
+        func gcd(_ a: Int, _ b: Int) -> Int {
+            return b == 0 ? a : gcd(b, a % b)
+        }
+        return right % MOD
+    }
 
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(numMatchingSubseq("dsahjpjauf", ["ahjpjau","ja","ahbwzgqnuk","tnmlanowax"]))
+        print(nthMagicalNumber(1, 2, 3))
     }
 
 }
