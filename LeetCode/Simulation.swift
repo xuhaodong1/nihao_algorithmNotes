@@ -494,6 +494,21 @@ class Simulation: BaseCode {
         }
         return ans
     }
+    
+    /// 题目链接：[1742. 盒子中小球的最大数量](https://leetcode.cn/problems/maximum-number-of-balls-in-a-box/)
+    func countBalls(_ lowLimit: Int, _ highLimit: Int) -> Int {
+        var boxes = [Int](repeating: 0, count: 50), ans = 0
+        for i in lowLimit...highLimit {
+            var i = i, sum = 0
+            while i > 0 {
+                sum += i % 10
+                i /= 10
+            }
+            boxes[sum] += 1
+            ans = max(ans, boxes[sum])
+        }
+        return ans
+    }
 
 //    override var excuteable: Bool { return true }
 
