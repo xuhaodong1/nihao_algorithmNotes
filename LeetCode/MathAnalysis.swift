@@ -59,6 +59,19 @@ class MathAnalysis: BaseCode {
         return n > 0 ? quickMul(x, n) : 1.0 / quickMul(x, n)
     }
 
+    /// 题目链接：[795. 区间子数组个数](https://leetcode.cn/problems/number-of-subarrays-with-bounded-maximum/description/)
+    func numSubarrayBoundedMax(_ nums: [Int], _ left: Int, _ right: Int) -> Int {
+        let n = nums.count
+        var outIndex = -1, containIndex = -1
+        var ans = 0
+        for i in 0..<n {
+            if nums[i] > right { outIndex = i }
+            if nums[i] >= left { containIndex = i }
+            ans += containIndex - outIndex
+        }
+        return ans
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
