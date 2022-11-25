@@ -25,4 +25,31 @@ class DoublePointer: BaseCode {
         return cnt
     }
 
+    /// 题目链接：[809. 情感丰富的文字](https://leetcode.cn/problems/expressive-words/)
+    func expressiveWords(_ s: String, _ words: [String]) -> Int {
+        let n = s.count, sChars = [Character](s)
+        var ans = 0
+        for word in words {
+            let m = word.count, wChars = [Character](word)
+            var i = 0, j = 0
+            while i < n && j < m {
+                if sChars[i] != wChars[j] { break }
+                var sCnt = 0, wCnt = 0
+                var si = i, wj = j
+                while si < n && sChars[si] == sChars[i] {
+                    sCnt += 1
+                    si += 1
+                }
+                while wj < m && wChars[wj] == wChars[j] {
+                    wCnt += 1
+                    wj += 1
+                }
+                if sCnt != wCnt && (sCnt < 3 || sCnt < wCnt) { break }
+                i = si
+                j = wj
+            }
+            if i == n && j == m { ans += 1 }
+        }
+        return ans
+    }
 }
