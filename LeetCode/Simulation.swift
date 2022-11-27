@@ -509,11 +509,18 @@ class Simulation: BaseCode {
         }
         return ans
     }
+    
+    /// 题目链接：[1752. 检查数组是否经排序和轮转得到](https://leetcode.cn/problems/check-if-array-is-sorted-and-rotated/description/)
+    func check(_ nums: [Int]) -> Bool {
+        let n = nums.count
+        let cnt = (0..<n).reduce(0) { cnt, i in return cnt + nums[i] < nums[(i + 1) % n] ? 1 : 0 }
+        return cnt <= 1
+    }
 
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(largestAltitude([-4,-3,-2,-1,4,3,2]))
+        print(check([3,4,5,1,2]))
     }
 }
