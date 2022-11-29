@@ -517,6 +517,16 @@ class Simulation: BaseCode {
         return cnt <= 1
     }
 
+    /// 题目链接：[1758. 生成交替二进制字符串的最少操作数](https://leetcode.cn/problems/minimum-changes-to-make-alternating-binary-string/)
+    func minOperations(_ s: String) -> Int {
+        var cnt = 0
+        for (i, c) in s.enumerated() {
+            if i & 1 == 0 { cnt += (c == "0" ? 0 : 1) }
+            else { cnt += (c == "0" ? 1 : 0) }
+        }
+        return min(cnt, s.count - cnt)
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {

@@ -177,10 +177,31 @@ class DynamicProgramming: BaseCode {
         return dfs(n, n)
     }
 
+    /// 题目链接：[813. 最大平均值和的分组](https://leetcode.cn/problems/largest-sum-of-averages/description/)
+    func largestSumOfAverages(_ nums: [Int], _ k: Int) -> Double {
+        let n = nums.count
+        var preSum = [Double](repeating: 0, count: n + 1)
+        for i in 1...n {
+            preSum[i] = preSum[i - 1] + Double(nums[i - 1])
+        }
+        var dp = [[Double]](repeating: [Double](repeating: 0, count: k + 1), count: n + 1)
+        for i in 1...n {
+            dp[i][1] = preSum[i] / Double(i)
+        }
+        for k in 1...k where k >= 2 {
+            for i in 1...n where i >= k {
+                for j in 0..<i where j >= k - 1 {
+                    dp[i][k] = max(dp[i][k], dp[j][k - 1] + (preSum[i] - preSum[j]) / Double(i - j))
+                }
+            }
+        }
+        return dp[n][k]
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(soupServings(1))
+        print(largestSumOfAverages([9,1,2,3,9], 3))
     }
 }
