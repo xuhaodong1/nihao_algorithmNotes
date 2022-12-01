@@ -527,6 +527,19 @@ class Simulation: BaseCode {
         return min(cnt, s.count - cnt)
     }
 
+    /// 题目链接：[1779. 找到最近的有相同 X 或 Y 坐标的点](https://leetcode.cn/problems/find-nearest-point-that-has-the-same-x-or-y-coordinate/description/)
+    func nearestValidPoint(_ x: Int, _ y: Int, _ points: [[Int]]) -> Int {
+        var ans = -1, len = Int.max
+        for (i, point) in points.enumerated() where (point[0] == x || point[1] == y) {
+            let currLen = abs(point[0] - x) + abs(point[1] - y)
+            if currLen < len {
+                ans = i
+                len = currLen
+            }
+        }
+        return ans
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {

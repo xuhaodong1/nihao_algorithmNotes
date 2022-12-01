@@ -28,7 +28,6 @@ class FreqStack {
     }
 }
 
-
 /// 栈等相关练习题
 class Stack: BaseCode {
 
