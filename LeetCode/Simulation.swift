@@ -540,10 +540,31 @@ class Simulation: BaseCode {
         return ans
     }
 
+    /// 题目链接：[1769. 移动所有球到每个盒子所需的最小操作数](https://leetcode.cn/problems/minimum-number-of-operations-to-move-all-balls-to-each-box/)
+    func minOperations(boxes: String) -> [Int] {
+        let n = boxes.count, boxes = [Character](boxes)
+        var ans = [Int](repeating: 0, count: n)
+        var len = 0, rightCnt = 0
+        for i in 0..<n where boxes[i] == "1" {
+            len += i
+            rightCnt += 1
+        }
+        var leftCnt = 0
+        for i in 0..<n {
+            ans[i] = len
+            if boxes[i] == "1" {
+                rightCnt -= 1
+                leftCnt += 1
+            }
+            len = len - rightCnt + leftCnt
+        }
+        return ans
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(check([3,4,5,1,2]))
+        print(minOperations("110"))
     }
 }
