@@ -560,6 +560,20 @@ class Simulation: BaseCode {
         }
         return ans
     }
+    
+    /// 题目链接：[1796. 字符串中第二大的数字](https://leetcode.cn/problems/second-largest-digit-in-a-string/description/)
+    func secondHighest(_ s: String) -> Int {
+        var first = -1, second = -1
+        for num in s.compactMap({ $0.wholeNumberValue }) {
+            if num > first {
+                second = first
+                first = num
+            } else if num < first && num > second {
+                second = num
+            }
+        }
+        return second
+    }
 
 //    override var excuteable: Bool { return true }
 

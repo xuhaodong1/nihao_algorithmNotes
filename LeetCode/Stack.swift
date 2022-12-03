@@ -13,7 +13,7 @@ class FreqStack {
     var stacks = [[Int]]() // 以出现次数相同的组成的序列, stacks[i] 表示出现次数为 i + 1 组成的序列
     init() { }
     func push(_ val: Int) {
-        var cnt = cnts[val, default: 0]
+        let cnt = cnts[val, default: 0]
         if cnt == stacks.count { stacks.append([]) } // 有一个新的cnt
         stacks[cnt].append(val)
         cnts[val, default: 0] += 1
