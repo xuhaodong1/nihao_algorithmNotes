@@ -161,6 +161,26 @@ class DeepFirstSearch: BaseCode {
         dfs(chars, curr: 0)
         return ans.map { String($0) }
     }
+    
+    /// 题目链接：[1774. 最接近目标价格的甜点成本](https://leetcode.cn/problems/closest-dessert-cost/description/)
+    func closestCost(_ baseCosts: [Int], _ toppingCosts: [Int], _ target: Int) -> Int {
+        let baseCosts = baseCosts.sorted(), toppingCosts = toppingCosts.sorted()
+        let m = toppingCosts.count
+        var ans = Int.max
+        func dfs(curr: Int, i: Int) {
+            if curr >= target || i >= m {
+                if abs(curr - target) < abs(ans - target) || (abs(target - curr) == abs(target - ans) && curr < ans) { ans = curr }
+                return
+            }
+            dfs(curr: curr, i: i + 1)
+            dfs(curr: curr + toppingCosts[i], i: i + 1)
+            dfs(curr: curr + toppingCosts[i] << 1, i: i + 1)
+        }
+        for baseCost in baseCosts {
+            dfs(curr: baseCost, i: 0)
+        }
+        return  ans
+    }
 
 //    override var excuteable: Bool { return true }
 
