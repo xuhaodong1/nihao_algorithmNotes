@@ -198,6 +198,37 @@ class DynamicProgramming: BaseCode {
         return dp[n][k]
     }
 
+    /// 题目链接：[1687. 从仓库到码头运输箱子](https://leetcode.cn/problems/delivering-boxes-from-storage-to-ports/description/?languageTags=swift)
+    func boxDelivering(_ boxes: [[Int]], _ portsCount: Int, _ maxBoxes: Int, _ maxWeight: Int) -> Int {
+        let n = boxes.count
+        var p = [Int](repeating: 0, count: n + 1) // 记录码头位置
+        var w = [Int](repeating: 0, count: n + 1) // 记录箱子重量
+        var neg = [Int](repeating: 0, count: n + 2) // 记录从0到i的连续相邻相同码头数量
+        var W = [Int](repeating: 0, count: n + 1) // 重量的前缀和
+        for i in 1...n {
+            p[i] = boxes[i - 1][0]
+            w[i] = boxes[i - 1][1]
+            if i > 1 {
+                neg[i] = neg[i - 1] + (p[i - 1] != p[i] ? 1 : 0)
+            }
+            W[i] = W[i - 1] + w[i]
+        }
+        var f = [Int](repeating: 0, count: n + 1), g = [Int](repeating: 0, count: n + 1)
+        var opt = [0]
+        for i in 1...n {
+            while !opt.isEmpty && (i - opt.first! > maxBoxes || W[i] - W[opt.first!] > maxWeight) {
+                opt.removeFirst()
+            }
+            f[i] = g[opt.first!] + neg[i] + 2
+            g[i] = f[i] - neg[i + 1]
+            while !opt.isEmpty && g[i] < g[opt.last!] {
+                opt.removeLast()
+            }
+            opt.append(i)
+        }
+        return f[n]
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
