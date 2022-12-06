@@ -575,10 +575,32 @@ class Simulation: BaseCode {
         return second
     }
 
+    /// 题目链接：[1805. 字符串中不同整数的数目](https://leetcode.cn/problems/number-of-different-integers-in-a-string/)
+    func numDifferentIntegers(_ word: String) -> Int {
+        let n = word.count
+        var set = Set<String>(), curr = ""
+        for (i, c) in word.enumerated() {
+            if c.isNumber {
+                curr.append(c)
+            }
+            if i == n - 1 || !c.isNumber, curr != "" {
+                set.insert(curr)
+                curr = ""
+            }
+        }
+        return Set<String>(set.map { str in
+            var str = str
+            while str.count > 1 && str.first == "0" {
+                str.removeFirst()
+            }
+            return str
+        }).count
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(minOperations("110"))
+        print(numDifferentIntegers("leet1234code234"))
     }
 }
