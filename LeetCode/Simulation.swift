@@ -596,6 +596,30 @@ class Simulation: BaseCode {
             return str
         }).count
     }
+    
+    /// 题目链接：[1775. 通过最少操作次数使数组的和相等](https://leetcode.cn/problems/equal-sum-arrays-with-minimum-number-of-operations/description/)
+    func minOperations(_ nums1: [Int], _ nums2: [Int]) -> Int {
+        if nums1.count > nums2.count * 6 || nums1.count * 6 < nums2.count {
+            return -1
+        }
+        var nums1 = nums1, nums2 = nums2
+        var d = nums2.reduce(0, +) - nums1.reduce(0, +)
+        if d < 0 {
+            d = -d
+            let temp = nums1
+            nums1 = nums2
+            nums2 = temp
+        }
+        var cnts = [Int](repeating: 0, count: 6), ans = 0
+        for num in nums1 { cnts[6 - num] += 1 }
+        for num in nums2 { cnts[num - 1] += 1 }
+        for i in (1...5).reversed() {
+            if i * cnts[i] >= d { return ans + (d + i - 1) / i }  // 向上取整
+            ans += cnts[i]
+            d -= i * cnts[i]
+        }
+        return ans
+    }
 
 //    override var excuteable: Bool { return true }
 
