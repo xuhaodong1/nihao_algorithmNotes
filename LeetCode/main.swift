@@ -84,7 +84,7 @@ class Solution {
     func longestCommonSubsequence(_ text1: String, _ text2: String) -> Int {
         let n = text1.count, m = text2.count
         var dp = [[Int]](repeating: [Int](repeating: 0, count: m + 1), count: n + 1)
-        var chars1 = [Character](text1), chars2 = [Character](text2)
+        let chars1 = [Character](text1), chars2 = [Character](text2)
         for i in 1...n {
             for j in 1...m {
                 if chars1[i - 1] == chars2[j - 1] {
