@@ -621,25 +621,6 @@ class Simulation: BaseCode {
         return ans
     }
 
-    /// 题目链接：[1780. 判断一个数字是否可以表示成三的幂的和](https://leetcode.cn/problems/check-if-number-is-a-sum-of-powers-of-three/description/)
-    func checkPowersOfThreeByMath(_ n: Int) -> Bool {
-        let maxPower = 15
-        var powers3 = [Int](repeating: 1, count: maxPower), n = n
-        for i in 1..<maxPower { powers3[i] = powers3[i - 1] * 3 }
-        for i in (0..<maxPower).reversed() where n > 0 && powers3[i] <= n { n -= powers3[i] }
-        return n == 0
-    }
-
-    /// 题目链接：[1780. 判断一个数字是否可以表示成三的幂的和](https://leetcode.cn/problems/check-if-number-is-a-sum-of-powers-of-three/description/)
-    func checkPowersOfThreeBySystem(_ n: Int) -> Bool {
-        var n = n
-        while n != 0 {
-            if n % 3 == 2 { return false }
-            n /= 3
-        }
-        return true
-    }
-
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
