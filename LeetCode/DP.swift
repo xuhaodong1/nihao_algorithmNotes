@@ -229,10 +229,27 @@ class DynamicProgramming: BaseCode {
         return f[n]
     }
 
+    /// 题目链接：[1691. 堆叠长方体的最大高度](https://leetcode.cn/problems/maximum-height-by-stacking-cuboids/description/)
+    func maxHeight(_ cuboids: [[Int]]) -> Int {
+        let n = cuboids.count
+        var cuboids = cuboids, ans = 0
+        var dp = [Int](repeating: 0, count: n)
+        for i in 0..<n { cuboids[i].sort() }
+        cuboids.sort { a, b in return a[0] != b[0] ? a[0] < b[0] : (a[1] != b[1] ? a[1] < b[1] : a[2] < b[2]) }
+        for i in 0..<n { // LIS
+            dp[i] = cuboids[i][2] // i 能装下 j
+            for j in 0..<i where cuboids[j][1] <= cuboids[i][1] && cuboids[j][2] <= cuboids[i][2] {
+                dp[i] = max(dp[i], dp[j] + cuboids[i][2])
+            }
+            ans = max(ans, dp[i])
+        }
+        return ans
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(largestSumOfAverages([9,1,2,3,9], 3))
+        print(maxHeight([[50,45,20],[95,37,53],[45,23,12]]))
     }
 }
