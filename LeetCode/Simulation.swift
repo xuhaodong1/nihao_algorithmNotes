@@ -621,6 +621,15 @@ class Simulation: BaseCode {
         return ans
     }
 
+    /// 题目链接：[1827. 最少操作使数组递增](https://leetcode.cn/problems/minimum-operations-to-make-the-array-increasing/)
+    func minOperations(_ nums: [Int]) -> Int {
+        var pre = nums[0] - 1
+        return nums.reduce(0) { cnt, num in
+            pre = max(pre + 1, num)
+            return cnt + pre - num
+        }
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
