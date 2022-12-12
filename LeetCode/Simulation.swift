@@ -630,6 +630,26 @@ class Simulation: BaseCode {
         }
     }
 
+    /// 题目链接：[1781. 所有子字符串美丽值之和](https://leetcode.cn/problems/sum-of-beauty-of-all-substrings/description/)
+    func beautySum(_ s: String) -> Int {
+        let n = s.count, chars = [Character](s)
+        let aV = Character("a").asciiValue!
+        var ans = 0
+        for i in 0..<n {
+            var cnts = [Int](repeating: 0, count: 26)
+            for j in i..<n {
+                var minCnt = Int.max, maxCnt = Int.min
+                cnts[Int(chars[j].asciiValue! - aV)] += 1
+                for cnt in cnts where cnt > 0 {
+                    minCnt = min(minCnt, cnt)
+                    maxCnt = max(maxCnt, cnt)
+                }
+                ans += (maxCnt - minCnt)
+            }
+        }
+        return ans
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
