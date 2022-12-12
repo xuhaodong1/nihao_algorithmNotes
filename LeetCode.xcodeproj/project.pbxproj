@@ -16,6 +16,7 @@
 		692F876E28D4ABDF0033DC22 /* ScanningLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692F876D28D4ABDF0033DC22 /* ScanningLine.swift */; };
 		692F877028D6B84A0033DC22 /* UnionFindSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692F876F28D6B84A0033DC22 /* UnionFindSet.swift */; };
 		695DF819277BF9EE00FE2D31 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695DF818277BF9EE00FE2D31 /* main.swift */; };
+		69605FC52946C85800FBB3CF /* Smapling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69605FC42946C85800FBB3CF /* Smapling.swift */; };
 		699E895A290FE2B20097D541 /* DoublePointer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699E8959290FE2B20097D541 /* DoublePointer.swift */; };
 		69ACC96828E1371C002A7058 /* BitOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69ACC96728E1371C002A7058 /* BitOperation.swift */; };
 		69B6E50128C6DA1C00245599 /* StringType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B6E50028C6DA1C00245599 /* StringType.swift */; };
@@ -60,6 +61,7 @@
 		692F876F28D6B84A0033DC22 /* UnionFindSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnionFindSet.swift; sourceTree = "<group>"; };
 		695DF815277BF9EE00FE2D31 /* LeetCode */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = LeetCode; sourceTree = BUILT_PRODUCTS_DIR; };
 		695DF818277BF9EE00FE2D31 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		69605FC42946C85800FBB3CF /* Smapling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Smapling.swift; sourceTree = "<group>"; };
 		699E8959290FE2B20097D541 /* DoublePointer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoublePointer.swift; sourceTree = "<group>"; };
 		69ACC96728E1371C002A7058 /* BitOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitOperation.swift; sourceTree = "<group>"; };
 		69ACC96928E14506002A7058 /* 位运算.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = "位运算.md"; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 				692F876D28D4ABDF0033DC22 /* ScanningLine.swift */,
 				F006CC0A28E49AE600F443BA /* Sort.swift */,
 				699E8959290FE2B20097D541 /* DoublePointer.swift */,
+				69605FC42946C85800FBB3CF /* Smapling.swift */,
 			);
 			path = LeetCode;
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 				691D9EA02914A13900E735F6 /* MathAnalysis.swift in Sources */,
 				69D5652328C4532A0035FBE0 /* Simulation.swift in Sources */,
 				691E067728D2BC0600350D11 /* BrainTwister.swift in Sources */,
+				69605FC52946C85800FBB3CF /* Smapling.swift in Sources */,
 				692F877028D6B84A0033DC22 /* UnionFindSet.swift in Sources */,
 				69E6341028DF1C6400FB346E /* PrefixSum.swift in Sources */,
 				69B6E50128C6DA1C00245599 /* StringType.swift in Sources */,
