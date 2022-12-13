@@ -650,6 +650,14 @@ class Simulation: BaseCode {
         return ans
     }
 
+    /// 题目链接：[1832. 判断句子是否为全字母句](https://leetcode.cn/problems/check-if-the-sentence-is-pangram/)
+    func checkIfPangram(_ sentence: String) -> Bool {
+        var letterCnts = [Bool](repeating: false, count: 26)
+        let av = Int(Character("a").asciiValue!)
+        for c in sentence { letterCnts[Int(c.asciiValue!) - av] = true }
+        return letterCnts.allSatisfy { $0 }
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
