@@ -658,6 +658,16 @@ class Simulation: BaseCode {
         return letterCnts.allSatisfy { $0 }
     }
 
+    /// 题目链接：[1945. 字符串转化后的各位数字之和](https://leetcode.cn/problems/sum-of-digits-of-string-after-convert/)
+    func getLucky(_ s: String, _ k: Int) -> Int {
+        let av = Character("a").asciiValue!
+        var ans = s.map { c in return "\(c.asciiValue! - av)" }.reduce("", +).map { "\($0)" }
+        for _ in 0..<k {
+            ans = "\(ans.reduce(0) { sum, c in return sum + Int(c)! })".map({ "\($0)" })
+        }
+        return Int(ans.reduce("", +)) ?? -1
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {

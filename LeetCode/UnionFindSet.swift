@@ -95,9 +95,35 @@ class UnionFindSet: BaseCode {
         return ans
     }
 
-//    override var excuteable: Bool {
-//        return true
-//    }
+    /// 题目链接：[1697. 检查边长度限制的路径是否存在](https://leetcode.cn/problems/checking-existence-of-edge-length-limited-paths/description/)
+    /// 并查集 + 离线
+    func distanceLimitedPathsExist(_ n: Int, _ edgeList: [[Int]], _ queries: [[Int]]) -> [Bool] {
+        var parents = [Int](repeating: 0, count: n)
+        for i in 0..<n { parents[i] = i }
+        let edgeList = edgeList.sorted { $0[2] < $1[2] }
+        let m = queries.count
+        var ans = [Bool](repeating: false, count: m)
+        var qid = [Int](repeating: 0, count: m)
+        for i in 0..<m { qid[i] = i }
+        qid.sort { queries[$0][2] < queries[$1][2] }
+        var j = 0
+        for i in qid {
+            let a = queries[i][0], b = queries[i][1], limit = queries[i][2]
+            while j < edgeList.count && edgeList[j][2] < limit {
+                let u = edgeList[j][0], v = edgeList[j][1]
+                parents[find(u)] = find(v)
+                j += 1
+            }
+            ans[i] = find(a) == find(b)
+        }
+        func find(_ x: Int) -> Int {
+            if parents[x] != x { parents[x] = find(parents[x]) }
+            return parents[x]
+        }
+        return ans
+    }
+
+    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
