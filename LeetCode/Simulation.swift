@@ -668,6 +668,11 @@ class Simulation: BaseCode {
         return Int(ans.reduce("", +)) ?? -1
     }
 
+    /// 题目链接：[1785. 构成特定和需要添加的最少元素](https://leetcode.cn/problems/minimum-elements-to-add-to-form-a-given-sum/description/)
+    func minElements(_ nums: [Int], _ limit: Int, _ goal: Int) -> Int {
+        return (abs(goal - nums.reduce(0, +)) + limit - 1) / limit
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
