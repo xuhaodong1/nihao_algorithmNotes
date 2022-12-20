@@ -47,6 +47,24 @@ class PrefixSum: BaseCode {
         return ans
     }
 
+    /// 题目链接：[1703. 得到连续 K 个 1 的最少相邻交换次数](https://leetcode.cn/problems/minimum-adjacent-swaps-for-k-consecutive-ones/description/)
+    func minMoves(_ nums: [Int], _ k: Int) -> Int {
+        var p = [Int]()
+        for i in 0..<nums.count where nums[i] != 0 {
+            p.append(i - p.count)
+        }
+        let m = p.count
+        var s = [Int](repeating: 0, count: m + 1)
+        for i in 0..<m {
+            s[i + 1] = s[i] + p[i]
+        }
+        var ans = Int.max
+        for i in 0...m-k {
+            ans = min(ans, s[i] + s[i + k] - s[i + k / 2] * 2 - p[i + k / 2] * (k % 2))
+        }
+        return ans
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {

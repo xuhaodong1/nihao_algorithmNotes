@@ -123,10 +123,22 @@ class UnionFindSet: BaseCode {
         return ans
     }
 
+    /// 题目链接：[1971. 寻找图中是否存在路径](https://leetcode.cn/problems/find-if-path-exists-in-graph/description/)
+    func validPath(_ n: Int, _ edges: [[Int]], _ source: Int, _ destination: Int) -> Bool {
+        var parents = [Int](repeating: 0, count: n)
+        for i in 0..<n { parents[i] = i }
+        for edge in edges { parents[find(edge[1])] = find(edge[0]) }
+        func find(_ x: Int) -> Int {
+            if parents[x] != x { return find(parents[x]) }
+            return x
+        }
+        return find(source) == find(destination)
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(largestIsland([[1, 1], [1, 1]]))
+        print(validPath(6, [[0,1],[0,2],[3,5],[5,4],[4,3]], 5, 4))
     }
 }

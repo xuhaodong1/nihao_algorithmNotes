@@ -104,11 +104,26 @@ class Dichotomy: BaseCode {
         return right % MOD
     }
 
+    /// 题目链接：[1760. 袋子里最少数目的球](https://leetcode.cn/problems/minimum-limit-of-balls-in-a-bag/description/)
+    func minimumSize(_ nums: [Int], _ maxOperations: Int) -> Int {
+        var left = 1, right = nums.max()!
+        while left < right {
+            let mid = (left + right) >> 1
+            let ops = nums.reduce(0) { $0 + (($1 - 1) / mid) }
+            if ops > maxOperations {
+                left = mid + 1
+            } else {
+                right = mid
+            }
+        }
+        return left
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(nthMagicalNumber(1, 2, 3))
+        print(minimumSize([1], 1))
     }
 
 }

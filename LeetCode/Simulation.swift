@@ -673,6 +673,27 @@ class Simulation: BaseCode {
         return (abs(goal - nums.reduce(0, +)) + limit - 1) / limit
     }
 
+    /// 题目链接：[1764. 通过连接另一个数组的子数组得到一个数组](https://leetcode.cn/problems/form-array-by-concatenating-subarrays-of-another-array/)
+    func canChoose(_ groups: [[Int]], _ nums: [Int]) -> Bool {
+        let n = nums.count
+        var i = 0, k = 0
+        while k < n && i < groups.count {
+            if check(i: i, k: k) {
+                k += groups[i].count
+                i += 1
+            } else {
+                k += 1
+            }
+        }
+        func check(i: Int, k: Int) -> Bool {
+            let m = groups[i].count
+            if k + m > n { return false }
+            for j in 0..<m { if groups[i][j] != nums[k + j] { return false } }
+            return true
+        }
+        return i == groups.count
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {

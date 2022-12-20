@@ -147,11 +147,11 @@
 				69B6E50028C6DA1C00245599 /* StringType.swift */,
 				6919E22928C990EF00539C19 /* Construction.swift */,
 				691E067628D2BC0600350D11 /* BrainTwister.swift */,
-				69D5652428C456550035FBE0 /* Tool.swift */,
 				692F876D28D4ABDF0033DC22 /* ScanningLine.swift */,
 				F006CC0A28E49AE600F443BA /* Sort.swift */,
 				699E8959290FE2B20097D541 /* DoublePointer.swift */,
 				69605FC42946C85800FBB3CF /* Smapling.swift */,
+				69D5652428C456550035FBE0 /* Tool.swift */,
 			);
 			path = LeetCode;
 			sourceTree = "<group>";
