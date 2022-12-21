@@ -70,10 +70,17 @@ class Greed: BaseCode {
         }.0
     }
 
+    /// 题目链接：[1753. 移除石子的最大得分](https://leetcode.cn/problems/maximum-score-from-removing-stones/)
+    func maximumScore(_ a: Int, _ b: Int, _ c: Int) -> Int {
+        let sum = a + b + c
+        let maxVal = max(a, b, c)
+        return min(sum - maxVal, sum / 2)
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(advantageCount([12, 24, 8, 32], [13, 25, 32, 11]))
+        print(maximumScore(4, 4, 6))
     }
 }
