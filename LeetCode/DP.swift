@@ -246,10 +246,34 @@ class DynamicProgramming: BaseCode {
         return ans
     }
 
+    /// 题目链接：[1799. N 次操作后的最大分数和](https://leetcode.cn/problems/maximize-score-after-n-operations/description/)
+    /// 状态压缩 + 动态规划
+    func maxScore(_ nums: [Int]) -> Int {
+        let m = nums.count
+        var dp = [Int](repeating: 0, count: 1 << m)
+        var gcds = [[Int]](repeating: [Int](repeating: 0, count: m), count: m)
+        for i in 0..<m {
+            for j in i+1..<m {
+                gcds[i][j] = gcd(nums[i], nums[j])
+            }
+        }
+        for i in 0..<(1 << m) where i.nonzeroBitCount & 1 == 0 {
+            for j in 0..<m where (i >> j) & 1 == 1 {
+                for k in j+1..<m where (i >> k) & 1 == 1 {
+                    dp[i] = max(dp[i], dp[i ^ (1 << k) ^ (1 << j)] + (i.nonzeroBitCount / 2) * gcds[j][k])
+                }
+            }
+        }
+        func gcd(_ a: Int, _ b: Int) -> Int {
+            return b == 0 ? a : gcd(b, a % b)
+        }
+        return dp[(1 << m) - 1]
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(maxHeight([[50,45,20],[95,37,53],[45,23,12]]))
+        print(maxScore([3,4,6,8]))
     }
 }
