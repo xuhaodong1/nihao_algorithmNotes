@@ -694,6 +694,11 @@ class Simulation: BaseCode {
         return i == groups.count
     }
 
+    /// 题目链接：[2011. 执行操作后的变量值](https://leetcode.cn/problems/final-value-of-variable-after-performing-operations/)
+    func finalValueAfterOperations(_ operations: [String]) -> Int {
+        return operations.reduce(0) { return $0 + ($1.hasPrefix("+") || $1.hasSuffix("+") ? 1 : -1) }
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
