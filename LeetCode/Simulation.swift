@@ -699,10 +699,28 @@ class Simulation: BaseCode {
         return operations.reduce(0) { return $0 + ($1.hasPrefix("+") || $1.hasSuffix("+") ? 1 : -1) }
     }
 
+    ///  题目链接：[1754. 构造字典序最大的合并字符串](https://leetcode.cn/problems/largest-merge-of-two-strings/)
+    func largestMerge(_ word1: String, _ word2: String) -> String {
+        let word1 = word1, word2 = word2
+        var i = word1.startIndex, iEnd = word1.endIndex
+        var j = word2.startIndex, jEnd = word2.endIndex
+        var ans = ""
+        while i < iEnd || j < jEnd {
+            if word1[i..<iEnd] > word2[j..<jEnd] {
+                ans.append(word1[i])
+                i = word1.index(after: i)
+            } else {
+                ans.append(word2[j])
+                j = word2.index(after: j)
+            }
+        }
+        return ans
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(numDifferentIntegers("leet1234code234"))
+        print(largestMerge("abcabc", "abdcaba"))
     }
 }
