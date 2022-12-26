@@ -93,7 +93,7 @@ class MathAnalysis: BaseCode {
 
     /// 题目链接：[1759. 统计同构子字符串的数目](https://leetcode.cn/problems/count-number-of-homogenous-substrings/description/)
     func countHomogenous(_ s: String) -> Int {
-        var ans = 0, pre: Character = ".", preCnt = 0
+        var ans = 0, pre: Character = s.first!, preCnt = 0
         for c in s {
             if c == pre { preCnt += 1 }
             else { preCnt = 1 }
