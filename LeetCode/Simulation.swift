@@ -717,6 +717,45 @@ class Simulation: BaseCode {
         return ans
     }
 
+    /// 题目链接：[2037. 使每位学生都有座位的最少移动次数](https://leetcode.cn/problems/minimum-number-of-moves-to-seat-everyone/)
+    func minMovesToSeat(_ seats: [Int], _ students: [Int]) -> Int {
+        let n = seats.count
+        let seats = seats.sorted(), students = students.sorted()
+        return (0..<n).reduce(0) { $0 + abs(seats[$1] - students[$1]) }
+    }
+
+    /// 题目链接：[2042. 检查句子中的数字是否递增](https://leetcode.cn/problems/check-if-numbers-are-ascending-in-a-sentence/)
+    func areNumbersAscending(_ s: String) -> Bool {
+        let chars = [Character](s), n = chars.count
+        var lastV = 0, i = 0
+        while i < n {
+            if !chars[i].isNumber {
+                i += 1
+            } else {
+                var curr = 0
+                while i < n && chars[i].isNumber {
+                    curr = curr * 10 + chars[i].wholeNumberValue!
+                    i += 1
+                }
+                if curr <= lastV { return false }
+                lastV = curr
+            }
+        }
+        return true
+    }
+
+    /// 题目链接：[2351. 第一个出现两次的字母](https://leetcode.cn/problems/first-letter-to-appear-twice/)
+    func repeatedCharacter(_ s: String) -> Character {
+        let a = Character("a")
+        var mask = 0
+        for c in s {
+            let i = c.asciiValue! - a.asciiValue!
+            if mask >> i & 1 == 1 { return c }
+            mask |= (1 << i)
+        }
+        return "."
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
