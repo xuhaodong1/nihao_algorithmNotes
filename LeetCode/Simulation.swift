@@ -756,10 +756,31 @@ class Simulation: BaseCode {
         return "."
     }
 
+    /// 题目链接：[1669. 合并两个链表](https://leetcode.cn/problems/merge-in-between-linked-lists/)
+    func mergeInBetween(_ list1: ListNode?, _ a: Int, _ b: Int, _ list2: ListNode?) -> ListNode? {
+        let dump = ListNode(-1, list1)
+        var head: ListNode? = dump
+        for _ in 0..<a {
+            head = head?.next
+        }
+        var tail = head
+        for _ in 0...b-a {
+            tail = tail?.next
+        }
+        head?.next = list2
+        var list2Tail = list2
+        while list2Tail?.next != nil {
+            list2Tail = list2Tail?.next
+        }
+        list2Tail?.next = tail?.next
+        return dump.next
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(largestMerge("abcabc", "abdcaba"))
+        let list1 = ListNode(0, ListNode(1, ListNode(2, ListNode(3, ListNode(4, ListNode(5, nil))))))
+        print(mergeInBetween(list1, 3, 4, ListNode(100000, ListNode(100001, ListNode(100002, nil)))))
     }
 }
