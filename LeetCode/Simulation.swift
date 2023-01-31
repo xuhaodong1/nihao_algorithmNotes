@@ -776,6 +776,21 @@ class Simulation: BaseCode {
         return dump.next
     }
 
+    /// 题目链接：[2319. 判断矩阵是否是一个 X 矩阵](https://leetcode.cn/problems/check-if-matrix-is-x-matrix/)
+    func checkXMatrix(_ grid: [[Int]]) -> Bool {
+        let n = grid.count
+        for i in 0..<n {
+            for j in 0..<n {
+                if (i == j || i + j == n - 1) && grid[i][j] == 0 {
+                    return false
+                } else if (i != j && i + j != n - 1) && grid[i][j] != 0 {
+                    return false
+                }
+            }
+        }
+        return true
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
