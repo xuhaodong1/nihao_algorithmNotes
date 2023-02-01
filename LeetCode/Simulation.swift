@@ -791,11 +791,24 @@ class Simulation: BaseCode {
         return true
     }
 
-//    override var excuteable: Bool { return true }
+    /// 题目链接：[2325. 解密消息](https://leetcode.cn/problems/decode-the-message/)
+    func decodeMessage(_ key: String, _ message: String) -> String {
+        let lowLetters: [Character] = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+        var map = [Character: Character](), curr = 0
+        for char in key where char.isLowercase && !map.keys.contains(char) {
+            map[char] = lowLetters[curr]
+            curr += 1
+        }
+        return message.reduce("") { partialResult, char in
+            if char.isLowercase { return "\(partialResult)\(map[char]!)" }
+            return "\(partialResult)\(char)"
+        }
+    }
+
+    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        let list1 = ListNode(0, ListNode(1, ListNode(2, ListNode(3, ListNode(4, ListNode(5, nil))))))
-        print(mergeInBetween(list1, 3, 4, ListNode(100000, ListNode(100001, ListNode(100002, nil)))))
+        print(decodeMessage("the quick brown fox jumps over the lazy dog", "vkbs bs t suepuv"))
     }
 }
