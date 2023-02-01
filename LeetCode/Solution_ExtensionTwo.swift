@@ -3235,27 +3235,6 @@ class Solution2 {
         return ans
     }
 
-    func decodeMessage(_ key: String, _ message: String) -> String {
-        var values = [Character: Character]()
-        let letters: [Character] = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l","m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
-        var i = 0
-        for char in key {
-            if char.isLetter && !values.keys.contains(char) {
-                values[char] = letters[i]
-                i += 1
-            }
-        }
-        var ans = [Character]()
-        for char in message {
-            if char.isLetter {
-                ans.append(values[char]!)
-            } else {
-                ans.append(char)
-            }
-        }
-        return String(ans)
-    }
-
     func spiralMatrix(_ m: Int, _ n: Int, _ head: ListNode?) -> [[Int]] {
         var ans = [[Int]].init(repeating: [Int].init(repeating: -1, count: n), count: m)
         var i = 0, j = 0
