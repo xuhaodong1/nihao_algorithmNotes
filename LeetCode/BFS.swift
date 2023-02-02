@@ -91,10 +91,37 @@ class BFS: BaseCode {
         return -1
     }
 
-//    override var excuteable: Bool { return true }
+    /// 题目链接：[1129. 颜色交替的最短路径](https://leetcode.cn/problems/shortest-path-with-alternating-colors/)
+    func shortestAlternatingPaths(_ n: Int, _ redEdges: [[Int]], _ blueEdges: [[Int]]) -> [Int] {
+        var ans = [Int](repeating: 0, count: n)
+        var g = [[[Int]]](repeating: [[Int]](repeating: [], count: n), count: 2)
+        for redEdge in redEdges { g[0][redEdge[0]].append(redEdge[1]) }
+        for blueEdge in blueEdges { g[1][blueEdge[0]].append(blueEdge[1]) }
+        var dist = [[Int]](repeating: [Int](repeating: Int.max, count: n), count: 2)
+        dist[0][0] = 0; dist[1][0] = 0
+        var queue = [(Int, Int)]()
+        queue.append((1, 0)); queue.append((0, 0))
+        while !queue.isEmpty {
+            let pair = queue.removeFirst()
+            let t = pair.0, x = pair.1
+            for y in g[1 ^ t][x] where dist[1 ^ t][y] == Int.max {
+                dist[1 ^ t][y] = dist[t][x] + 1
+                queue.append((1 ^ t, y))
+            }
+        }
+        for i in 0..<n {
+            ans[i] = min(dist[0][i], dist[1][i])
+            if ans[i] == Int.max {
+                ans[i] = -1
+            }
+        }
+        return ans
+    }
+
+    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(shortestPathAllKeys(["@.a..","###.#","b.A.B"]))
+        print(shortestAlternatingPaths(3, [[0,1]], [[1,2]]))
     }
 }
