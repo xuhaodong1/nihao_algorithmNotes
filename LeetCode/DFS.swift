@@ -182,6 +182,24 @@ class DeepFirstSearch: BaseCode {
         return  ans
     }
 
+    /// 题目链接：[1145. 二叉树着色游戏](https://leetcode.cn/problems/binary-tree-coloring-game/)
+    func btreeGameWinningMove(_ root: TreeNode?, _ n: Int, _ x: Int) -> Bool {
+        var xLeftCnt = 0, xRightCnt = 0
+        dfs(curr: root)
+        @discardableResult
+        func dfs(curr: TreeNode?) -> Int {
+            guard let curr = curr else { return 0 }
+            let left = dfs(curr: curr.left)
+            let right = dfs(curr: curr.right)
+            if curr.val == x {
+                xLeftCnt = left
+                xRightCnt = right
+            }
+            return left + right + 1
+        }
+        return max(xLeftCnt, xRightCnt, n - xLeftCnt - xRightCnt - 1) * 2 > n
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
