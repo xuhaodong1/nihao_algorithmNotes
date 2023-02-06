@@ -118,6 +118,31 @@ class BFS: BaseCode {
         return ans
     }
 
+    /// 题目链接：[1210. 穿过迷宫的最少移动次数](https://leetcode.cn/problems/minimum-moves-to-reach-target-with-rotations/description/)
+    func minimumMoves(_ grid: [[Int]]) -> Int {
+        let n = grid.count, dirs = [(1, 0, 0), (0, 1, 0), (0, 0, 1)]
+        var len = 0, queue = [(0, 0, 0)]
+        var visvited: Set<[Int]> = [[0, 0, 0]]
+        while !queue.isEmpty {
+            len += 1
+            let count = queue.count
+            for _ in 0..<count {
+                let curr = queue.removeFirst()
+                for dir in dirs {
+                    let x = curr.0 + dir.0, y = curr.1 + dir.1, s = curr.2 ^ dir.2
+                    let x2 = x + s, y2 = y + (s ^ 1)
+                    if x2 < n && y2 < n && !visvited.contains([x, y, s])
+                        && grid[x][y] == 0 && grid[x2][y2] == 0 && (dir.2 == 0 || grid[x + 1][y + 1] == 0) {
+                        if x == n - 1 && y == n - 2 { return len }
+                        visvited.insert([x, y, s])
+                        queue.append((x, y, s))
+                    }
+                }
+            }
+        }
+        return -1
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {

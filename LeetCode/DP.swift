@@ -270,6 +270,29 @@ class DynamicProgramming: BaseCode {
         return dp[(1 << m) - 1]
     }
 
+    /// 题目链接：[2560. 打家劫舍 IV](https://leetcode.cn/problems/house-robber-iv/)
+    /// DP + 二分
+    func minCapability(_ nums: [Int], _ k: Int) -> Int {
+        let n = nums.count
+        var l = 0, r = Int(1e9)
+        while l < r {
+            let mid = (l + r) >> 1
+            var dp = [Int](repeating: 0, count: n + 2)
+            for (i, num) in nums.enumerated() {
+                dp[i + 2] = dp[i + 1]
+                if num <= mid {
+                    dp[i + 2] = max(dp[i + 2], dp[i] + 1)
+                }
+            }
+            if dp[n + 1] >= k {
+                r = mid
+            } else {
+                l = mid + 1
+            }
+        }
+        return l
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {

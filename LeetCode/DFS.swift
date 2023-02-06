@@ -200,6 +200,20 @@ class DeepFirstSearch: BaseCode {
         return max(xLeftCnt, xRightCnt, n - xLeftCnt - xRightCnt - 1) * 2 > n
     }
 
+    /// 题目链接：[2331. 计算布尔二叉树的值](https://leetcode.cn/problems/evaluate-boolean-binary-tree/)
+    func evaluateTree(_ root: TreeNode?) -> Bool {
+        func dfs(_ root: TreeNode?) -> Bool {
+            guard let root = root else { return false }
+            if root.val == 3  {
+                return dfs(root.left) && dfs(root.right)
+            } else if root.val == 2 {
+                return dfs(root.left) || dfs(root.right)
+            }
+            return root.val == 1
+        }
+        return dfs(root)
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {

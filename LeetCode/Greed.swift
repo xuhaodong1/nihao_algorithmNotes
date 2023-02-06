@@ -77,6 +77,27 @@ class Greed: BaseCode {
         return min(sum - maxVal, sum / 2)
     }
 
+    /// 题目链接：[2561. 重排水果](https://leetcode.cn/problems/rearranging-fruits/description/)
+    func minCost(_ basket1: [Int], _ basket2: [Int]) -> Int {
+        var diff = [Int: Int]()
+        for i in 0..<basket1.count {
+            diff[basket1[i], default: 0] += 1
+            diff[basket2[i], default: 0] -= 1
+        }
+        var arr = [Int](), mn = Int.max
+        for item in diff {
+            if item.value & 1 == 1 { return -1 }
+            mn = min(mn, item.key)
+            arr.append(contentsOf: [Int](repeating: item.key, count: abs(item.value / 2)))
+        }
+        var ans = 0
+        arr.sort()
+        for i in 0..<arr.count/2 {
+            ans += min(mn * 2, arr[i])
+        }
+        return ans
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {

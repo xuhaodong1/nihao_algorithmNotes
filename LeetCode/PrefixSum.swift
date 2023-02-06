@@ -65,6 +65,22 @@ class PrefixSum: BaseCode {
         return ans
     }
 
+    /// 题目链接：[2559. 统计范围内的元音字符串数](https://leetcode.cn/problems/count-vowel-strings-in-ranges/description/)
+    func vowelStrings(_ words: [String], _ queries: [[Int]]) -> [Int] {
+        let n = words.count, m = queries.count
+        let yuanYin: [Character] = ["a", "e", "i", "o", "u"]
+        var ans = [Int](repeating: 0, count: m)
+        var preSum = [Int](repeating: 0, count: n + 1)
+        for i in 1...n {
+            let curr = yuanYin.contains(words[i - 1].first!) && yuanYin.contains(words[i - 1].last!) ? 1 : 0
+            preSum[i] = preSum[i - 1] + curr
+        }
+        for (i, query) in queries.enumerated() {
+            ans[i] = preSum[query[1] + 1] - preSum[query[0]]
+        }
+        return ans
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {

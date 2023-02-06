@@ -805,10 +805,23 @@ class Simulation: BaseCode {
         }
     }
 
+    /// 题目链接：[2558. 从数量最多的堆取走礼物](https://leetcode.cn/problems/take-gifts-from-the-richest-pile/)
+    func pickGifts(_ gifts: [Int], _ k: Int) -> Int {
+        var gifts = gifts.sorted()
+        for _ in 0..<k {
+            var i = -1, maxGift = -1
+            for (j, gift) in gifts.enumerated() where gift > maxGift {
+                i = j
+                maxGift = gift
+            }
+            gifts[i] = Int(sqrt(Double(maxGift)))
+        }
+        return gifts.reduce(0, +)
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(decodeMessage("the quick brown fox jumps over the lazy dog", "vkbs bs t suepuv"))
     }
 }
