@@ -819,9 +819,31 @@ class Simulation: BaseCode {
         return gifts.reduce(0, +)
     }
 
+    /// 题目链接：[1604. 警告一小时内使用相同员工卡大于等于三次的人](https://leetcode.cn/problems/alert-using-same-key-card-three-or-more-times-in-a-one-hour-period/description/)
+    func alertNames(_ keyName: [String], _ keyTime: [String]) -> [String] {
+        let n = keyName.count, arr = zip(keyName, keyTime).sorted { $0.1 < $1.1 }
+        var ans: Set<String> = []
+        var map = [String: [String]]()
+        for i in 0..<n where !ans.contains(arr[i].0) {
+            map[arr[i].0, default: []].append(arr[i].1)
+            let cnt = map[arr[i].0]!.count
+            if cnt >= 3 {
+                let time1 = getKeyTimeValue(map[arr[i].0]![cnt - 3])
+                let time3 = getKeyTimeValue(map[arr[i].0]![cnt - 1])
+                if time1 < time3 && time3 - time1 <= 60 { ans.insert(arr[i].0) }
+            }
+        }
+        func getKeyTimeValue(_ time: String) -> Int {
+            let arr = time.split(separator: ":")
+            return Int(arr[0])! * 60 + Int(arr[1])!
+        }
+        return ans.sorted()
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
+        print(alertNames(["a","a","a","a","a","b","b","b","b","b","b"], ["04:48","23:53","06:36","07:45","12:16","00:52","10:59","17:16","00:36","01:26","22:42"]))
     }
 }
