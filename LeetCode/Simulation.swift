@@ -840,10 +840,23 @@ class Simulation: BaseCode {
         return ans.sorted()
     }
 
-//    override var excuteable: Bool { return true }
+    /// 题目链接：[1233. 删除子文件夹](https://leetcode.cn/problems/remove-sub-folders-from-the-filesystem/description/)
+    func removeSubfolders(_ folder: [String]) -> [String] {
+        let folder = folder.sorted(), n = folder.count
+        var ans: [String] = [folder[0]]
+        for i in 1..<n {
+            var offset: String.Index?
+            if ans.last!.count < folder[i].count { offset = folder[i].index(folder[i].startIndex, offsetBy: ans.last!.count) }
+            if let offset = offset, folder[i].hasPrefix(ans.last!) && folder[i][offset] == "/" { }
+            else { ans.append(folder[i]) }
+        }
+        return ans
+    }
+
+    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(alertNames(["a","a","a","a","a","b","b","b","b","b","b"], ["04:48","23:53","06:36","07:45","12:16","00:52","10:59","17:16","00:36","01:26","22:42"]))
+        print(removeSubfolders(["/a","/a/b","/c/d","/c/d/e","/c/f"]))
     }
 }
