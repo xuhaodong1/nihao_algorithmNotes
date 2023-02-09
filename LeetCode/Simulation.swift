@@ -7,6 +7,30 @@
 
 import Foundation
 
+/// 题目链接：[1797. 设计一个验证系统](https://leetcode.cn/problems/design-authentication-manager/description/)
+class AuthenticationManager {
+    let timeToLive: Int
+    var map = [String: (Int, Int)]()
+    init(_ timeToLive: Int) {
+        self.timeToLive = timeToLive
+    }
+
+    func generate(_ tokenId: String, _ currentTime: Int) {
+        map[tokenId] = (currentTime, currentTime + timeToLive)
+    }
+
+    func renew(_ tokenId: String, _ currentTime: Int) {
+        if map.keys.contains(tokenId) && map[tokenId]!.1 > currentTime {
+            map[tokenId] = (currentTime, currentTime + timeToLive)
+        }
+    }
+
+    func countUnexpiredTokens(_ currentTime: Int) -> Int {
+        map = map.filter { $0.value.1 > currentTime }
+        return map.count
+    }
+}
+
 /// 模拟相关练习题
 class Simulation: BaseCode {
 
@@ -857,6 +881,13 @@ class Simulation: BaseCode {
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(removeSubfolders(["/a","/a/b","/c/d","/c/d/e","/c/f"]))
+        let auth = AuthenticationManager(5)
+        auth.renew("aaa", 1)
+        auth.generate("aaa", 2)
+        print(auth.countUnexpiredTokens(6))
+        auth.generate("bbb", 7)
+        auth.renew("aaa", 8)
+        auth.renew("bbb", 10)
+        print(auth.countUnexpiredTokens(15))
     }
 }
