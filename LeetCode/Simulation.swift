@@ -877,17 +877,9 @@ class Simulation: BaseCode {
         return ans
     }
 
-    override var excuteable: Bool { return true }
+//    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        let auth = AuthenticationManager(5)
-        auth.renew("aaa", 1)
-        auth.generate("aaa", 2)
-        print(auth.countUnexpiredTokens(6))
-        auth.generate("bbb", 7)
-        auth.renew("aaa", 8)
-        auth.renew("bbb", 10)
-        print(auth.countUnexpiredTokens(15))
     }
 }
