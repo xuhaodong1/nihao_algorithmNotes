@@ -293,6 +293,35 @@ class DynamicProgramming: BaseCode {
         return l
     }
 
+    /// 题目链接：[1223. 掷骰子模拟](https://leetcode.cn/problems/dice-roll-simulation/description/)
+    /// 先回溯 -> 记忆化搜索 -> 转为DP
+    /// 记忆化转DP：
+    /// 1.dfs改为f数组
+    /// 2.递归改为循环（每一个参数对应一层循环）
+    /// 3.递归边界改为f数组的初始值
+    func dieSimulator(_ n: Int, _ rollMax: [Int]) -> Int {
+        let MOD = Int(1e9 + 7)
+        var dp = [[[Int]]](repeating: [[Int]](repeating: [Int](repeating: 0, count: 16), count: 6), count: n)
+        for j in 0..<6 {
+            for cnt in 0...15 {
+                dp[0][j][cnt] = 1
+            }
+        }
+        for i in 1..<n {
+            for last in 0..<6 {
+                for cnt in 1...rollMax[last] {
+                    var res = 0
+                    for j in 0..<6 {
+                        if j != last { res += dp[i - 1][j][1] }
+                        else if rollMax[j] > cnt { res += dp[i - 1][j][cnt + 1] }
+                    }
+                    dp[i][last][cnt] = res % MOD
+                }
+            }
+        }
+        return dp[n - 1].map { $0[1] }.reduce(0, +) % MOD
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
