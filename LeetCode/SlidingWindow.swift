@@ -27,6 +27,24 @@ class SlidingWindow: BaseCode {
         }
         return ans
     }
+    
+    /// 题目链接：[1234. 替换子串得到平衡字符串](https://leetcode.cn/problems/replace-the-substring-for-balanced-string/description/)
+    func balancedString(_ s: String) -> Int {
+        var ans = Int.max, map = [Character: Int]()
+        let n = s.count, m = n / 4, chars = [Character](s)
+        s.forEach { map[$0, default: 0] += 1 }
+        if map["Q"] == m && map["W"] == m && map["E"] == m && map["R"] == m { return 0 }
+        var left = 0
+        for (right, c) in chars.enumerated() {
+            map[c]! -= 1
+            while map["Q", default: 0] <= m && map["W", default: 0] <= m && map["E", default: 0] <= m && map["R", default: 0] <= m {
+                ans = min(ans, right - left + 1)
+                map[chars[left], default: 0] += 1
+                left += 1
+            }
+        }
+        return ans
+    }
 
 //    override var excuteable: Bool { return true }
 
