@@ -88,7 +88,7 @@ class MonotoneStack: BaseCode {
         return ans
     }
 
-    override var excuteable: Bool { return true }
+//    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()

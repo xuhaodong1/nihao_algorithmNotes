@@ -52,4 +52,27 @@ class DoublePointer: BaseCode {
         }
         return ans
     }
+
+    /// 题目链接：[2565. 最少得分子序列](https://leetcode.cn/problems/subsequence-with-the-minimum-score/description/)
+    func minimumScore(_ s: String, _ t: String) -> Int {
+        let s = [Character](s), t = [Character](t)
+        let n = s.count, m = t.count
+        var suf = [Int](repeating: 0, count: n + 1)
+        suf[n] = m
+        var j = m - 1
+        for i in (0..<n).reversed() {
+            if j >= 0 && s[i] == t[j] { j -= 1 }
+            suf[i] = j + 1
+        }
+        var ans = suf[0]
+        if ans == 0 { return 0 }
+        j = 0
+        for i in 0..<n {
+            if s[i] == t[j] {
+                j += 1
+                ans = min(ans, suf[i + 1] - j)
+            }
+        }
+        return ans
+    }
 }
