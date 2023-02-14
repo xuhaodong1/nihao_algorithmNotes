@@ -66,11 +66,32 @@ class MonotoneStack: BaseCode {
         return ans
     }
 
-//    override var excuteable: Bool {
-//        return true
-//    }
+    /// 题目链接：[1124. 表现良好的最长时间段](https://leetcode.cn/problems/longest-well-performing-interval/)
+    /// 计算前缀和之后的三种做法
+    /// 1. 双重循环枚举所有情况
+    /// 2. 单调栈列举可能成为左端点的情况
+    /// 3. 利用前缀和连续性，以 map 或者 arr 计算
+    func longestWPI(_ hours: [Int]) -> Int {
+        let n = hours.count
+        var ans = 0
+        var preSum = [Int](repeating: 0, count: n + 1)
+        var queue = [0]
+        for (i, hour) in hours.enumerated() {
+            preSum[i + 1] = preSum[i] + (hour > 8 ? 1 : -1)
+            if preSum[i + 1] < preSum[queue.last!] { queue.append(i + 1) }
+        }
+        for i in (1...n).reversed() {
+            while !queue.isEmpty && preSum[i] > preSum[queue.last!] {
+                ans = max(ans, i - queue.removeLast())
+            }
+        }
+        return ans
+    }
+
+    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
+//        print(longestWPI([10, 10, 1, 1, 1, 1]))
     }
 }

@@ -326,6 +326,5 @@ class DynamicProgramming: BaseCode {
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(maxScore([3,4,6,8]))
     }
 }

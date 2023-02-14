@@ -119,11 +119,35 @@ class Dichotomy: BaseCode {
         return left
     }
 
+    /// 题目链接：[2563. 统计公平数对的数目](https://leetcode.cn/problems/count-the-number-of-fair-pairs/description/)
+    func countFairPairs(_ nums: [Int], _ lower: Int, _ upper: Int) -> Int {
+        let n = nums.count, nums = nums.sorted()
+        var ans = 0
+        func lowerBound(_ i: Int, _ target: Int) -> Int {
+            var l = i + 1, r = n
+            while l < r {
+                let mid = (l + r) >> 1
+                if nums[mid] < target {
+                    l = mid + 1
+                } else {
+                    r = mid
+                }
+            }
+            return l
+        }
+        for i in 0..<n-1 {
+            let l = lowerBound(i, lower - nums[i])
+            let r = lowerBound(i, upper - nums[i] + 1)
+            ans += (r - l)
+        }
+        return ans
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(minimumSize([1], 1))
+        print(countFairPairs([1,2,5,7,9], 11, 11))
     }
 
 }

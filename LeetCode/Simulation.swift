@@ -877,6 +877,64 @@ class Simulation: BaseCode {
         return ans
     }
 
+    /// 题目链接：[6354. 找出数组的串联值](https://leetcode.cn/problems/find-the-array-concatenation-value/description/)
+    func findTheArrayConcVal(_ nums: [Int]) -> Int {
+        var ans = 0
+        var l = 0, r = nums.count - 1
+        while l <= r {
+            var curr = 0
+            if l == r { curr = nums[l] }
+            else { curr = Int("\(nums[l])\(nums[r])")! }
+            ans += curr
+            l += 1
+            r -= 1
+        }
+        return ans
+    }
+
+    /// 题目链接：[1138. 字母板上的路径](https://leetcode.cn/problems/alphabet-board-path/description/)
+    func alphabetBoardPath(_ target: String) -> String {
+        let aV = Character("a").asciiValue!
+        var ans = "", curr = (0, 0)
+        for c in target {
+            let target = (((Int(c.asciiValue! - aV)) / 5), (Int(c.asciiValue! - aV)) % 5)
+            if c == "z" {
+                ans.append(String(repeating: target.1 - curr.1 > 0 ? "R" : "L", count: abs(target.1 - curr.1)))
+                ans.append(String(repeating: target.0 - curr.0 > 0 ? "D" : "U", count: abs(target.0 - curr.0)))
+            } else {
+                ans.append(String(repeating: target.0 - curr.0 > 0 ? "D" : "U", count: abs(target.0 - curr.0)))
+                ans.append(String(repeating: target.1 - curr.1 > 0 ? "R" : "L", count: abs(target.1 - curr.1)))
+            }
+            curr = target
+            ans.append("!")
+        }
+        return ans
+    }
+
+    /// 题目链接：[2335. 装满杯子需要的最短总时长](https://leetcode.cn/problems/minimum-amount-of-time-to-fill-cups/description/)
+    func fillCups(_ amount: [Int]) -> Int {
+        let amount = amount.sorted()
+        if amount[2] > amount[1] + amount[0] { return amount[2] }
+        return (amount[0] + amount[1] + amount[2] + 1) / 2
+    }
+
+    /// 题目链接：[2564. 子字符串异或查询](https://leetcode.cn/problems/substring-xor-queries/description/)
+    func substringXorQueries(_ s: String, _ queries: [[Int]]) -> [[Int]] {
+        let queries = queries.map { $0[0] ^ $0[1] }, chars = [Character](s), n = s.count
+        var ans = [[Int]](), map = [Int: [Int]]()
+        for i in 0..<n {
+            var curr = 0
+            for j in i..<min(i+30, n) {
+                curr = (curr << 1 + (chars[j] == "0" ? 0 : 1))
+                if !map.keys.contains(curr) || j - i < map[curr]![1] - map[curr]![0] { map[curr] = [i, j] }
+            }
+        }
+        for query in queries {
+            ans.append(map[query, default: [-1, -1]])
+        }
+        return ans
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
