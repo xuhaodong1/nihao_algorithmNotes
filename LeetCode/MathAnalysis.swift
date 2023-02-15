@@ -103,6 +103,15 @@ class MathAnalysis: BaseCode {
         return ans % Int(1e9 + 7)
     }
 
+    /// 题目链接：[1250. 检查「好数组」](https://leetcode.cn/problems/check-if-it-is-a-good-array/description/)
+    /// 翡蜀定理
+    func isGoodArray(_ nums: [Int]) -> Bool {
+        func gcd(_ a: Int,_ b: Int) -> Int {
+            return b == 0 ? a : gcd(b, a % b)
+        }
+        return nums.reduce(0) { gcd($1, $0) } == 1
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
