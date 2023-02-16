@@ -935,6 +935,18 @@ class Simulation: BaseCode {
         return ans
     }
 
+    /// 题目链接：[2341. 数组能形成多少数对](https://leetcode.cn/problems/maximum-number-of-pairs-in-array/description/)
+    func numberOfPairs(_ nums: [Int]) -> [Int] {
+        var map = [Int: Int]()
+        nums.forEach { map[$0, default: 0] += 1 }
+        var pairCnt = 0, remainder = 0
+        for item in map {
+            pairCnt += item.value / 2
+            remainder += item.value % 2
+        }
+        return [pairCnt, remainder]
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
