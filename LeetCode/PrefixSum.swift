@@ -81,6 +81,30 @@ class PrefixSum: BaseCode {
         return ans
     }
 
+    /// 题目链接：[1139. 最大的以 1 为边界的正方形](https://leetcode.cn/problems/largest-1-bordered-square/)
+    func largest1BorderedSquare(_ grid: [[Int]]) -> Int {
+        let n = grid.count, m = grid[0].count
+        var rs = [[Int]](repeating: [Int](repeating: 0, count: m + 1), count: n)
+        var ds = [[Int]](repeating: [Int](repeating: 0, count: n + 1), count: m)
+        for i in 0..<n {
+            for j in 0..<m {
+                rs[i][j + 1] = rs[i][j] + grid[i][j]
+                ds[j][i + 1] = ds[j][i] + grid[i][j]
+            }
+        }
+        for len in (1...min(n, m)).reversed() {
+            for i in 0...n-len {
+                for j in 0...m-len {
+                    if rs[i][j + len] - rs[i][j] == len && rs[i + len - 1][j + len] - rs[i + len - 1][j] == len
+                        && ds[j][i + len] - ds[j][i] == len && ds[j + len - 1][i + len] - ds[j + len - 1][i] == len {
+                        return len * len
+                    }
+                }
+            }
+        }
+        return 0
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
