@@ -961,6 +961,18 @@ class Simulation: BaseCode {
         return ans
     }
 
+    /// 题目链接：[2347. 最好的扑克手牌](https://leetcode.cn/problems/best-poker-hand/)
+    func bestHand(_ ranks: [Int], _ suits: [Character]) -> String {
+        if suits.allSatisfy({ $0 == suits[0] }) { return "Flush" }
+        var cnts = [Int: Int]()
+        ranks.forEach { cnts[$0, default: 0] += 1 }
+        let cntMax = cnts.max { $0.value > $1.value }!.value
+        if cntMax >= 3 { return "Three of a Kind" }
+        if cntMax == 2 { return "Pair" }
+        if cntMax == 1 { return "High Card" }
+        return ""
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
