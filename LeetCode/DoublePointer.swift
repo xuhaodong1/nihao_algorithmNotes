@@ -7,6 +7,10 @@
 
 import Foundation
 
+class CustomFunction {
+    func f(_ x: Int, _ y: Int) -> Int { return 0 }
+}
+
 /// 双指针相关练习题
 class DoublePointer: BaseCode {
 
@@ -71,6 +75,25 @@ class DoublePointer: BaseCode {
             if s[i] == t[j] {
                 j += 1
                 ans = min(ans, suf[i + 1] - j)
+            }
+        }
+        return ans
+    }
+
+    /// 题目链接：[1237. 找出给定方程的正整数解](https://leetcode.cn/problems/find-positive-integer-solution-for-a-given-equation/)
+    func findSolution(_ customfunction: CustomFunction, _ z: Int) -> [[Int]] {
+        var l = 1, r = 1000
+        var ans = [[Int]]()
+        while l <= 1000 && r > 0 {
+            let curr = customfunction.f(l, r)
+            if curr == z {
+                ans.append([l, r])
+                l += 1
+                r -= 1
+            } else if curr > z {
+                r -= 1
+            } else {
+                l += 1
             }
         }
         return ans
