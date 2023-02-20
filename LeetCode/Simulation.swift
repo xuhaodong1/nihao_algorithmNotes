@@ -947,6 +947,20 @@ class Simulation: BaseCode {
         return [pairCnt, remainder]
     }
 
+    /// 题目链接：[2348. 全 0 子数组的数目](https://leetcode.cn/problems/number-of-zero-filled-subarrays/description/)
+    func zeroFilledSubarray(_ nums: [Int]) -> Int {
+        var cnt = 0, ans = 0
+        for num in nums {
+            if num == 0 {
+                ans += (1 + cnt)
+                cnt += 1
+            } else {
+                cnt = 0
+            }
+        }
+        return ans
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {

@@ -1,5 +1,5 @@
-from heapq import heapify, heapreplace
-from math import inf
+from heapq import heapify, heappop, heappush, heapreplace
+from typing import List
 
 # 优先队列相关练习题
 class PriorityQueue:
@@ -17,5 +17,15 @@ class PriorityQueue:
                 ans = min(ans, sum_q * w / q)
         return ans
 
+    # 题目链接：[1792. 最大平均通过率](https://leetcode.cn/problems/maximum-average-pass-ratio/)
+    def maxAverageRatio(self, classes: List[List[int]], extraStudents: int) -> float:
+        h = [(a / b - (a + 1) / (b + 1), a, b) for a, b in classes]
+        heapify(h)
+        for _ in range(extraStudents):
+            _, a, b = heappop(h)
+            a, b = a + 1, b + 1
+            heappush(h, (a / b - (a + 1) / (b + 1), a, b))
+        return sum(v[1] / v[2] for v in h) / len(classes)
+
 p = PriorityQueue()
-print(p.mincostToHireWorkers([3,1,10,10,1], [4,8,2,2,7], 3))
+print(p.maxAverageRatio([[1,2],[3,5],[2,2]], 2))
