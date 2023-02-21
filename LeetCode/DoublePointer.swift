@@ -98,4 +98,38 @@ class DoublePointer: BaseCode {
         }
         return ans
     }
+
+    /// 题目链接：[2570. 合并两个二维数组 - 求和法](https://leetcode.cn/problems/merge-two-2d-arrays-by-summing-values/description/)
+    func mergeArrays(_ nums1: [[Int]], _ nums2: [[Int]]) -> [[Int]] {
+        let n = nums1.count, m = nums2.count
+        var l1 = 0, l2 = 0
+        var ans = [[Int]]()
+        while l1 < n || l2 < m {
+            if l2 == m {
+                ans.append(contentsOf: nums1[l1..<n])
+                return ans
+            } else if l1 == n {
+                ans.append(contentsOf: nums2[l2..<m])
+                return ans
+            } else if nums1[l1][0] == nums2[l2][0] {
+                ans.append([nums1[l1][0], nums1[l1][1] + nums2[l2][1]])
+                l1 += 1
+                l2 += 1
+            } else if nums1[l1][0] < nums2[l2][0] {
+                ans.append([nums1[l1][0], nums1[l1][1]])
+                l1 += 1
+            } else {
+                ans.append([nums2[l2][0], nums2[l2][1]])
+                l2 += 1
+            }
+        }
+        return ans
+    }
+
+//    override var excuteable: Bool { return true }
+
+    override func executeTestCode() {
+        super.executeTestCode()
+        print(mergeArrays([[2,4],[3,6],[5,5]], [[1,3],[4,3]]))
+    }
 }

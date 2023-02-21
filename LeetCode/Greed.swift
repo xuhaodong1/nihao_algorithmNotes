@@ -151,6 +151,18 @@ class Greed: BaseCode {
         return ans
     }
 
+    /// 题目链接：[2571. 将整数减少到零需要的最少操作数](https://leetcode.cn/problems/minimum-operations-to-reduce-an-integer-to-0/description/)
+    func minOperations(_ n: Int) -> Int {
+        var n = n, ans = 0
+        while n != 0 {
+            let lb = n & -n
+            if (n & (lb << 1) > 0) { n += lb }
+            else { n -= lb }
+            ans += 1
+        }
+        return ans
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
