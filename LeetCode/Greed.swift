@@ -119,10 +119,24 @@ class Greed: BaseCode {
         return ans
     }
 
+    /// 题目链接：[45. 跳跃游戏 II](https://leetcode.cn/problems/jump-game-ii/description/)
+    func jump(_ nums: [Int]) -> Int {
+        var ans = 0, cur = 0, maxRight = 0
+        let n = nums.count
+        for i in 0..<n-1 {
+            maxRight = max(maxRight, nums[i] + i)
+            if i == nums[cur] {
+                cur = maxRight
+                ans += 1
+            }
+        }
+        return ans
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(maximumScore(4, 4, 6))
+        print(jump([3,2,1]))
     }
 }
