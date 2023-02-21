@@ -98,6 +98,27 @@ class Greed: BaseCode {
         return ans
     }
 
+    /// 题目链接：[1326. 灌溉花园的最少水龙头数目](https://leetcode.cn/problems/minimum-number-of-taps-to-open-to-water-a-garden/description/)
+    func minTaps(_ n: Int, _ ranges: [Int]) -> Int {
+        var rightMost = [Int](repeating: 0, count: n + 1)
+        for i in 0...n {
+            let r = ranges[i]
+            if i > r { rightMost[i - r] = i + r }
+            else { rightMost[0] = i + r }
+        }
+        var ans = 0
+        var curRight = 0, nextRight = 0
+        for i in 0..<n {
+            nextRight = max(nextRight, rightMost[i])
+            if i == curRight {
+                if i == nextRight { return -1 }
+                curRight = nextRight
+                ans += 1
+            }
+        }
+        return ans
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
