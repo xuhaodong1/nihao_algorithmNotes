@@ -133,10 +133,28 @@ class Greed: BaseCode {
         return ans
     }
 
+    /// 题目链接：[1024. 视频拼接](https://leetcode.cn/problems/video-stitching/)
+    func videoStitching(_ clips: [[Int]], _ time: Int) -> Int {
+        var rightMost = [Int](repeating: 0, count: time + 1)
+        var ans = 0, currRight = 0, nextRight = 0
+        for clip in clips where clip[0] < time {
+            rightMost[clip[0]] = max(rightMost[clip[0]], clip[1])
+        }
+        for i in 0..<time {
+            nextRight = max(nextRight, rightMost[i])
+            if i == currRight {
+                if nextRight == currRight { return -1 }
+                currRight = nextRight
+                ans += 1
+            }
+        }
+        return ans
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(jump([3,2,1]))
+        print(videoStitching([[5,7],[1,8],[0,0],[2,3],[4,5],[0,6],[5,10],[7,10]], 5))
     }
 }
