@@ -322,9 +322,31 @@ class DynamicProgramming: BaseCode {
         return dp[n - 1].map { $0[1] }.reduce(0, +) % MOD
     }
 
+    /// 题目链接：[1140. 石子游戏 II](https://leetcode.cn/problems/stone-game-ii/)
+    func stoneGameII(_ piles: [Int]) -> Int {
+        let n = piles.count
+        var sufSum = piles
+        var memo = [[Int]](repeating: [Int](repeating: -1, count: (n + 1) / 4 + 1), count: n)
+        for i in (0..<n).reversed() where i < n - 1 {
+            sufSum[i] += sufSum[i + 1]
+        }
+        func dfs(_ curr: Int, _ m: Int) -> Int {
+            if curr + m * 2 >= sufSum.count { return sufSum[curr] }
+            if memo[curr][m] != -1 { return memo[curr][m] }
+            var res = Int.max
+            for x in 1...(2*m) {
+                res = min(res, dfs(x + curr, max(m, x)))
+            }
+            memo[curr][m] = sufSum[curr] - res
+            return sufSum[curr] - res
+        }
+        return dfs(0, 1)
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
+        print(stoneGameII([1]))
     }
 }
