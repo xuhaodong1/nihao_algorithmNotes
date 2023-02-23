@@ -112,6 +112,11 @@ class MathAnalysis: BaseCode {
         return nums.reduce(0) { gcd($1, $0) } == 1
     }
 
+    /// 题目链接：[1238. 循环码排列](https://leetcode.cn/problems/circular-permutation-in-binary-representation/description/)
+    func circularPermutation(_ n: Int, _ start: Int) -> [Int] {
+        return (0..<(1 << n)).map { ($0 >> 1) ^ $0 ^ start }
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
