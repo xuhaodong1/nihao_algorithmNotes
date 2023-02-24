@@ -343,10 +343,37 @@ class DynamicProgramming: BaseCode {
         return dfs(0, 1)
     }
 
+    /// 题目链接：[2572. 无平方子集计数](https://leetcode.cn/problems/count-the-number-of-square-free-subsets/description/)
+    func squareFreeSubsets(_ nums: [Int]) -> Int {
+        let PRIMES = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29]
+        let MOD = Int(1e9 + 7), MX = 30, N_PRIMES = PRIMES.count, M = 1 << N_PRIMES
+        var NSQ_TO_MASK = [Int](repeating: 0, count: MX + 1)
+        for i in 2...MX {
+            for j in 0..<N_PRIMES where i % PRIMES[j] == 0 {
+                if i % (PRIMES[j] * PRIMES[j]) == 0 {
+                    NSQ_TO_MASK[i] = -1
+                    break
+                }
+                NSQ_TO_MASK[i] |= (1 << j)
+            }
+        }
+        var dp = [Int](repeating: 0, count: M)
+        dp[0] = 1
+        for x in nums {
+            let mask = NSQ_TO_MASK[x]
+            if mask >= 0 {
+                for j in (mask...M-1).reversed() where (j | mask) == j {
+                    dp[j] = (dp[j] + dp[j ^ mask]) % MOD
+                }
+            }
+        }
+        return (dp.reduce(0, +) - 1) % MOD
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
         super.executeTestCode()
-        print(stoneGameII([1]))
+        print(squareFreeSubsets([3,4,4,5]))
     }
 }
