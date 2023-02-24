@@ -973,6 +973,11 @@ class Simulation: BaseCode {
         return ""
     }
 
+    /// 题目链接：[2357. 使数组中所有元素都等于零](https://leetcode.cn/problems/make-array-zero-by-subtracting-equal-amounts/description/)
+    func minimumOperations(_ nums: [Int]) -> Int {
+        return Set<Int>(nums).filter { $0 > 0 }.count
+    }
+
 //    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
