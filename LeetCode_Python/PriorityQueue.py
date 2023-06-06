@@ -27,5 +27,45 @@ class PriorityQueue:
             heappush(h, (a / b - (a + 1) / (b + 1), a, b))
         return sum(v[1] / v[2] for v in h) / len(classes)
 
+    def beautifulSubsets(self, nums: List[int], k: int) -> int:
+        n = len(nums)
+        mask = 1 << len(nums)
+        ans = 0
+        for i in range(1, mask):
+            set = {-1}
+            isFail = False
+            for j in range(n):
+                if i & (1 << j):
+                    if nums[j] - k in set or nums[j] + k in set:
+                        isFail = True
+                        break
+                    set.add(nums[j])
+            if not isFail:
+                ans += 1
+        return ans
+    # func beautifulSubsets(_ nums: [Int], _ k: Int) -> Int {
+    #     let n = nums.count
+    #     let mask = 1 << n
+    #     var ans = 0
+    #     var set = Set<Int>()
+    #     for i in 1..<mask {
+    #         set.removeAll()
+    #         var isFail = false
+    #         for j in 0..<n where i & (1 << j) > 0 {
+    #             if set.contains(nums[j] - k) || set.contains(nums[j] + k) {
+    #                 isFail = true
+    #                 break
+    #             }
+    #             set.insert(nums[j])
+    #         }
+    #         if !isFail {
+    #             ans += 1
+    #         }
+    #     }
+    #     return ans
+    # }
+
 p = PriorityQueue()
-print(p.maxAverageRatio([[1,2],[3,5],[2,2]], 2))
+# print(p.maxAverageRatio([[1,2],[3,5],[2,2]], 2))
+print(p.beautifulSubsets([13,18,17,11,9,4,2,14,12,7,8,16,5,20,19,10,15,3,6,1],
+                               13))

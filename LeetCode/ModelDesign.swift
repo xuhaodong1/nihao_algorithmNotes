@@ -1337,9 +1337,9 @@ class MyCircularDeque {
 /// 题目链接：[707. 设计链表](https://leetcode.cn/problems/design-linked-list/)
 class MyLinkedList {
     class SingalNode {
-        var val: Int
+        var val: TreeNode
         var next: SingalNode?
-        init(_ val: Int) {
+        init(_ val: TreeNode) {
             self.val = val
             self.next = nil
         }
@@ -1349,28 +1349,15 @@ class MyLinkedList {
     var cnt: Int
 
     init() {
-        root = SingalNode(-1)
+        root = SingalNode(TreeNode.init(-1))
         cnt = 0
     }
 
-    func get(_ index: Int) -> Int {
-        if index >= cnt || index < 0 { return -1 }
-        var node = root
-        for _ in 0...index {
-            node = node?.next
-        }
-        return node?.val ?? -1
-    }
-
-    func addAtHead(_ val: Int) {
-        addAtIndex(0, val)
-    }
-
-    func addAtTail(_ val: Int) {
+    func addAtTail(_ val: TreeNode) {
         addAtIndex(cnt, val)
     }
 
-    func addAtIndex(_ index: Int, _ val: Int) {
+    func addAtIndex(_ index: Int, _ val: TreeNode) {
         if index > cnt { return }
         var index = index
         if index < 0 { index = 0 }
@@ -1384,13 +1371,61 @@ class MyLinkedList {
         cnt += 1
     }
 
-    func deleteAtIndex(_ index: Int) {
-        if index >= cnt || index < 0 { return }
+    func deleteAtIndex(_ index: Int) -> TreeNode? {
+        if index >= cnt || index < 0 { return nil }
         var node = root
         for _ in 0..<index {
             node = node?.next
         }
+        let ans = node?.next
         node?.next = node?.next?.next
         cnt -= 1
+        return ans?.val
+    }
+}
+
+class StreamChecker {
+    var root = Trie()
+    var mx = 0
+    let charA = Character("a")
+    var search = [Character]()
+
+    init(_ words: [String]) {
+        for word in words {
+            insert(word)
+        }
+    }
+
+    private func insert(_ word: String) {
+        mx = max(word.count, mx)
+        var curr = root
+        for char in word.reversed() {
+            let index = Int(char.asciiValue! - charA.asciiValue!)
+            if curr.children[index] == nil {
+                curr.children[index] = Trie()
+            }
+            curr = curr.children[index]!
+        }
+        curr.isEnd = true
+    }
+
+    func query(_ letter: Character) -> Bool {
+        search.insert(letter, at: 0)
+        if search.count > mx {
+            search.removeLast()
+        }
+        var curr = root
+        for i in 0..<min(mx, search.count) {
+            let index = Int(search[i].asciiValue! - charA.asciiValue!)
+            if curr.children[index] == nil { return false }
+            else if curr.children[index]?.isEnd == true { return true }
+            curr = curr.children[index]!
+        }
+        return false
+    }
+
+    class Trie {
+        var children = [Trie?](repeating: nil, count: 26)
+        var isEnd = false
     }
 }

@@ -370,10 +370,1458 @@ class DynamicProgramming: BaseCode {
         return (dp.reduce(0, +) - 1) % MOD
     }
 
-//    override var excuteable: Bool { return true }
+    func printBin(_ num: Double) -> String {
+        var ans = "0.", num = num, cnt = 0
+        while ans.count <= 32 && num != 0 {
+            num *= 2
+            let digit = Int(num)
+            ans += "\(digit)"
+            num -= Double(digit)
+            cnt += 1
+        }
+        return ans.count <= 32 ? ans : "ERROR"
+    }
+
+    func passThePillow(_ n: Int, _ time: Int) -> Int {
+        let t = time % (n - 1)
+        return time / (n - 1) & 1 == 0 ? 1 + t : n - t
+    }
+
+    func kthLargestLevelSum(_ root: TreeNode?, _ k: Int) -> Int {
+        guard let root = root else { return -1 }
+        var queue: [TreeNode] = [root]
+        var arr = [Int]()
+        while queue.count > 0 {
+            var sum = 0
+            var temp = [TreeNode]()
+            queue.forEach { curr in
+                sum += curr.val
+                if let left = curr.left { temp.append(left) }
+                if let right = curr.right { temp.append(right) }
+            }
+            queue = temp
+            arr.append(sum)
+        }
+        arr.sort(by: >)
+        return arr.count >= k ? arr[k - 1] : -1
+    }
+
+    func findValidSplit(_ nums: [Int]) -> Int {
+        let n = nums.count
+        var left = [Int: Int]()
+        var right = [Int](repeating: -1, count: n)
+        func updateArr(p: Int, i: Int) {
+            if left.keys.contains(p) { right[left[p]!] = i }
+            else { left[p] = i }
+        }
+        for (i, x) in nums.enumerated() {
+            var x = x, d = 2
+            while d * d <= x {
+                if x % d == 0 {
+                    updateArr(p: d, i: i)
+                    x /= d
+                }
+                while x % d == 0 { x /= d }
+                d += 1
+            }
+            if x > 1 { updateArr(p: x, i: i) }
+        }
+        var maxR = 0
+        for (l, r) in right.enumerated() {
+            if l > maxR { return maxR }
+            maxR = max(maxR, r)
+        }
+        return -1
+    }
+
+    func waysToReachTarget(_ target: Int, _ types: [[Int]]) -> Int {
+        let mod = Int(1e9 + 7)
+        var dp = [Int](repeating: 0, count: target + 1)
+        dp[0] = 1
+        for type in types {
+            let count = type[0], marks = type[1]
+            for j in (1...target).reversed() {
+                for k in 1...count where k <= j / marks {
+                    dp[j] = (dp[j] + dp[j - k * marks]) % mod
+                }
+            }
+        }
+        return dp[target]
+    }
+
+    func minOperationsMaxProfit(_ customers: [Int], _ boardingCost: Int, _ runningCost: Int) -> Int {
+        let n = customers.count
+        var ans = -1, maxCost = 0, wait = 0, curr = 0, i = 0
+        while wait > 0 || i < n {
+            wait += i >= n ? 0 : customers[i]
+            let up = min(4, wait)
+            wait -= up
+            curr += boardingCost * up - runningCost
+            i += 1
+            if curr > maxCost {
+                maxCost = curr
+                ans = i
+            }
+        }
+        return ans
+    }
+
+    func vowelStrings(_ words: [String], _ left: Int, _ right: Int) -> Int {
+        let yuanyin: [Character] = ["a", "e", "i", "o", "u"]
+        return words[left...right].reduce(0) { return $0 + (yuanyin.contains($1.first!) && yuanyin.contains($1.last!) ? 1 : 0) }
+    }
+
+    func maxScore1(_ nums: [Int]) -> Int {
+        let nums = nums.sorted(by: >)
+        var cnt = 0, sum = 0
+        for num in nums {
+            sum += num
+            if sum <= 0 { break }
+            cnt += 1
+        }
+        return cnt
+    }
+
+    func beautifulSubarrays(_ nums: [Int]) -> Int {
+        let n = nums.count
+        var s = [Int](repeating: 0, count: n + 1)
+        for i in 0..<n { s[i + 1] = s[i] ^ nums[i] }
+        var first = [Int: Int]()
+        var ans = 0
+        for i in 0...n {
+            ans += first[s[i], default: 0]
+            first[s[i], default: 0] += 1
+        }
+        return ans
+    }
+
+    func findMinimumTime(_ tasks: [[Int]]) -> Int {
+        let tasks = tasks.sorted { $0[1] < $1[1] }
+        var ans = 0
+        var run = [Bool](repeating: false, count: tasks[tasks.count - 1][1] + 1)
+        for task in tasks {
+            let start = task[0], end = task[1]
+            var d = task[2]
+            for i in start...end where run[i] {
+                d -= 1
+            }
+            for i in (1...end).reversed() where d > 0 && !run[i] {
+                run[i] = true
+                d -= 1
+                ans += 1
+            }
+        }
+        return ans
+    }
+
+    func countSubgraphsForEachDiameter(_ n: Int, _ edges: [[Int]]) -> [Int] {
+        var g = [[Int]](repeating: [], count: n)
+        for edge in edges {
+            let x = edge[0] - 1, y = edge[1] - 1
+            g[x].append(y)
+            g[y].append(x)
+        }
+        var ans = [Int](repeating: 0, count: n - 1)
+        var inSet = [Bool](repeating: false, count: n)
+        var vis = [Bool]()
+        var diameter = 0
+        f(i: 0)
+        func f(i: Int) {
+            if i == n {
+                for v in 0..<n {
+                    if inSet[v] {
+                        vis = [Bool](repeating: false, count: n)
+                        diameter = 0
+                        dfs(v)
+                        break
+                    }
+                }
+                if diameter > 0 && vis == inSet {
+                    ans[diameter - 1] += 1
+                }
+                return
+            }
+            f(i: i + 1)
+
+            inSet[i] = true
+            f(i: i + 1)
+            inSet[i] = false
+        }
+        func dfs(_ x: Int) -> Int {
+            vis[x] = true
+            var maxLen = 0
+            for y in g[x] {
+                if !vis[y] && inSet[y] {
+                    let ml = dfs(y) + 1
+                    diameter = max(diameter, maxLen + ml)
+                    maxLen = max(maxLen, ml)
+                }
+            }
+            return maxLen
+        }
+        return ans
+    }
+
+    func countSubarrays(_ nums: [Int], _ k: Int) -> Int {
+        let n = nums.count
+        let pos = nums.firstIndex(of: k)!
+        var x = 0, map: [Int: Int] = [0: 1]
+        for i in (0..<pos).reversed() {
+            x += nums[i] < k ? 1 : -1
+            map[x, default: 0] += 1
+        }
+        var ans = map[0, default: 0] + map[-1, default: 0]
+        x = 0
+        for i in pos+1..<n {
+            x += nums[i] > k ? 1 : -1
+            ans += map[x, default: 0] + map[x - 1, default: 0]
+        }
+        return ans
+    }
+
+    func answerQueries(_ nums: [Int], _ queries: [Int]) -> [Int] {
+        let n = nums.count, m = queries.count
+        var s = [Int](repeating: 0, count: n + 1)
+        for (i, num) in nums.sorted().enumerated() {
+            s[i + 1] = s[i] + num
+        }
+        var ans = [Int](repeating: 0, count: m)
+        for (i, query) in queries.enumerated() {
+            var l = 0, r = n
+            while l < r {
+                let mid = (l + r + 1) >> 1
+                if query < s[mid] {
+                    r = mid - 1
+                } else {
+                    l = mid
+                }
+            }
+            ans[i] = l
+        }
+        return ans
+    }
+
+    func evenOddBit(_ n: Int) -> [Int] {
+        var n = n
+        var ans = [0, 0]
+        var curr = 0
+        while n > 0 {
+            ans[curr] += n & 1
+            curr ^= 1
+            n >>= 1
+        }
+        return ans
+    }
+
+    func checkValidGrid(_ grid: [[Int]]) -> Bool {
+        let n = grid.count
+        var map = [Int: (Int, Int)]()
+        for i in 0..<n {
+            for j in 0..<n {
+                if map.keys.contains(grid[i][j]) {
+                    return false
+                } else {
+                    map[grid[i][j]] = (i, j)
+                }
+            }
+        }
+        var curr = (0, 0)
+        for i in 1...(n*n-1) {
+            if let (x, y) = map[i] {
+                if abs((x - curr.0)) + abs(y - curr.1) != 3 {
+                    return false
+                }
+                curr = (x, y)
+            } else {
+                return false
+            }
+        }
+        return true
+    }
+
+    func beautifulSubsets(_ nums: [Int], _ k: Int) -> Int {
+        let n = nums.count
+        var ans = -1
+        var set = Set<Int>()
+        func dfs(i: Int) {
+            if i == n { ans += 1; return }
+            dfs(i: i + 1)
+            if !set.contains(nums[i] - k) && !set.contains(nums[i] + k) {
+                set.insert(nums[i])
+                dfs(i: i + 1)
+                set.remove(nums[i])
+            }
+        }
+        dfs(i: 0)
+        return ans
+    }
+
+    func findSmallestInteger(_ nums: [Int], _ value: Int) -> Int {
+        let n = nums.count
+        var map = [Int: Int]()
+        for num in nums {
+            map[(num % value + value) % value, default: 0] += 1
+        }
+        for i in 0..<n {
+            if let cnt = map[i % value], cnt > 0 {
+                map[i % value]! -= 1
+            } else {
+                return i
+            }
+        }
+        return n
+    }
+
+    func numDupDigitsAtMostN(_ n: Int) -> Int {
+        let s = "\(n)".map{ $0 }
+        let m = s.count
+        var memo = [[Int]](repeating: [Int](repeating: -1, count: 1 << 10), count: m)
+        func f(_ i: Int, _ mask: Int, _ isLimit: Bool, _ isNum: Bool) -> Int {
+            if i == m { return isNum ? 1 : 0 }
+            if !isLimit && isNum && memo[i][mask] != -1 { return memo[i][mask] }
+            var ans = 0
+            if !isNum {
+                ans += f(i + 1, mask, false, false)
+            }
+            let up = isLimit ? Int(s[i].asciiValue!) - Int(Character("a").asciiValue!) : 9
+            var d = isNum ? 0 : 1
+            while d <= up {
+                if (mask >> d) & 1 == 0 {
+                    ans += f(i + 1, mask | (1 << d), isLimit && d == up, true)
+                }
+                d += 1
+            }
+            if !isLimit && isNum {
+                memo[i][mask] = ans
+            }
+            return ans
+        }
+        return n - f(0, 0, true, false)
+    }
+
+    func bestTeamScore(_ scores: [Int], _ ages: [Int]) -> Int {
+        let arr = zip(scores, ages).sorted { item1, item2 in
+            return item1.1 == item2.1 ? item1.0 < item2.0 : item1.1 < item2.1
+        }
+        let n = arr.count
+        var ans = 0
+        var dp = [Int](repeating: 0, count: n)
+        for i in 0..<n {
+            dp[i] = arr[i].0
+            for j in 0..<i {
+                if arr[j].0 <= arr[i].0 {
+                    dp[i] = max(dp[i], dp[j] + arr[i].0)
+                }
+            }
+            ans = max(ans, dp[i])
+        }
+        return ans
+    }
+
+    func primeSubOperation(_ nums: [Int]) -> Bool {
+        let n = nums.count
+        var primes = [Int]()
+        for num in 2...1000 {
+            var i = 2, isPrime = true
+            while i + i <= num {
+                if num % i == 0 {
+                    isPrime = false
+                    break
+                }
+                i += 1
+            }
+            if isPrime { primes.append(num) }
+        }
+        var nums = nums
+        for i in (0..<n-1).reversed() {
+            if nums[i] >= nums[i + 1] {
+                let diff = nums[i] - nums[i + 1]
+                for prime in primes {
+                    if prime >= nums[i] { break }
+                    if prime > diff { nums[i] -= prime; break }
+                }
+                if nums[i] >= nums[i + 1] {
+                    return false
+                }
+            }
+        }
+        return true
+    }
+
+    func minOperations(_ nums: [Int], _ queries: [Int]) -> [Int] {
+        let n = nums.count, m = queries.count, nums = nums.sorted()
+        var preSum = [Int](repeating: 0, count: n + 1)
+        for i in 0..<n {
+            preSum[i + 1] = preSum[i] + nums[i]
+        }
+        var ans = [Int](repeating: 0, count: m)
+        for (i, query) in queries.enumerated() {
+            var l = -1, r = n - 1
+            while l < r {
+                let mid = (r + l + 1) >> 1
+                // 最大的<=
+                if nums[mid] <= query {
+                    l = mid
+                } else {
+                    r = mid - 1
+                }
+            }
+            ans[i] = query * (l + 1) - preSum[l + 1] + preSum[n] - preSum[l + 1] - query * (n - l - 1)
+        }
+        return ans
+    }
+
+    func shortestCommonSupersequence(_ str1: String, _ str2: String) -> String {
+        let str1 = [Character](str1), str2 = [Character](str2)
+        let n = str1.count, m = str2.count
+        var memo = [[Int]](repeating: [Int](repeating: -1, count: m), count: n)
+        func dfs(_ i: Int, _ j: Int) -> Int {
+            if i < 0 { return j + 1 }
+            if j < 0 { return i + 1 }
+            if memo[i][j] != -1 { return memo[i][j] }
+            if str1[i] == str2[j] {
+                memo[i][j] = dfs(i - 1, j - 1) + 1
+            } else {
+                memo[i][j] = min(dfs(i - 1, j), dfs(i, j - 1)) + 1
+            }
+            return memo[i][j]
+        }
+        func makeAns(_ i: Int, _ j: Int) -> [Character] {
+            if i < 0 && j < 0 { return [] }
+            if i < 0 { return [Character](str2[0...j]) }
+            if j < 0 { return [Character](str1[0...i]) }
+            var ans: [Character] = []
+            if str1[i] == str2[j] {
+                ans = makeAns(i - 1, j - 1)
+                ans.append(str1[i])
+            } else if dfs(i, j) == dfs(i - 1, j) + 1 {
+                ans = makeAns(i - 1, j)
+                ans.append(str1[i])
+            } else {
+                ans = makeAns(i, j - 1)
+                ans.append(str2[j])
+            }
+            return ans
+        }
+        return String(makeAns(n - 1, m - 1))
+    }
+
+    func maskPII(_ s: String) -> String {
+        let n = s.count
+        var chars = [Character](s)
+        var ans = ""
+        if chars.contains("@") {
+            for i in 0..<n where chars[i].isLetter && chars[i].isUppercase {
+                chars[i] = Character(chars[i].lowercased())
+            }
+            ans += "\(chars[0])"
+            ans += "*****\(chars[chars.firstIndex(of: "@")! - 1])@"
+            ans += "\(String(chars[chars.firstIndex(of: "@")!+1...n-1]))"
+        } else {
+            chars = chars.filter({ $0 != "+" && $0 != "-" && $0 != "(" && $0 != ")" && $0 != " " })
+            let curr = chars.count - 1
+            ans = "-\(String(chars[curr-3...curr]))"
+            ans = "***-***" + ans
+            if chars.count > 10 {
+                ans = "+\(String([Character](repeating: "*", count: curr-9)))-" + ans
+            }
+        }
+        return ans
+    }
+
+    func findTheLongestBalancedSubstring(_ s: String) -> Int {
+        let chars = [Character](s), n = chars.count
+        var ans = 0
+        for i in 0..<n {
+            for j in i+1..<n {
+                if (j - i + 1) & 1 == 0 {
+                    var has = true
+                    for k in i..<i+(j - i + 1)/2 {
+                        if chars[k] != "0" {
+                            has = false
+                            break
+                        }
+                    }
+                    for l in i+(j - i + 1)/2...j {
+                        if chars[l] != "1" {
+                            has = false
+                            break
+                        }
+                    }
+                    if has { ans = max(j - i + 1, ans) }
+                }
+            }
+        }
+        return ans
+    }
+
+    func findMatrix(_ nums: [Int]) -> [[Int]] {
+        var map = [Int: Int]()
+        for num in nums {
+            map[num, default: 0] += 1
+        }
+        var ans = [[Int]]()
+        while !map.isEmpty {
+            var curr = [Int]()
+            for item in map {
+                curr.append(item.key)
+                map[item.key]! -= 1
+                if map[item.key]! == 0 {
+                    map.removeValue(forKey: item.key)
+                }
+            }
+            ans.append(curr)
+        }
+        return ans
+    }
+
+    func miceAndCheese(_ reward1: [Int], _ reward2: [Int], _ k: Int) -> Int {
+        let n = reward1.count
+        let arr = zip(reward1, reward2).sorted { item1, item2 in
+            return abs(item1.0 - item1.1) > abs(item2.0 - item2.1)
+        }
+        var ans = 0, k = k
+        for (i, item) in arr.enumerated() {
+            if k == 0 {
+                ans += item.1
+            } else {
+                if item.0 >= item.1 { // reward1 < reward2 选
+                    ans += item.0
+                    k -= 1
+                } else if n - i == k { // 只能选 1
+                    ans += item.0
+                    k -= 1
+                } else {
+                    ans += item.1
+                }
+            }
+        }
+        return ans
+    }
+
+//    func minReverseOperations(_ n: Int, _ p: Int, _ banned: [Int], _ k: Int) -> [Int] {
+//        banned.swapAt(<#T##Self.Index#>, <#T##Self.Index#>)
+//    }
+
+    func prevPermOpt1(_ arr: [Int]) -> [Int] {
+        var arr = arr
+        for i in (0..<arr.count-1).reversed() where arr[i] > arr[i + 1] {
+            var k = i + 1
+            for j in i+1..<arr.count where arr[i] > arr[j] && (arr[i] - arr[j] < arr[i] - arr[k]) {
+                k = j
+            }
+            arr.swapAt(k, i)
+            break
+        }
+        return arr
+    }
+
+    func baseNeg2(_ n: Int) -> String {
+        if n == 0 { return "0" }
+        var curr = 0, n = n
+        var i = 0
+        while n != 0 {
+            if n & 1 != 0 {
+                if i & 1 == 1 {
+                    curr += Int(pow(2.0, Double(i)))
+                    n += Int(pow(2.0, Double(1)))
+                } else {
+                    curr += Int(pow(2.0, Double(i)))
+                }
+            }
+            n >>= 1
+            i += 1
+        }
+        var ans = ""
+        while curr > 0 {
+            ans = "\(curr & 1)" + ans
+            curr >>= 1
+        }
+        return ans
+    }
+
+    func numMovesStonesII(_ stones: [Int]) -> [Int] {
+        let stones = stones.sorted(), n = stones.count
+        /// 计算空位
+        let e1 = stones[n - 2] - stones[0] - n + 2
+        let e2 = stones[n - 1] - stones[1] - n + 2
+        let maxMove = max(e1, e2)
+        if e1 == 0 || e2 == 0 {
+            return [min(2, maxMove), maxMove]
+        }
+        var maxCnt = 0, l = 0
+        for r in 0..<n {
+            while stones[r] - stones[l] + 1 > n {
+                l += 1
+            }
+            maxCnt = max(maxCnt, r - l + 1)
+        }
+        return [n - maxCnt, maxMove]
+    }
+
+    func checkDistances(_ s: String, _ distance: [Int]) -> Bool {
+        var map = [Character: Int]()
+        for (i, char) in s.enumerated() {
+            if let j = map[char] {
+                if distance[Int(char.asciiValue! - Character("a").asciiValue!)] != j - i - 1 {
+                    return false
+                }
+            } else {
+                map[char] = i
+            }
+        }
+        return true
+    }
+
+    func diagonalPrime(_ nums: [[Int]]) -> Int {
+        let n = nums.count
+        var ans = 0
+        for i in 0..<n {
+            if isPrime(num: nums[i][i]) {
+                ans = max(ans, nums[i][i])
+            }
+            if isPrime(num: nums[i][n - i - 1]) {
+                ans = max(ans, nums[i][n - i - 1])
+            }
+        }
+        func isPrime(num: Int) -> Bool {
+            if num < 2 { return false }
+            var i = 2, isPrime = true
+            while i * i <= num {
+                if num % i == 0 {
+                    isPrime = false
+                    break
+                }
+                i += 1
+            }
+            return isPrime
+        }
+        return ans
+    }
+
+    func distance(_ nums: [Int]) -> [Int] {
+        let n = nums.count
+        var leftMap = [Int: [Int]]()
+        var ans = [Int](repeating: 0, count: n)
+        for (i, num) in nums.enumerated() {
+            leftMap[num, default: []].append(i)
+        }
+        for item in leftMap {
+            let cnt = item.value.count
+            var sum = 0
+            for i in 0..<cnt {
+                sum += item.value[i] - item.value[0]
+            }
+            ans[0] = sum
+            for i in 0..<cnt {
+                sum -= (i > 0 ? item.value[i] - item.value[i - 1] : 0) * (cnt - i)
+                ans[item.value[i]] = sum
+            }
+            for i in (0..<cnt).reversed() {
+                sum += item.value[cnt - 1] - item.value[i]
+            }
+            for i in (0..<cnt).reversed() {
+                sum -= (i < cnt - 1 ? item.value[i + 1] - item.value[i] : 0) * (i + 1)
+                ans[item.value[i]] += sum
+            }
+        }
+        return ans
+    }
+
+    func minimizeMax(_ nums: [Int], _ p: Int) -> Int {
+        let n = nums.count
+        let nums = nums.sorted()
+        var l = 0, r = nums.last!
+        while l < r {
+            let mid = (l + r) >> 1
+            var cnt = 0
+            var i = 0
+            while i < n - 1 {
+                if nums[i + 1] - nums[i] <= mid {
+                    cnt += 1
+                    i += 1
+                }
+                i += 1
+            }
+            if cnt >= p {
+                r = mid
+            } else {
+                l = mid + 1
+            }
+        }
+        return r
+    }
+
+    func nextLargerNodes(_ head: ListNode?) -> [Int] {
+        var curr = head, n = 0
+        while curr != nil {
+            n += 1
+            curr = curr?.next
+        }
+        var queue = [(Int, Int)]()
+        var ans = [Int](repeating: 0, count: n)
+        var i = 0
+        curr = head
+        while curr != nil {
+            while !queue.isEmpty && curr!.val > queue.last!.1 {
+                ans[queue.removeLast().0] = curr!.val
+            }
+            queue.append((i, curr!.val))
+            i += 1
+            curr = curr?.next
+        }
+        return ans
+    }
+
+    func isRobotBounded(_ instructions: String) -> Bool {
+        let dirs = [[0, 1], [1, 0], [0, -1], [-1, 0]]
+        var dir = 0, position = [0, 0]
+        for instruction in instructions {
+            if instruction == "G" {
+                position[0] += dirs[dir][0]
+                position[1] += dirs[dir][1]
+            } else if instruction == "L" {
+                dir = (dir + 3) % 4
+            } else if instruction == "R" {
+                dir = (dir + 1) % 4
+            }
+        }
+        return dir != 0 || position == [0, 0]
+    }
+
+    func longestDecomposition(_ text: String) -> Int {
+        if text.isEmpty || text.count == 1 { return text.count }
+        let n = text.count
+        for i in 1...n/2 {
+            if text[text.startIndex..<text.index(text.startIndex, offsetBy: i)] == text[text.index(text.endIndex, offsetBy: -i)..<text.endIndex] {
+                return longestDecomposition(String(text[text.index(text.startIndex, offsetBy: i)..<text.index(text.endIndex, offsetBy: -i)])) + 2
+            }
+        }
+        return 1
+    }
+
+    func minimizeArrayValue(_ nums: [Int]) -> Int {
+        var l = 0, r = nums.max()!
+        while l < r {
+            let mid = (l + r) >> 1
+            if check(mid) {
+                r = mid
+            } else {
+                l = mid + 1
+            }
+        }
+        func check(_ limit: Int) -> Bool {
+            let n = nums.count
+            var last = nums[n - 1]
+            for i in (1..<n).reversed() {
+                if last > limit {
+                    last = nums[i - 1] + last - limit
+                } else {
+                    last = nums[i - 1]
+                }
+            }
+            return last <= limit
+        }
+        return l
+    }
+
+    func minimizeSet(_ divisor1: Int, _ divisor2: Int, _ uniqueCnt1: Int, _ uniqueCnt2: Int) -> Int {
+        var l = 2, r = 100
+        let lcmValue = lcm(a: divisor1, b: divisor2)
+        while l < r {
+            let mid = (l + r) >> 1
+            if check(mid) {
+                r = mid
+            } else {
+                l = mid + 1
+            }
+        }
+        func gcd(a: Int, b: Int) -> Int {
+            return b == 0 ? a : gcd(a: b, b: a % b)
+        }
+        func lcm(a: Int, b: Int) -> Int {
+            return a * b / gcd(a: a, b: b)
+        }
+        func check(_ limit: Int) -> Bool {
+            return limit - limit / divisor1 >= uniqueCnt1 && limit - limit / divisor2 >= uniqueCnt2 && limit - limit / lcmValue >= uniqueCnt1 + uniqueCnt2
+        }
+        return l
+    }
+
+    func mostFrequentEven(_ nums: [Int]) -> Int {
+        var map = [Int: Int]()
+        for num in nums where num & 1 == 0 {
+            map[num, default: 0] += 1
+        }
+        return map.max { item1, item2 in
+            return item1.value == item2.value ? item1.key < item2.key : item1.value > item2.value
+        }?.value ?? -1
+    }
+
+    func camelMatch(_ queries: [String], _ pattern: String) -> [Bool] {
+        let n = queries.count, m = pattern.count, pattern = [Character](pattern)
+        var ans = [Bool](repeating: false, count: n)
+        for i in 0..<n {
+            ans[i] = check([Character](queries[i]))
+        }
+        func check(_ query: [Character]) -> Bool {
+            let k = query.count
+            var i = 0, j = 0
+            while i < k || j < m {
+                if k - i < m - j {
+                    return false
+                } else if j < m && query[i] == pattern[j] {
+                    j += 1
+                } else if query[i].isUppercase {
+                    return false
+                }
+                i += 1
+            }
+            return j == m
+        }
+        return ans
+    }
+
+    func rowAndMaximumOnes(_ mat: [[Int]]) -> [Int] {
+        var ans = 0, maxSum = 0
+        for i in 0..<mat.count {
+            var curr = 0
+            for j in 0..<mat[0].count {
+                if mat[i][j] == 1 {
+                    curr += 1
+                }
+            }
+            if curr > maxSum {
+                ans = i
+                maxSum = curr
+            }
+        }
+        return [ans, maxSum]
+    }
+
+    func maxDivScore(_ nums: [Int], _ divisors: [Int]) -> Int {
+        var ans = Int.max, maxSum = 0
+        for divisor in divisors {
+            var curr = 0
+            for num in nums {
+                if num % divisor == 0 {
+                    curr += 1
+                }
+            }
+            if divisor == 7 {
+                print(curr)
+            }
+            if divisor == 25 {
+                print(curr)
+            }
+            if maxSum == curr {
+                ans = min(ans, divisor)
+            } else if maxSum < curr {
+                ans = divisor
+                maxSum = curr
+            }
+        }
+        return ans
+    }
+
+    func addMinimum(_ word: String) -> Int {
+        let chars = [Character](word), n = chars.count
+        var ans = 0
+        var i = 0
+        while i < n {
+            if i == n - 1 {
+                ans += 2
+                i += 1
+            } else if chars[i].asciiValue! >= chars[i + 1].asciiValue! {
+                ans += 2
+                i += 1
+            } else if chars[i].asciiValue! == chars[i + 1].asciiValue! - 1 {
+                if chars[i] == "a" && i < n - 2 && chars[i + 2] == "c" {
+                    i += 3
+                } else if chars[i] == "a" && i < n - 2 && chars[i + 2] != "c" {
+                    ans += 1
+                    i += 2
+                } else if chars[i] == "a" && i == n - 2 {
+                    ans += 1
+                    i += 2
+                } else if chars[i] == "b" {
+                    ans += 1
+                    i += 2
+                }
+            } else if chars[i].asciiValue! == chars[i + 1].asciiValue! - 2 {
+                ans += 1
+                i += 2
+            }
+        }
+        return ans
+    }
+
+    func minimumTotalPrice(_ n: Int, _ edges: [[Int]], _ price: [Int], _ trips: [[Int]]) -> Int {
+        var arr = [[Int]](repeating: [], count: n)
+        for edge in edges {
+            arr[edge[0]].append(edge[1])
+            arr[edge[1]].append(edge[0])
+        }
+        var visvit = Set<Int>()
+        func dfs(_ i: Int, _ target: Int, _ path: [Int]) -> [Int] {
+            if i == target {
+                return path
+            }
+            var path = path
+            for j in arr[i] where !visvit.contains(j) {
+                path.append(j)
+                visvit.insert(j)
+                let currPath = dfs(j, target, path)
+                path.removeLast()
+                if currPath.count > 0 {
+                    return currPath
+                }
+            }
+            return []
+        }
+        var map = [Int: Int]()
+        for trip in trips {
+            visvit = [trip[0]]
+            let arr = dfs(trip[0], trip[1], [trip[0]])
+            for item in arr {
+                map[item, default: 0] += 1
+            }
+        }
+        func dfs(_ i: Int) -> [Int] {
+            var notHalf = map[i, default: 0] * price[i]
+            var half = notHalf / 2
+            for j in arr[i] where !visvit.contains(j) {
+                visvit.insert(j)
+                let res = dfs(j)
+                notHalf += min(res[0], res[1])
+                half += res[0]
+            }
+            return [notHalf, half]
+        }
+        visvit = [0]
+        return dfs(0).min()!
+    }
+
+    func maxAncestorDiff(_ root: TreeNode?) -> Int {
+        guard let root = root else { return 0 }
+        var ans = 0
+        func dfs(_ curr: TreeNode) -> (Int, Int) {
+            let val = curr.val
+            var leftVal = (val, val)
+            var rightVal = (val, val)
+            if let left = curr.left {
+                leftVal = dfs(left)
+            }
+            if let right = curr.right {
+                rightVal = dfs(right)
+            }
+            ans = max(absInt(val: val - leftVal.0), absInt(val: val - leftVal.1), absInt(val: val - rightVal.0), absInt(val: val - rightVal.1), ans)
+            return (min(val, leftVal.0, rightVal.0), max(val, leftVal.1, rightVal.1))
+        }
+        func absInt(val: Int) -> Int {
+            return val >= 0 ? val : -val
+        }
+        dfs(root)
+        return ans
+    }
+
+    func gardenNoAdj(_ n: Int, _ paths: [[Int]]) -> [Int] {
+        var g = [[Int]](repeating: [], count: n)
+        for path in paths {
+            g[path[0] - 1].append(path[1] - 1)
+            g[path[1] - 1].append(path[0] - 1)
+        }
+        var colors = [Int](repeating: 0, count: n)
+        for i in 0..<n {
+            var used = [Bool](repeating: false, count: 5)
+            for j in g[i] {
+                used[colors[j]] = true
+            }
+            for c in 1...4 where !used[c] {
+                colors[i] = c
+                break
+            }
+        }
+        return colors
+    }
+
+    func maxSumAfterPartitioning(_ arr: [Int], _ k: Int) -> Int {
+        let n = arr.count
+        var dp = [Int](repeating: 0, count: n + 1)
+        for i in 0..<n {
+            var mx = 0
+            for j in (max(0, i - k + 1)...i).reversed() {
+                mx = max(mx, arr[j])
+                dp[i + 1] = max(dp[i + 1], dp[j] + (i - j + 1) * mx)
+            }
+        }
+        return dp[n]
+    }
+
+    func validPartition(_ nums: [Int]) -> Bool {
+        let n = nums.count
+        var dp = [Bool](repeating: false, count: n + 1)
+        dp[0] = true
+        for i in 0..<n {
+            if i >= 1 && nums[i] == nums[i - 1] {
+                dp[i + 1] = dp[i + 1] || dp[i - 1]
+            }
+            if i >= 2 && nums[i] == nums[i - 1] && nums[i] == nums[i - 2] {
+                dp[i + 1] = dp[i + 1] || dp[i - 2]
+            }
+            if i >= 2 && nums[i] == nums[i - 1] + 1 && nums[i] == nums[i - 2] + 2 {
+                dp[i + 1] = dp[i + 1] || dp[i - 2]
+            }
+        }
+        return dp[n]
+    }
+
+    func makeArrayIncreasing(_ arr1: [Int], _ arr2: [Int]) -> Int {
+        let arr2 = arr2.sorted()
+        let n = arr1.count
+        var memo = [[Int: Int]](repeating: [Int: Int](), count: n)
+        let ans = dfs(n - 1, Int.max)
+        func dfs(_ i: Int, _ pre: Int) -> Int {
+            if i < 0 { return 0 }
+            if memo[i].keys.contains(pre) {
+                return memo[i][pre]!
+            }
+            var res = arr1[i] < pre ? dfs(i - 1, arr1[i]) : Int.max / 2
+            let k = lowerBound(pre)
+            if k >= 0 {
+                res = min(res, dfs(i - 1, arr2[k]) + 1)
+            }
+            memo[i][pre] = res
+            return res
+        }
+        func lowerBound(_ target: Int) -> Int {
+            var l = -1, r = arr2.count - 1
+            while l < r {
+                let mid = (l + r + 1) >> 1
+                if arr2[mid] < target {
+                    l = mid
+                } else {
+                    r = mid - 1
+                }
+            }
+            return l
+        }
+        return ans < Int.max / 2 ? ans : -1
+    }
+
+    func lastSubstring(_ s: String) -> String {
+        let chars = [Character](s), n = chars.count
+        var i = 0, j = 1, k = 0
+        while j + k < n {
+            if chars[i + k] == chars[j + k] {
+                k += 1
+            } else if chars[i + k] > chars[j + k] {
+                j += k + 1
+                k = 0
+            } else {
+                i += k + 1
+                k = 0
+                if i >= j {
+                    j = i + 1
+                }
+            }
+        }
+        return String(chars[i..<n])
+    }
+
+    func sortPeople(_ names: [String], _ heights: [Int]) -> [String] {
+        let n = names.count
+        let arr = (0..<n).sorted(by: { heights[$0] > heights[$1] })
+        var ans = [String]()
+        for i in arr {
+            ans.append(names[i])
+        }
+        return ans
+    }
+
+    func maxSumTwoNoOverlap(_ nums: [Int], _ firstLen: Int, _ secondLen: Int) -> Int {
+        let n = nums.count
+        var dp = [[Int]](repeating: [0, 0], count: n + 1)
+        var sumF = 0, sumS = 0
+        var ans = 0
+        for i in 0..<n {
+            sumF += nums[i]
+            sumS += nums[i]
+            if i >= firstLen {
+                sumF -= nums[i - firstLen]
+            }
+            if i >= secondLen {
+                sumS -= nums[i - secondLen]
+            }
+            dp[i + 1][0] = max(dp[i][0], sumF)
+            dp[i + 1][1] = max(dp[i][1], sumS)
+            ans = max(ans, sumF + dp[i - min(firstLen - 1, i)][1], sumS + dp[i - min(secondLen - 1, i)][0])
+        }
+        return ans
+    }
+
+    func longestStrChain(_ words: [String]) -> Int {
+        let n = words.count, words = words.sorted { $0.count < $1.count }.map { [Character]($0) }
+        var dp = [Int](repeating: 1, count: n + 1)
+        var ans = 1
+        for i in 1..<n {
+            for j in 0..<i where check(j, i) {
+                dp[i + 1] = max(dp[i + 1], dp[j + 1] + 1)
+                ans = max(ans, dp[i + 1])
+            }
+        }
+        func check(_ j: Int, _ i: Int) -> Bool {
+            var diff = 0
+            var k = 0, l = 0
+            let n = words[j].count, m = words[i].count
+            if m - n != 1 { return false }
+            while k < n && l < m {
+                if words[j][k] == words[i][l] {
+                    k += 1
+                    l += 1
+                } else {
+                    l += 1
+                    diff += 1
+                }
+                if diff > 1 {
+                    break
+                }
+            }
+            diff += (m - l)
+            return diff == 1
+        }
+        return ans
+    }
+
+    func maxTotalFruits(_ fruits: [[Int]], _ startPos: Int, _ k: Int) -> Int {
+        let n = fruits.count
+        var left = lowerBound(startPos - k), right = left
+        var ans = 0, s = 0
+        while right < n && fruits[right][0] <= startPos + k {
+            s += fruits[right][1]
+            while fruits[right][0] * 2 - fruits[left][0] - startPos > k && fruits[right][0] - fruits[left][0] * 2 + startPos > k {
+                s -= fruits[left][1]
+                left += 1
+            }
+            ans = max(ans, s)
+            right += 1
+        }
+        func lowerBound(_ target: Int) -> Int {
+            var l = 0, r = n
+            while l < r {
+                let mid = (l + r) >> 1
+                if fruits[mid][0] >= target {
+                    r = mid
+                } else {
+                    l = mid + 1
+                }
+            }
+            return l
+        }
+        return ans
+    }
+
+    func hardestWorker(_ n: Int, _ logs: [[Int]]) -> Int {
+        var arr = [Int](repeating: 0, count: n)
+        var ans = 0
+        for (i, log) in logs.enumerated() {
+            arr[log[0]] = max(log[1] - (i == 0 ? 0 : logs[i - 1][1]), arr[log[0]])
+        }
+        for i in 0..<n where arr[i] > arr[ans] {
+            ans = i
+        }
+        return ans
+    }
+
+    func minNumberOfFrogs(_ croakOfFrogs: String) -> Int {
+        var idx: [Character: Int] = ["c": 0, "r": 1, "o": 2, "a": 3, "k": 4]
+        var cnts = [Int](repeating: 0, count: 5)
+        for c in croakOfFrogs {
+            let i = idx[c]!
+            if cnts[(i + 4) % 5] > 0 {
+                cnts[(i + 4) % 5] -= 1
+            } else if c != "c" {
+                return -1
+            }
+            cnts[i] += 1
+        }
+        if cnts[0] > 0 || cnts[1] > 0 || cnts[2] > 0 || cnts[3] > 0 {
+            return -1
+        }
+        return cnts[4]
+    }
+
+    func distinctDifferenceArray(_ nums: [Int]) -> [Int] {
+        let n = nums.count
+        var ans = [Int](repeating: 0, count: nums.count)
+        for i in 0..<n {
+            var set1 = Set<Int>()
+            var set2 = Set<Int>()
+            for j in 0...i {
+                set1.insert(nums[j])
+            }
+            for k in i+1..<n {
+                set2.insert(nums[k])
+            }
+            ans[i] = set1.count - set2.count
+        }
+        return ans
+    }
+
+    func colorTheArray(_ n: Int, _ queries: [[Int]]) -> [Int] {
+        let m = queries.count
+        var ans = [Int](repeating: 0, count: m)
+        var arr = [Int](repeating: 0, count: n)
+        var last = 0
+        for (i, query) in queries.enumerated() {
+            if query[0] > 0 && arr[query[0]] != 0 && arr[query[0]] == arr[query[0] - 1] {
+                last -= 1
+            }
+            if query[0] < n - 1 && arr[query[0]] != 0 && arr[query[0]] == arr[query[0] + 1] {
+                last -= 1
+            }
+            arr[query[0]] = query[1]
+            if query[0] > 0 && arr[query[0]] == arr[query[0] - 1] {
+                last += 1
+            }
+            if query[0] < n - 1 && arr[query[0]] == arr[query[0] + 1] {
+                last += 1
+            }
+            ans[i] = last
+        }
+        return ans
+    }
+
+    func minIncrements(_ n: Int, _ cost: [Int]) -> Int {
+        func dfs(i: Int) -> (Int, Int) {
+            if i * 2 > n {
+                return (cost[i - 1], 0)
+            }
+            let left = dfs(i: i * 2)
+            let right = dfs(i: i * 2 + 1)
+            let diff = (left.0 > right.0 ? left.0 - right.0 : right.0 - left.0) + left.1 + right.1
+            return (max(left.0, right.0) + cost[i - 1], diff)
+        }
+        return dfs(i: 1).1
+    }
+
+    func countTime(_ time: String) -> Int {
+        var chars = [Character](time.filter { $0 != ":" })
+        func dfs(_ i: Int) -> Int {
+            if i >= 4 {
+                return check(chars) ? 1 : 0
+            }
+            if chars[i] == "?" {
+                var ans = 0
+                for i in 0...9 {
+                    chars[i] = Character("\(i)")
+                    ans += dfs(i + 1)
+                    chars[i] = "?"
+                }
+                return ans
+            }
+            return dfs(i + 1)
+        }
+        func check(_ chars: [Character]) -> Bool {
+            let hour = Int("\(chars[0])\(chars[1])")!
+            let minute = Int("\(chars[2])\(chars[3])")!
+            return hour >= 0 && hour <= 23 && minute >= 0 && minute <= 59
+        }
+        return dfs(0)
+    }
+
+    func smallestRepunitDivByK(_ k: Int) -> Int {
+        if k % 2 == 0 || k % 5 == 0 {
+            return -1
+        }
+        var x = 1 % k
+        for i in 1...k {
+            if x == 0 {
+                return i
+            }
+            x = (x * 10 + 1) % k
+        }
+        return -1
+    }
+
+    func queryString(_ s: String, _ n: Int) -> Bool {
+        var seen = Set<Int>()
+        let chars = [Character](s), m = chars.count
+        for i in 0..<m {
+            var x = chars[i].wholeNumberValue!
+            if x == 0 { continue }
+            var j = i + 1
+            while x <= n {
+                seen.insert(x)
+                if j == m { break }
+                x = (x << 1) | chars[j].wholeNumberValue!
+                j += 1
+            }
+        }
+        return seen.count == n
+    }
+
+    func maxValueAfterReverse(_ nums: [Int]) -> Int {
+        var base = 0, d = 0, n = nums.count
+        var mx = Int.min, mn = Int.max
+        for i in 1..<n {
+            let a = nums[i - 1], b = nums[i]
+            let dab = abs(a - b)
+            base += dab
+            mx = max(mx, min(a, b))
+            mn = min(mn, max(a, b))
+            d = max(d, abs(nums[0] - b) - dab, abs(nums[n - 1] - a) - dab)
+        }
+        return base + max(d, 2 * (mx - mn))
+    }
+
+    func maxEqualRowsAfterFlips(_ matrix: [[Int]]) -> Int {
+        let m = matrix[0].count
+        var ans = 0, map = [String: Int]()
+        for row in matrix {
+            var chars = row
+            for i in 0..<m {
+                chars[i] = chars[i] ^ row[0]
+            }
+            let str = chars.map({ String($0) }).joined()
+            map[str, default: 0] += 1
+            ans = max(ans, map[str, default: 0])
+        }
+        return ans
+    }
+
+    func minDifficulty(_ jobDifficulty: [Int], _ d: Int) -> Int {
+        let n = jobDifficulty.count
+        if n < d { return -1 }
+        var memo = [[Int]](repeating: [Int](repeating: -1, count: d + 1), count: n)
+        func dfs(i: Int, cur: Int) -> Int {
+            if i >= n && cur > d {
+                return 0
+            } else if i >= n || cur > d {
+                return 100000000
+            }
+            if memo[i][cur] != -1 {
+                return memo[i][cur]
+            }
+            var res = jobDifficulty[i] + dfs(i: i + 1, cur: cur + 1)
+            var first = jobDifficulty[i]
+            var j = i + 1
+            while j < n {
+                first = max(first, jobDifficulty[j])
+                res = min(res, dfs(i: j + 1, cur: cur + 1) + first)
+                j += 1
+            }
+            memo[i][cur] = res
+            return memo[i][cur]
+        }
+        return dfs(i: 0, cur: 1)
+    }
+
+    func haveConflict(_ event1: [String], _ event2: [String]) -> Bool {
+        return !(event1[1] < event2[0] ||  event2[1] < event1[0])
+    }
+
+    func addNegabinary(_ arr1: [Int], _ arr2: [Int]) -> [Int] {
+        let n = arr1.count, m = arr2.count
+        let arr1 = [Int](arr1.reversed()), arr2 = [Int](arr2.reversed())
+        var arr = [Int]()
+        var firstCarry = 0, secondCarry = 0
+        var i = 0
+        while (firstCarry != 0 || secondCarry != 0) || (i < n || i < m) {
+            var curr = secondCarry
+            if i < n {
+                curr += arr1[i]
+            }
+            if i < m {
+                curr += arr2[i]
+            }
+            arr.append(curr & 1)
+            secondCarry = (curr >> 1) + firstCarry
+            firstCarry = curr >> 1
+            i += 1
+            while firstCarry >= 1 && secondCarry >= 2 {
+                firstCarry -= 1
+                secondCarry -= 2
+            }
+        }
+        var ans = [Int](), flag = arr.count > 1
+        for num in arr.reversed() {
+            if num == 0 && flag {
+                continue
+            } else {
+                flag = false
+                ans.append(num)
+            }
+        }
+        if ans.count == 0 { ans = [0] }
+        return ans
+    }
+
+    func numTilePossibilities(_ tiles: String) -> Int {
+        let n = tiles.count, chars = [Character](tiles)
+        var set = Set<String>()
+        var visvited = [Bool](repeating: false, count: n)
+        func dfs(i: Int, curr: String) {
+            set.insert(curr)
+            for k in 0..<n {
+                if visvited[k] { continue }
+                visvited[k] = true
+                dfs(i: k + 1, curr: "\(curr)\(chars[k])")
+                visvited[k] = false
+            }
+        }
+        dfs(i: 0, curr: "")
+        return set.count - 1
+    }
+
+    func maxSumBST(_ root: TreeNode?) -> Int {
+        let inf = 0x3F3F3F3F
+        var res = 0
+        @discardableResult
+        func dfs(curr: TreeNode?) -> (Bool, Int, Int, Int) {
+            guard let curr = curr else { return (true, inf, -inf, 0) }
+            let left = dfs(curr: curr.left)
+            let right = dfs(curr: curr.right)
+            if left.0 && right.0 && curr.val > left.2 && curr.val < right.1 {
+                let sum = curr.val + left.3 + right.3
+                res = max(res, sum)
+                return (true, min(left.1, curr.val), max(right.2, curr.val), sum)
+            }
+            return (false, 0, 0, 0)
+        }
+        dfs(curr: root)
+        return res
+    }
+
+    override var excuteable: Bool { return true }
 
     override func executeTestCode() {
-        super.executeTestCode()
-        print(squareFreeSubsets([3,4,4,5]))
+//        super.executeTestCode()
+    }
+}
+
+class FrequencyTracker {
+    var map1 = [Int: Int]()
+    var map2 = [Int: Set<Int>]()
+
+    init() { }
+
+    func add(_ number: Int) {
+        let cnt = map1[number, default: 0]
+        map1[number, default: 0] += 1
+        map2[cnt, default: Set<Int>()].remove(number)
+        map2[cnt + 1, default: Set<Int>()].insert(number)
+    }
+
+    func deleteOne(_ number: Int) {
+        if let cnt = map1[number], cnt > 0 {
+            map1[number]! -= 1
+            map2[cnt, default: Set<Int>()].remove(number)
+            map2[cnt - 1, default: Set<Int>()].insert(number)
+        }
+    }
+
+    func hasFrequency(_ frequency: Int) -> Bool {
+        return (map2[frequency]?.count ?? 0) > 0
     }
 }
