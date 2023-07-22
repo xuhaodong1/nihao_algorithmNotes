@@ -14,17 +14,17 @@ class AuthenticationManager {
     init(_ timeToLive: Int) {
         self.timeToLive = timeToLive
     }
-
+    
     func generate(_ tokenId: String, _ currentTime: Int) {
         map[tokenId] = (currentTime, currentTime + timeToLive)
     }
-
+    
     func renew(_ tokenId: String, _ currentTime: Int) {
         if map.keys.contains(tokenId) && map[tokenId]!.1 > currentTime {
             map[tokenId] = (currentTime, currentTime + timeToLive)
         }
     }
-
+    
     func countUnexpiredTokens(_ currentTime: Int) -> Int {
         map = map.filter { $0.value.1 > currentTime }
         return map.count
@@ -33,7 +33,7 @@ class AuthenticationManager {
 
 /// 模拟相关练习题
 class Simulation: BaseCode {
-
+    
     /// 题目链接：[1582. 二进制矩阵中的特殊位置](https://leetcode.cn/problems/special-positions-in-a-binary-matrix/)
     func numSpecial(_ mat: [[Int]]) -> Int {
         let n = mat.count, m = mat[0].count
@@ -53,7 +53,7 @@ class Simulation: BaseCode {
         }
         return ans
     }
-
+    
     /// 题目链接：[1598. 文件夹操作日志搜集器](https://leetcode.cn/problems/crawler-log-folder/)
     func minOperations(_ logs: [String]) -> Int {
         return logs.reduce(0) { partialResult, log in
@@ -66,13 +66,13 @@ class Simulation: BaseCode {
             }
         }
     }
-
+    
     /// 题目链接：[1619. 删除某些元素后的数组均值](https://leetcode.cn/problems/mean-of-array-after-removing-some-elements/)
     func trimMean(_ arr: [Int]) -> Double {
         let n = arr.count, removeCnt = Int(Double(n) * 0.05)
         return Double(arr.sorted()[removeCnt..<n-removeCnt].reduce(0, +)) / Double(n - removeCnt * 2)
     }
-
+    
     /// 题目链接：[1624. 两个相同字符之间的最长子字符串](https://leetcode.cn/problems/largest-substring-between-two-equal-characters/)
     func maxLengthBetweenEqualCharacters(_ s: String) -> Int {
         var map = [Character: Int](), ans = -1
@@ -85,14 +85,14 @@ class Simulation: BaseCode {
         }
         return ans
     }
-
+    
     /// 题目链接：[1636. 按照频率将数组升序排序](https://leetcode.cn/problems/sort-array-by-increasing-frequency/)
     func frequencySort(_ nums: [Int]) -> [Int] {
         return [Int: Int].init(nums.map{($0, 1)}, uniquingKeysWith: +).sorted { kv1, kv2 in
             return kv1.value != kv2.value ? kv1.value < kv2.value : kv1.key > kv2.key
         }.map { [Int](repeating: $0.key, count: $0.value) }.flatMap{ $0 }
     }
-
+    
     /// 题目链接：[1640. 能否连接形成数组](https://leetcode.cn/problems/check-array-formation-through-concatenation/)
     func canFormArray(_ arr: [Int], _ pieces: [[Int]]) -> Bool {
         let n = arr.count
@@ -107,7 +107,7 @@ class Simulation: BaseCode {
         }
         return true
     }
-
+    
     /// 题目链接：[788. 旋转数字](https://leetcode.cn/problems/rotated-digits/)
     func rotatedDigits(_ n: Int) -> Int {
         var cnt = 0
@@ -124,7 +124,7 @@ class Simulation: BaseCode {
         }
         return cnt
     }
-
+    
     /// 题目链接：[面试题 01.02. 判定是否互为字符重排](https://leetcode.cn/problems/check-permutation-lcci/)
     func CheckPermutation(_ s1: String, _ s2: String) -> Bool {
         guard s1.count == s2.count else { return false }
@@ -133,14 +133,14 @@ class Simulation: BaseCode {
         s2.forEach{ map[$0, default: 0] -= 1 }
         return map.filter{ $0.value != 0 }.count == 0
     }
-
+    
     /// 题目链接：[面试题 01.09. 字符串轮转](https://leetcode.cn/problems/string-rotation-lcci/)
     func isFlipedString(_ s1: String, _ s2: String) -> Bool {
         guard s1.count == s2.count else { return false }
         guard s1.count != 0 else { return true }
         return (s1 + s1).contains(s2)
     }
-
+    
     /// 题目链接：[面试题 01.08. 零矩阵](https://leetcode.cn/problems/zero-matrix-lcci/)
     func setZeroes(_ matrix: inout [[Int]]) {
         let n = matrix.count, m = matrix[0].count
@@ -159,7 +159,7 @@ class Simulation: BaseCode {
             if flag_col { matrix[i][0] = 0 }
         }
     }
-
+    
     /// 题目链接：[1694. 重新格式化电话号码](https://leetcode.cn/problems/reformat-phone-number/)
     func reformatNumber(_ number: String) -> String {
         let chars = [Character](number.compactMap{ $0.isNumber ? $0 : nil })
@@ -182,7 +182,7 @@ class Simulation: BaseCode {
         ans.removeLast()
         return String(ans)
     }
-
+    
     /// 题目链接：[1784. 检查二进制字符串字段](https://leetcode.cn/problems/check-if-binary-string-has-at-most-one-segment-of-ones/)
     func checkOnesSegment(_ s: String) -> Bool {
         let n = s.count, chars = [Character](s)
@@ -191,7 +191,7 @@ class Simulation: BaseCode {
         }
         return true
     }
-
+    
     /// 题目链接：[811. 子域名访问计数](https://leetcode.cn/problems/subdomain-visit-count/)
     func subdomainVisits(_ cpdomains: [String]) -> [String] {
         var map = [String: Int]()
@@ -207,7 +207,7 @@ class Simulation: BaseCode {
         }
         return map.map { return "\($0.value) \($0.key)" }
     }
-
+    
     /// 题目链接：[921. 使括号有效的最少添加](https://leetcode.cn/problems/minimum-add-to-make-parentheses-valid/)
     func minAddToMakeValid(_ s: String) -> Int {
         var score = 0, offset = 0
@@ -220,7 +220,7 @@ class Simulation: BaseCode {
         }
         return score + offset
     }
-
+    
     /// 题目链接：[927. 三等分](https://leetcode.cn/problems/three-equal-parts/)
     func threeEqualParts(_ arr: [Int]) -> [Int] {
         let n = arr.count, cnt = arr.reduce(0, +)
@@ -239,7 +239,7 @@ class Simulation: BaseCode {
         }
         return [i - 1, j]
     }
-
+    
     /// 题目链接：[1800. 最大升序子数组和](https://leetcode.cn/problems/maximum-ascending-subarray-sum/)
     func maxAscendingSum(_ nums: [Int]) -> Int {
         let n = nums.count
@@ -251,7 +251,7 @@ class Simulation: BaseCode {
         }
         return ans
     }
-
+    
     /// 题目链接：[856. 括号的分数](https://leetcode.cn/problems/score-of-parentheses/)
     func scoreOfParentheses(_ s: String) -> Int {
         var stack = [0]
@@ -265,7 +265,7 @@ class Simulation: BaseCode {
         }
         return stack.removeLast()
     }
-
+    
     /// 题目链接：[1790. 仅执行一次字符串交换能否使两个字符串相等](https://leetcode.cn/problems/check-if-one-string-swap-can-make-strings-equal/)
     func areAlmostEqual(_ s1: String, _ s2: String) -> Bool {
         let n = s1.count
@@ -280,7 +280,7 @@ class Simulation: BaseCode {
         chars1.swapAt(diff[0], diff[1])
         return chars1 == chars2
     }
-
+    
     /// 题目链接：[817. 链表组件](https://leetcode.cn/problems/linked-list-components/)
     func numComponents(_ head: ListNode?, _ nums: [Int]) -> Int {
         let set = Set<Int>(nums)
@@ -297,7 +297,7 @@ class Simulation: BaseCode {
         }
         return ans
     }
-
+    
     /// 题目链接：[769. 最多能完成排序的块](https://leetcode.cn/problems/max-chunks-to-make-sorted/)
     func maxChunksToSorted(_ arr: [Int]) -> Int {
         var ma = 0, ans = 0
@@ -307,7 +307,7 @@ class Simulation: BaseCode {
         }
         return ans
     }
-
+    
     /// 题目链接：[1441. 用栈操作构建数组](https://leetcode.cn/problems/build-an-array-with-stack-operations/)
     func buildArray(_ target: [Int], _ n: Int) -> [String] {
         var ans = [String]()
@@ -325,8 +325,8 @@ class Simulation: BaseCode {
         }
         return ans
     }
-
-
+    
+    
     /// 题目链接：[1700. 无法吃午餐的学生数量](https://leetcode.cn/problems/number-of-students-unable-to-eat-lunch/)
     func countStudents(_ students: [Int], _ sandwiches: [Int]) -> Int {
         var circleCnt = 0, squareCnt = 0
@@ -343,7 +343,7 @@ class Simulation: BaseCode {
         }
         return sandwiches.count - currIndex
     }
-
+    
     /// 题目链接：[779. 第K个语法符号](https://leetcode.cn/problems/k-th-symbol-in-grammar/)
     func kthGrammar(_ n: Int, _ k: Int) -> Int {
         if k == 1 { return 0 }
@@ -374,7 +374,7 @@ class Simulation: BaseCode {
         }
         return cnt
     }
-
+    
     /// 题目链接：[915. 分割数组](https://leetcode.cn/problems/partition-array-into-disjoint-intervals/)
     func partitionDisjoint(_ nums: [Int]) -> Int {
         let n = nums.count
@@ -390,7 +390,7 @@ class Simulation: BaseCode {
         }
         return -1
     }
-
+    
     /// 题目链接：[1822. 数组元素积的符号](https://leetcode.cn/problems/sign-of-the-product-of-an-array/)
     func arraySign(_ nums: [Int]) -> Int {
         var negativeCnt = 0
@@ -400,12 +400,12 @@ class Simulation: BaseCode {
         }
         return negativeCnt & 1 == 0 ? 1 : -1
     }
-
+    
     /// 题目链接：[1662. 检查两个字符串数组是否相等](https://leetcode.cn/problems/check-if-two-string-arrays-are-equivalent/)
     func arrayStringsAreEqual(_ word1: [String], _ word2: [String]) -> Bool {
         return word1.reduce("", +) == word2.reduce("", +)
     }
-
+    
     /// 题目链接：[1620. 网络信号最好的坐标](https://leetcode.cn/problems/coordinate-with-maximum-network-quality/)
     func bestCoordinate(_ towers: [[Int]], _ radius: Int) -> [Int] {
         var minX = 50, minY = 50, maxX = 0, maxY = 0
@@ -437,7 +437,7 @@ class Simulation: BaseCode {
         }
         return point
     }
-
+    
     /// 题目链接：[1678. 设计 Goal 解析器](https://leetcode.cn/problems/goal-parser-interpretation/description/)
     func interpret(_ command: String) -> String {
         let n = command.count, chars = [Character](command)
@@ -456,7 +456,7 @@ class Simulation: BaseCode {
         }
         return ans.reduce("", +)
     }
-
+    
     /// 题目链接：[816. 模糊坐标](https://leetcode.cn/problems/ambiguous-coordinates/description/)
     func ambiguousCoordinates(_ s: String) -> [String] {
         let chars = [Character](s.filter{ $0 != "(" && $0 != ")" }), n = chars.count
@@ -484,13 +484,13 @@ class Simulation: BaseCode {
         }
         return ans
     }
-
+    
     /// 题目链接：[1684. 统计一致字符串的数目](https://leetcode.cn/problems/count-the-number-of-consistent-strings/)
     func countConsistentStrings(_ allowed: String, _ words: [String]) -> Int {
         let set = Set<Character>(allowed), n = words.count
         return n - words.filter { $0.filter { !set.contains($0) }.count > 0 }.count
     }
-
+    
     /// 题目链接：[1704. 判断字符串的两半是否相似](https://leetcode.cn/problems/determine-if-string-halves-are-alike/description/)
     func halvesAreAlike(_ s: String) -> Bool {
         let halfLength = s.count / 2
@@ -498,7 +498,7 @@ class Simulation: BaseCode {
         func handleChar(_ ans: Int, _ char: Character) -> Int { return vowels.contains(char) ? ans + 1 : ans }
         return s.prefix(halfLength).reduce(0, handleChar(_:_:)) == s.suffix(halfLength).reduce(0, handleChar(_:_:))
     }
-
+    
     /// 题目链接：[791. 自定义字符串排序](https://leetcode.cn/problems/custom-sort-string/description/)
     func customSortString(_ order: String, _ s: String) -> String {
         var map = [Character: Int](), index = order.startIndex
@@ -508,7 +508,7 @@ class Simulation: BaseCode {
         }
         return String(s.sorted(by: { return map[$0, default: 0] > map[$1, default: 0] }))
     }
-
+    
     /// 题目链接：[1732. 找到最高海拔](https://leetcode.cn/problems/find-the-highest-altitude/)
     func largestAltitude(_ gain: [Int]) -> Int {
         var ans = 0, last = 0
@@ -540,7 +540,7 @@ class Simulation: BaseCode {
         let cnt = (0..<n).reduce(0) { cnt, i in return cnt + nums[i] < nums[(i + 1) % n] ? 1 : 0 }
         return cnt <= 1
     }
-
+    
     /// 题目链接：[1758. 生成交替二进制字符串的最少操作数](https://leetcode.cn/problems/minimum-changes-to-make-alternating-binary-string/)
     func minOperations(_ s: String) -> Int {
         var cnt = 0
@@ -550,7 +550,7 @@ class Simulation: BaseCode {
         }
         return min(cnt, s.count - cnt)
     }
-
+    
     /// 题目链接：[1779. 找到最近的有相同 X 或 Y 坐标的点](https://leetcode.cn/problems/find-nearest-point-that-has-the-same-x-or-y-coordinate/description/)
     func nearestValidPoint(_ x: Int, _ y: Int, _ points: [[Int]]) -> Int {
         var ans = -1, len = Int.max
@@ -563,7 +563,7 @@ class Simulation: BaseCode {
         }
         return ans
     }
-
+    
     /// 题目链接：[1769. 移动所有球到每个盒子所需的最小操作数](https://leetcode.cn/problems/minimum-number-of-operations-to-move-all-balls-to-each-box/)
     func minOperations(boxes: String) -> [Int] {
         let n = boxes.count, boxes = [Character](boxes)
@@ -598,7 +598,7 @@ class Simulation: BaseCode {
         }
         return second
     }
-
+    
     /// 题目链接：[1805. 字符串中不同整数的数目](https://leetcode.cn/problems/number-of-different-integers-in-a-string/)
     func numDifferentIntegers(_ word: String) -> Int {
         let n = word.count
@@ -644,7 +644,7 @@ class Simulation: BaseCode {
         }
         return ans
     }
-
+    
     /// 题目链接：[1827. 最少操作使数组递增](https://leetcode.cn/problems/minimum-operations-to-make-the-array-increasing/)
     func minOperations(_ nums: [Int]) -> Int {
         var pre = nums[0] - 1
@@ -653,7 +653,7 @@ class Simulation: BaseCode {
             return cnt + pre - num
         }
     }
-
+    
     /// 题目链接：[1781. 所有子字符串美丽值之和](https://leetcode.cn/problems/sum-of-beauty-of-all-substrings/description/)
     func beautySum(_ s: String) -> Int {
         let n = s.count, chars = [Character](s)
@@ -673,7 +673,7 @@ class Simulation: BaseCode {
         }
         return ans
     }
-
+    
     /// 题目链接：[1832. 判断句子是否为全字母句](https://leetcode.cn/problems/check-if-the-sentence-is-pangram/)
     func checkIfPangram(_ sentence: String) -> Bool {
         var letterCnts = [Bool](repeating: false, count: 26)
@@ -681,7 +681,7 @@ class Simulation: BaseCode {
         for c in sentence { letterCnts[Int(c.asciiValue!) - av] = true }
         return letterCnts.allSatisfy { $0 }
     }
-
+    
     /// 题目链接：[1945. 字符串转化后的各位数字之和](https://leetcode.cn/problems/sum-of-digits-of-string-after-convert/)
     func getLucky(_ s: String, _ k: Int) -> Int {
         let av = Character("a").asciiValue!
@@ -691,12 +691,12 @@ class Simulation: BaseCode {
         }
         return Int(ans.reduce("", +)) ?? -1
     }
-
+    
     /// 题目链接：[1785. 构成特定和需要添加的最少元素](https://leetcode.cn/problems/minimum-elements-to-add-to-form-a-given-sum/description/)
     func minElements(_ nums: [Int], _ limit: Int, _ goal: Int) -> Int {
         return (abs(goal - nums.reduce(0, +)) + limit - 1) / limit
     }
-
+    
     /// 题目链接：[1764. 通过连接另一个数组的子数组得到一个数组](https://leetcode.cn/problems/form-array-by-concatenating-subarrays-of-another-array/)
     func canChoose(_ groups: [[Int]], _ nums: [Int]) -> Bool {
         let n = nums.count
@@ -717,12 +717,12 @@ class Simulation: BaseCode {
         }
         return i == groups.count
     }
-
+    
     /// 题目链接：[2011. 执行操作后的变量值](https://leetcode.cn/problems/final-value-of-variable-after-performing-operations/)
     func finalValueAfterOperations(_ operations: [String]) -> Int {
         return operations.reduce(0) { return $0 + ($1.hasPrefix("+") || $1.hasSuffix("+") ? 1 : -1) }
     }
-
+    
     ///  题目链接：[1754. 构造字典序最大的合并字符串](https://leetcode.cn/problems/largest-merge-of-two-strings/)
     func largestMerge(_ word1: String, _ word2: String) -> String {
         let word1 = word1, word2 = word2
@@ -740,14 +740,14 @@ class Simulation: BaseCode {
         }
         return ans
     }
-
+    
     /// 题目链接：[2037. 使每位学生都有座位的最少移动次数](https://leetcode.cn/problems/minimum-number-of-moves-to-seat-everyone/)
     func minMovesToSeat(_ seats: [Int], _ students: [Int]) -> Int {
         let n = seats.count
         let seats = seats.sorted(), students = students.sorted()
         return (0..<n).reduce(0) { $0 + abs(seats[$1] - students[$1]) }
     }
-
+    
     /// 题目链接：[2042. 检查句子中的数字是否递增](https://leetcode.cn/problems/check-if-numbers-are-ascending-in-a-sentence/)
     func areNumbersAscending(_ s: String) -> Bool {
         let chars = [Character](s), n = chars.count
@@ -767,7 +767,7 @@ class Simulation: BaseCode {
         }
         return true
     }
-
+    
     /// 题目链接：[2351. 第一个出现两次的字母](https://leetcode.cn/problems/first-letter-to-appear-twice/)
     func repeatedCharacter(_ s: String) -> Character {
         let a = Character("a")
@@ -779,7 +779,7 @@ class Simulation: BaseCode {
         }
         return "."
     }
-
+    
     /// 题目链接：[1669. 合并两个链表](https://leetcode.cn/problems/merge-in-between-linked-lists/)
     func mergeInBetween(_ list1: ListNode?, _ a: Int, _ b: Int, _ list2: ListNode?) -> ListNode? {
         let dump = ListNode(-1, list1)
@@ -799,7 +799,7 @@ class Simulation: BaseCode {
         list2Tail?.next = tail?.next
         return dump.next
     }
-
+    
     /// 题目链接：[2319. 判断矩阵是否是一个 X 矩阵](https://leetcode.cn/problems/check-if-matrix-is-x-matrix/)
     func checkXMatrix(_ grid: [[Int]]) -> Bool {
         let n = grid.count
@@ -814,7 +814,7 @@ class Simulation: BaseCode {
         }
         return true
     }
-
+    
     /// 题目链接：[2325. 解密消息](https://leetcode.cn/problems/decode-the-message/)
     func decodeMessage(_ key: String, _ message: String) -> String {
         let lowLetters: [Character] = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
@@ -828,7 +828,7 @@ class Simulation: BaseCode {
             return "\(partialResult)\(char)"
         }
     }
-
+    
     /// 题目链接：[2558. 从数量最多的堆取走礼物](https://leetcode.cn/problems/take-gifts-from-the-richest-pile/)
     func pickGifts(_ gifts: [Int], _ k: Int) -> Int {
         var gifts = gifts.sorted()
@@ -842,7 +842,7 @@ class Simulation: BaseCode {
         }
         return gifts.reduce(0, +)
     }
-
+    
     /// 题目链接：[1604. 警告一小时内使用相同员工卡大于等于三次的人](https://leetcode.cn/problems/alert-using-same-key-card-three-or-more-times-in-a-one-hour-period/description/)
     func alertNames(_ keyName: [String], _ keyTime: [String]) -> [String] {
         let n = keyName.count, arr = zip(keyName, keyTime).sorted { $0.1 < $1.1 }
@@ -863,7 +863,7 @@ class Simulation: BaseCode {
         }
         return ans.sorted()
     }
-
+    
     /// 题目链接：[1233. 删除子文件夹](https://leetcode.cn/problems/remove-sub-folders-from-the-filesystem/description/)
     func removeSubfolders(_ folder: [String]) -> [String] {
         let folder = folder.sorted(), n = folder.count
@@ -876,7 +876,7 @@ class Simulation: BaseCode {
         }
         return ans
     }
-
+    
     /// 题目链接：[6354. 找出数组的串联值](https://leetcode.cn/problems/find-the-array-concatenation-value/description/)
     func findTheArrayConcVal(_ nums: [Int]) -> Int {
         var ans = 0
@@ -891,7 +891,7 @@ class Simulation: BaseCode {
         }
         return ans
     }
-
+    
     /// 题目链接：[1138. 字母板上的路径](https://leetcode.cn/problems/alphabet-board-path/description/)
     func alphabetBoardPath(_ target: String) -> String {
         let aV = Character("a").asciiValue!
@@ -910,14 +910,14 @@ class Simulation: BaseCode {
         }
         return ans
     }
-
+    
     /// 题目链接：[2335. 装满杯子需要的最短总时长](https://leetcode.cn/problems/minimum-amount-of-time-to-fill-cups/description/)
     func fillCups(_ amount: [Int]) -> Int {
         let amount = amount.sorted()
         if amount[2] > amount[1] + amount[0] { return amount[2] }
         return (amount[0] + amount[1] + amount[2] + 1) / 2
     }
-
+    
     /// 题目链接：[2564. 子字符串异或查询](https://leetcode.cn/problems/substring-xor-queries/description/)
     func substringXorQueries(_ s: String, _ queries: [[Int]]) -> [[Int]] {
         let queries = queries.map { $0[0] ^ $0[1] }, chars = [Character](s), n = s.count
@@ -934,7 +934,7 @@ class Simulation: BaseCode {
         }
         return ans
     }
-
+    
     /// 题目链接：[2341. 数组能形成多少数对](https://leetcode.cn/problems/maximum-number-of-pairs-in-array/description/)
     func numberOfPairs(_ nums: [Int]) -> [Int] {
         var map = [Int: Int]()
@@ -977,10 +977,215 @@ class Simulation: BaseCode {
     func minimumOperations(_ nums: [Int]) -> Int {
         return Set<Int>(nums).filter { $0 > 0 }.count
     }
-
-//    override var excuteable: Bool { return true }
-
+    
+    func mergeArrays(_ nums1: [[Int]], _ nums2: [[Int]]) -> [[Int]] {
+        let n = nums1.count, m = nums2.count
+        var l1 = 0, l2 = 0
+        var ans = [[Int]]()
+        while l1 < n && l2 < m {
+            if nums1[l1][0] == nums2[l2][0] {
+                ans.append([nums1[l1][0], nums1[l1][1] + nums2[l2][1]])
+                l1 += 1
+                l2 += 1
+            } else if nums1[l1][0] < nums2[l2][0] {
+                ans.append([nums1[l1][0], nums1[l1][1]])
+                l1 += 1
+            } else {
+                ans.append([nums2[l2][0], nums2[l2][1]])
+                l2 += 1
+            }
+        }
+        while l1 < n {
+            ans.append([nums1[l1][0], nums1[l1][1]])
+            l1 += 1
+        }
+        while l2 < m {
+            ans.append([nums2[l2][0], nums2[l2][1]])
+            l2 += 1
+        }
+        return ans
+    }
+    
+    func minOperations(_ n: Int) -> Int {
+        var n = n
+        var ans = 0
+        while n != 0 {
+            if n.nonzeroBitCount > (n + lowBit(x: n)).nonzeroBitCount {
+                n += lowBit(x: n)
+            } else {
+                n -= lowBit(x: n)
+            }
+            ans += 1
+        }
+        func lowBit(x: Int) -> Int {
+            return x & -x
+        }
+        return ans
+    }
+    
+    func squareFreeSubsets(_ nums: [Int]) -> Int {
+        let nums = nums.filter { !($0 % 4 == 0 || $0 % 9 == 0 || $0 % 16 == 0 || $0 % 25 == 0) }.sorted()
+        let n = nums.count, MOD = Int(1e9 + 7)
+        var dp = [Int](repeating: 1, count: n)
+        dp[0] = 1
+        for i in 1..<n {
+            for j in 0..<i where !checkSim(a: nums[i], b: nums[j]) {
+                dp[i] += dp[j] + 1
+            }
+        }
+        func checkSim(a: Int, b: Int) -> Bool {
+            if a == b || b % a == 0 || a % b == 0 { return true }
+            if a % 2 == 0 && b % 2 == 0 { return true }
+            if a % 3 == 0 && b % 3 == 0 { return true }
+            if a % 5 == 0 && b % 5 == 0 { return true }
+            return false
+        }
+        return dp[n - 1]
+    }
+    
+    func braceExpansionII(_ expression: String) -> [String] {
+        let expression = [Character](expression), n = expression.count
+        var op = [Character]()
+        var stack = [Set<String>]()
+        for i in 0..<n {
+            if expression[i] == "," {
+                /// 不断的弹出栈顶运算符，直到栈顶为空或者栈顶不为 *
+                while !op.isEmpty && op.last! == "*" {
+                    ope()
+                }
+                op.append("+")
+            } else if expression[i] == "{" {
+                if i > 0 && (expression[i - 1] == "}" || expression[i - 1].isLetter) {
+                    op.append("*")
+                }
+                op.append("{")
+            } else if expression[i] == "}" {
+                while !op.isEmpty && op.last != "{" {
+                    ope()
+                }
+                op.removeLast()
+            } else {
+                if i > 0 && (expression[i - 1] == "}" || expression[i - 1].isLetter) {
+                    op.append("*")
+                }
+                var str = "\(expression[i])"
+                stack.append(Set<String>([str]))
+            }
+        }
+        while !op.isEmpty {
+            ope()
+        }
+        return stack.last!.sorted()
+        
+        func ope() {
+            let l = stack.count - 2, r = stack.count - 1
+            if op.last! == "+" {
+                for right in stack[r] {
+                    stack[l].insert(right)
+                }
+            } else {
+                var tmp = Set<String>()
+                for left in stack[l] {
+                    for right in stack[r] {
+                        tmp.insert(left + right)
+                    }
+                }
+                stack[l] = tmp
+            }
+            op.removeLast()
+            stack.removeLast()
+        }
+    }
+    
+    func minimumRecolors(_ blocks: String, _ k: Int) -> Int {
+        let n = blocks.count, chars = [Character](blocks)
+        var l = 0, r = 0
+        var ans = Int.max, wCnt = 0
+        while r < n {
+            wCnt += chars[r] == "W" ? 1 : 0
+            if r - l == k {
+                wCnt -= chars[l] == "W" ? 1 : 0
+                l += 1
+            }
+            if r - l == k - 1 {
+                ans = min(ans, wCnt)
+            }
+            r += 1
+        }
+        return ans
+    }
+    
+    func minSubarray(_ nums: [Int], _ p: Int) -> Int {
+        let n = nums.count
+        var s = [Int](repeating: 0, count: n + 1)
+        for (i, num) in nums.enumerated() {
+            s[i + 1] = (s[i] + num) % p
+        }
+        let x = s[n]
+        //        if x == 0 { return 0 }
+        var ans = n
+        var last = [Int: Int]()
+        for i in 0...n {
+            last[s[i]] = i
+            let j = last[(s[i] - x + p) % p, default: -n]
+            ans = min(ans, i - j)
+        }
+        return ans >= n ? -1 : ans
+    }
+    
+    func mergeStones(_ stones: [Int], _ k: Int) -> Int {
+        let n = stones.count
+        if (n - 1) % (k - 1) > 0 {
+            return -1
+        }
+        var preSum = [Int](repeating: 0, count: n + 1)
+        for i in 0..<n {
+            preSum[i + 1] = preSum[i] + stones[i]
+        }
+        var memo = [[[Int]]](repeating: [[Int]](repeating: [Int](repeating: -1, count: k + 1), count: n), count: n)
+        func dfs(_ i: Int, _ j: Int, _ p: Int) -> Int {
+            if memo[i][j][p] != -1 {
+                return memo[i][j][p]
+            }
+            var res = Int.max
+            if p == 1 {
+                if i == j {
+                    res = 0
+                } else {
+                    res = (dfs(i, j, k) + preSum[j + 1] - preSum[i])
+                }
+            } else {
+                var m = i
+                while m < j {
+                    res = min(res, dfs(i, m, 1) + dfs(m + 1, j, p - 1))
+                    m += k - 1
+                }
+            }
+            memo[i][j][p] = res
+            return res
+        }
+        return dfs(0, n - 1, 1)
+    }
+    
+    func largestValsFromLabels(_ values: [Int], _ labels: [Int], _ numWanted: Int, _ useLimit: Int) -> Int {
+        let n = values.count
+        var ans = 0, cnt = 0
+        var arr = zip(values, labels).sorted { $0.0 > $1.0 }
+        var map = [Int: Int]()
+        for item in arr {
+            if cnt >= numWanted { break }
+            if map[item.1, default: 0] >= useLimit { continue }
+            ans += item.0
+            map[item.1, default: 0] += 1
+            cnt += 1
+        }
+        return ans
+    }
+    
+    override var excuteable: Bool { return true }
+    
     override func executeTestCode() {
         super.executeTestCode()
+        print(largestValsFromLabels([5,4,3,2,1], [1,3,3,3,2], 3, 2))
     }
 }
